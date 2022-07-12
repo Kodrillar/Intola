@@ -12,7 +12,6 @@ module.exports = function(app){
 
 app.use(express.json())
 app.use("/api/uploads", express.static("uploads"));
-app.use("/api/upload", express.static("upload"));
 app.use("/api/user/register", user);
 app.use("/api/user/auth", auth );
 app.use("/api/products", products);

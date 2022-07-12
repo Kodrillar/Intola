@@ -23,6 +23,7 @@ class PurchaseRepository {
           .toList();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
+
       return jsonDecode(responseBody);
     }
   }

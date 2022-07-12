@@ -28,6 +28,7 @@ class PurchaseHistoryScreen extends StatefulWidget {
 
 class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
   var purchaseData;
+
   Future<List<PurchaseHistoryModel>> getPurchase() async {
     try {
       purchaseData = await _purchaseRepository.getPurchaseHistory(
