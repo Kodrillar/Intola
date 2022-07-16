@@ -31,36 +31,100 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: CustomAppBar(),
       body: ListView(
         children: [
-          _buildProductImage(),
-          _buildProductDetails(),
-          _buildProductQuantity(),
-          _buildProductButtons(),
-        ],
-      ),
-    );
-  }
-
-  _buildProductButtons() {
-    return Container(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomButton(
-            onTap: () {
-              addProductToCart();
-            },
-            buttonName: "Add to cart",
-            buttonColor: kDarkBlue,
+          CachedNetworkImage(
+            imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
+            imageBuilder: (context, imageProvider) => Container(
+              margin: EdgeInsets.all(16),
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: kDarkOrange.withOpacity(.075),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Icon(Icons.error, color: Colors.red),
+            ),
           ),
-          CustomButton(
-            onTap: () {
-              addProductToDonationCart();
-            },
-            buttonName: "Donate",
+          // _buildProductImage(),
+          // _buildProductDetails(),
+          ProductDetails(
+              productDescription: widget.productDescription,
+              productName: widget.productName,
+              productPrice: widget.productPrice),
+          //  _buildProductQuantity(),
+          Container(
+            margin: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Quantity", style: kAppBarTextStyle),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '$productQuantity',
+                        style: kAppBarTextStyle.copyWith(color: kDarkOrange),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (productQuantity > 1) {
+                                    productQuantity--;
+                                  }
+                                });
+                              },
+                              icon: Icon(Icons.remove),
+                              color: kLightColor,
+                            ),
+                            decoration: BoxDecoration(
+                              color: kDarkOrange,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Container(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  productQuantity++;
+                                });
+                              },
+                              icon: Icon(Icons.add),
+                              color: kLightColor,
+                            ),
+                            decoration: BoxDecoration(
+                              color: kDarkOrange,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          ProductButton(
+            addProductToCart: addProductToCart,
+            addProductToDonationCart: addProductToDonationCart,
           )
         ],
       ),
@@ -122,126 +186,14 @@ class _ProductScreenState extends State<ProductScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+}
 
-  _buildProductQuantity() {
-    return Container(
-      margin: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Quantity", style: kAppBarTextStyle),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, top: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '$productQuantity',
-                  style: kAppBarTextStyle.copyWith(color: kDarkOrange),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            if (productQuantity > 1) {
-                              productQuantity--;
-                            }
-                          });
-                        },
-                        icon: Icon(Icons.remove),
-                        color: kLightColor,
-                      ),
-                      decoration: BoxDecoration(
-                        color: kDarkOrange,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            productQuantity++;
-                          });
-                        },
-                        icon: Icon(Icons.add),
-                        color: kLightColor,
-                      ),
-                      decoration: BoxDecoration(
-                        color: kDarkOrange,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+//abstract reusable widgets to widgets module
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  const CustomAppBar({Key? key}) : super(key: key);
 
-  _buildProductDetails() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      height: 250,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${widget.productName}",
-                style: kProductNameStyle,
-              ),
-              Text(
-                "\$${widget.productPrice}",
-                style: kProductNameStyle,
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Text(
-            "${widget.productDescription}",
-            textAlign: TextAlign.justify,
-            style: kProductDetailStyle,
-          )
-        ],
-      ),
-    );
-  }
-
-  _buildProductImage() {
-    return CachedNetworkImage(
-      imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
-      imageBuilder: (context, imageProvider) => Container(
-        margin: EdgeInsets.all(16),
-        height: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: kDarkOrange.withOpacity(.075),
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(),
-      ),
-      errorWidget: (context, url, error) => Center(
-        child: Icon(Icons.error, color: Colors.red),
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
@@ -264,6 +216,88 @@ class _ProductScreenState extends State<ProductScreen> {
       title: Text(
         "Shop",
         style: kAppBarTextStyle,
+      ),
+    );
+  }
+
+  Size get preferredSize => Size.fromHeight(35);
+}
+
+class ProductDetails extends StatelessWidget {
+  const ProductDetails({
+    Key? key,
+    required this.productDescription,
+    required this.productName,
+    required this.productPrice,
+  }) : super(key: key);
+  final String productName;
+  final String productPrice;
+  final String productDescription;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      height: 250,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "$productName",
+                style: kProductNameStyle,
+              ),
+              Text(
+                "\$$productPrice",
+                style: kProductNameStyle,
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Text(
+            "$productDescription",
+            textAlign: TextAlign.justify,
+            style: kProductDetailStyle,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ProductButton extends StatelessWidget {
+  const ProductButton({
+    Key? key,
+    required this.addProductToCart,
+    required this.addProductToDonationCart,
+  }) : super(key: key);
+
+  final void Function() addProductToCart;
+  final void Function() addProductToDonationCart;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomButton(
+            onTap: () {
+              addProductToCart();
+            },
+            buttonName: "Add to cart",
+            buttonColor: kDarkBlue,
+          ),
+          CustomButton(
+            onTap: () {
+              addProductToDonationCart();
+            },
+            buttonName: "Donate",
+          )
+        ],
       ),
     );
   }
