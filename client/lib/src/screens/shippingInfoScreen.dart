@@ -168,6 +168,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
         paymentOptions: "ussd, card, barter, payattitude",
         customization: Customization(title: "Test Payment"),
         isTestMode: true,
+        redirectUrl: 'https://github.com/Kodrillar',
       );
 
       final ChargeResponse response = await flutterwave.charge();

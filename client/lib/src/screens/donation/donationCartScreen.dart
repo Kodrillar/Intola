@@ -223,6 +223,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
         customer: customer,
         paymentOptions: "ussd, card, barter, payattitude",
         customization: Customization(title: "Test Payment"),
+        redirectUrl: 'https://github.com/Kodrillar',
         isTestMode: true,
       );
 
