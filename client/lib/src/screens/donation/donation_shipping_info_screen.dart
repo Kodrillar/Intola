@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
-import 'package:intola/src/screens/homeScreen.dart';
+import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/utils/secureStorage.dart';
-import 'package:intola/src/widgets/textField.dart';
+import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/widgets/text_field.dart';
 
 import '../../repositories/purchase/purchase_repository.dart';
 import '../../utils/constant.dart';
-import '../../widgets/alertDialog.dart';
-import '../../widgets/buttons/customButton.dart';
+import '../../widgets/alert_dialog.dart';
+import '../../widgets/buttons/custom_button.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 DonationRepository _donationRepository = DonationRepository();
@@ -149,7 +149,7 @@ class _DonationShippingInfoScreenState
   _buildBottomAppBar() {
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 120,
         child: Center(
           child: CustomButton(
@@ -171,11 +171,11 @@ class _DonationShippingInfoScreenState
                     return AlertDialog(
                       title: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.local_shipping_rounded,
                             color: kDarkOrange,
                           ),
-                          SizedBox(width: 3),
+                          const SizedBox(width: 3),
                           Text(
                             "Your order is on the way",
                             style: kAppBarTextStyle.copyWith(fontSize: 13),
@@ -195,7 +195,7 @@ class _DonationShippingInfoScreenState
                             Navigator.pushNamedAndRemoveUntil(
                                 context, HomeScreen.id, (route) => false);
                           },
-                          icon: Icon(Icons.done),
+                          icon: const Icon(Icons.done),
                         ),
                       ],
                     );
@@ -219,7 +219,7 @@ class _DonationShippingInfoScreenState
       content: Row(
         children: [
           Icon(iconData ?? Icons.error, color: kDarkOrange),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(message, style: kSnackBarTextStyle),
         ],
       ),
@@ -233,14 +233,14 @@ class _DonationShippingInfoScreenState
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Shipping Infomation",
         style: kAppBarTextStyle,
       ),

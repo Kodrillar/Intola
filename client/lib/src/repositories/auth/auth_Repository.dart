@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:intola/src/services/auth/logInHelper.dart';
+import 'package:intola/src/services/auth/log_in_service.dart';
 import 'package:http/http.dart';
-import 'package:intola/src/services/auth/signUpHelper.dart';
-import 'package:intola/src/utils/requestResponse.dart';
+import 'package:intola/src/services/auth/sign_up_service.dart';
+import 'package:intola/src/utils/request_response.dart';
 
 class AuthRepository {
-  LoginHelper _loginHelper = LoginHelper();
-  SignUpHelper _signUpHelper = SignUpHelper();
+  final LoginHelper _loginHelper = LoginHelper();
+  final SignUpHelper _signUpHelper = SignUpHelper();
 
   Future<Map<String, dynamic>> loginUser(
       {required endpoint, required userEmail, required userPassword}) async {

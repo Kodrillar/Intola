@@ -4,7 +4,7 @@ import 'package:intola/src/screens/delivery/delivery_detail_screen.dart';
 
 import 'package:intola/src/utils/constant.dart';
 
-import 'buttons/customButton.dart';
+import 'buttons/custom_button.dart';
 
 class DeliveryCard extends StatefulWidget {
   const DeliveryCard({

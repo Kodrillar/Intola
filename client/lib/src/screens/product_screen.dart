@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/cartScreen.dart';
+import 'package:intola/src/screens/cart_screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/buttons/customButton.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 
 import 'donation/donation_cart_screen.dart';
 

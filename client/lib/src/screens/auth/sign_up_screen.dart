@@ -1,44 +1,50 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/textFieldValidation/validationError_Model.dart';
+
+import 'package:intola/src/models/text_field_validation/validation_error_model.dart';
 import 'package:intola/src/repositories/auth/auth_repository.dart';
-import 'package:intola/src/screens/auth/signUp_Screen.dart';
-import 'package:intola/src/screens/homeScreen.dart';
+import 'package:intola/src/screens/auth/log_in_screen.dart';
+import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/alertDialog.dart';
-import 'package:intola/src/widgets/buttons/authButton.dart';
-import 'package:intola/src/widgets/authOptionText.dart';
-import 'package:intola/src/widgets/textField.dart';
-import '../../utils/secureStorage.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/buttons/auth_button.dart';
+import 'package:intola/src/widgets/auth_option_text.dart';
+import 'package:intola/src/widgets/text_field.dart';
+
+import '../../utils/secure_storage.dart';
 
 AuthRepository _authRepository = AuthRepository();
 
-class LoginScreen extends StatefulWidget {
-  static const id = "/loginScreen";
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  static const id = "/signUpScreen";
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController fullnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  String? fullnameErrorText;
   String? emailErrorText;
   String? passwordErrorText;
+
   bool processingRequest = false;
   bool obscureTextField = true;
 
-  Future<Map<String, dynamic>> loginUser() async {
-    var loginData = await _authRepository.loginUser(
-      endpoint: endpoints["loginUser"],
-      userEmail: emailController.text.trim(),
+  Future signUp() async {
+    var responseBody = await _authRepository.registerUser(
+      endpoint: endpoints["registerUser"],
+      userFullname: fullnameController.text,
       userPassword: passwordController.text.trim(),
+      userEmail: emailController.text.trim(),
     );
-    return loginData;
+    return responseBody;
   }
 
   @override
@@ -50,21 +56,28 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 120),
               child: Text(
-                "Login",
+                "Sign Up",
                 style: kAuthTextStyle,
               ),
             ),
           ),
           CustomTextField(
-            labelText: "email",
-            hintText: "email",
-            controller: emailController,
-            errorText: emailErrorText,
-            onChanged: onChangedOfTextField(emailController),
+            hintText: "fullname",
+            labelText: "fullname",
+            controller: fullnameController,
+            errorText: fullnameErrorText,
+            onChanged: onChanged(fullnameController),
           ),
           CustomTextField(
-            labelText: "password",
+            hintText: "email",
+            labelText: "email",
+            controller: emailController,
+            errorText: emailErrorText,
+            onChanged: onChanged(emailController),
+          ),
+          CustomTextField(
             hintText: "password",
+            labelText: "password",
             controller: passwordController,
             errorText: passwordErrorText,
             obscureText: obscureTextField,
@@ -78,22 +91,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ? const Icon(Icons.visibility_off)
                   : const Icon(Icons.visibility),
             ),
-            onChanged: onChangedOfTextField(passwordController),
+            onChanged: onChanged(passwordController),
           ),
           processingRequest
               ? const Padding(
                   padding: EdgeInsets.only(bottom: 16.0),
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: kDarkBlue,
+                      color: kDarkOrange,
                     ),
                   ),
                 )
               : AuthButton(
-                  buttonName: "Login",
-                  onTap: () {
-                    //to prevent 'processingRequest from always becoming 'true:'
-                    //set processingRequest to be 'true' before calling 'textFieldValidation logic '
+                  buttonName: "Sign Up",
+                  onTap: () async {
                     setState(() {
                       processingRequest = true;
                     });
@@ -101,13 +112,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
           AuthOptionText(
-            title: "New to Intola?",
-            optionText: "Sign Up",
+            title: "Already have an account?",
+            optionText: "Login",
             optionTextStyle: kAuthOptionTextStyle.copyWith(
               color: kDarkOrange,
             ),
             onTap: () {
-              Navigator.pushNamed(context, SignUpScreen.id);
+              Navigator.pushNamed(context, LoginScreen.id);
             },
           )
         ],
@@ -115,9 +126,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  onChangedOfTextField(TextEditingController controller) {
+  onChanged(TextEditingController controller) {
     return (newValue) {
       setState(() {
+        // print(controller.text);
+        controller == fullnameController && controller.text.trim().isNotEmpty
+            ? fullnameErrorText = null
+            : null;
+
         controller == emailController && controller.text.trim().isNotEmpty
             ? emailErrorText = null
             : null;
@@ -129,12 +145,21 @@ class _LoginScreenState extends State<LoginScreen> {
     };
   }
 
+// revisit this logic later
   void textFieldValidationLogic() async {
-    // Refactor all controller.text to a single variable;
+    if (fullnameController.text.trim().isEmpty) {
+      setState(() {
+        fullnameErrorText =
+            ValidationErrorModel.validationError["fullnameError"];
+        processingRequest = false;
+      });
+      return;
+    }
+
     if (emailController.text.trim().isEmpty) {
       setState(() {
-        processingRequest = false;
         emailErrorText = ValidationErrorModel.validationError["emailError"];
+        processingRequest = false;
       });
 
       return;
@@ -142,43 +167,36 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (passwordController.text.trim().isEmpty) {
       setState(() {
-        processingRequest = false;
         passwordErrorText =
             ValidationErrorModel.validationError["passwordError"];
+        processingRequest = false;
       });
+
       return;
     }
+
     try {
-      var userData = await loginUser();
+      var userData = await signUp();
 
-      if (userData["userAlreadyExist"] == false) {
+      if (userData["userAlreadyExist"]) {
         setState(() {
-          emailErrorText = "User does not exist! Kindly Sign up...";
+          emailErrorText = "email is already registered! Kindly LogIn...";
 
           processingRequest = false;
         });
+
         return;
       }
-      if (userData["wrongPassword"] == true) {
-        setState(() {
-          passwordErrorText = "Wrong/Invalid passowrd!";
-
-          processingRequest = false;
-        });
-        return;
-      }
-
       await SecureStorage.storage.write(key: "token", value: userData["token"]);
       await SecureStorage.storage
           .write(key: "userName", value: emailController.text.trim());
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen(
-              user: emailController.text.trim(),
-            ),
-          ),
-          (route) => false);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              HomeScreen(user: emailController.text.trim()),
+        ),
+      );
     } on SocketException {
       setState(() {
         processingRequest = false;

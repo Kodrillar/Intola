@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/purchase_History_Model.dart';
+import 'package:intola/src/models/purchase_history_model.dart';
 import 'package:intola/src/repositories/purchase/purchase_repository.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/widgets/bottomNavigationBar.dart';
+import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 
 import '../utils/constant.dart';
-import '../widgets/alertDialog.dart';
+import '../widgets/alert_dialog.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 
@@ -55,7 +55,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _buildAppBar(),
-        bottomNavigationBar: CustomBottomNavigationBar(),
+        bottomNavigationBar: const CustomBottomNavigationBar(),
         body: RefreshIndicator(
           onRefresh: getPurchase,
           child: FutureBuilder<List<PurchaseHistoryModel>>(
@@ -68,7 +68,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
               if (snapshot.hasError) {
                 return _buildErrorWidget();
               }
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             },
@@ -81,7 +81,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             child: Icon(
               Icons.error,
               color: kDarkBlue.withOpacity(.35),
@@ -89,12 +89,12 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
             ),
             height: 150,
           ),
-          Text(
+          const Text(
             "No purchase(s)! ",
             style: kAppBarTextStyle,
           ),
-          SizedBox(height: 5),
-          Text(
+          const SizedBox(height: 5),
+          const Text(
             "Shop items and track \ndelivery status here.",
             style: kAppBarTextStyle,
           ),
@@ -144,7 +144,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
       required String productImage,
       required String date}) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 150,
       width: double.infinity,
       child: Row(
@@ -166,10 +166,10 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                     ),
                   ),
                 ),
-                placeholder: (context, url) => Center(
+                placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Center(
+                errorWidget: (context, url, error) => const Center(
                   child: Icon(Icons.error, color: Colors.red),
                 ),
               ),
@@ -180,8 +180,8 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("$productName", style: kAppBarTextStyle),
-                SizedBox(height: 10),
+                Text(productName, style: kAppBarTextStyle),
+                const SizedBox(height: 10),
                 Text(
                   _getDateInTimeAgo(date),
                   style: kAppBarTextStyle.copyWith(
@@ -193,7 +193,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
             ),
           ),
           Text(
-            "$productStatus",
+            productStatus,
             style: kAppBarTextStyle.copyWith(
               color: kDarkOrange,
               fontSize: 15.5,
@@ -208,7 +208,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Purchases",
         style: kAppBarTextStyle,
       ),

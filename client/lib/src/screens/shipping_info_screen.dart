@@ -3,15 +3,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intola/src/repositories/purchase/purchase_repository.dart';
-import 'package:intola/src/screens/homeScreen.dart';
+import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/utils/secureStorage.dart';
-import 'package:intola/src/widgets/textField.dart';
+import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/widgets/text_field.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 
 import '../utils/constant.dart';
-import '../widgets/alertDialog.dart';
-import '../widgets/buttons/customButton.dart';
+import '../widgets/alert_dialog.dart';
+import '../widgets/buttons/custom_button.dart';
 
 const PUBLIC_KEY = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
@@ -139,15 +139,15 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
           appBarText: "Secured by Flutterwave",
           buttonColor: kDarkOrange,
           appBarTitleTextStyle: kAppBarTextStyle.copyWith(color: Colors.white),
-          appBarIcon: Icon(Icons.message, color: kDarkBlue),
+          appBarIcon: const Icon(Icons.message, color: kDarkBlue),
           buttonTextStyle:
               kAppBarTextStyle.copyWith(fontSize: 18, color: kDarkBlue),
           appBarColor: kDarkBlue,
-          dialogCancelTextStyle: TextStyle(
+          dialogCancelTextStyle: const TextStyle(
             color: kDarkOrange,
             fontSize: 18,
           ),
-          dialogContinueTextStyle: TextStyle(
+          dialogContinueTextStyle: const TextStyle(
             color: kDarkBlue,
             fontSize: 18,
           ));
@@ -262,7 +262,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
   _buildBottomAppBar() {
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 120,
         child: Center(
           child: CustomButton(
@@ -293,7 +293,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
       content: Row(
         children: [
           Icon(iconData ?? Icons.error, color: kDarkOrange),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(message, style: kSnackBarTextStyle),
         ],
       ),
@@ -307,14 +307,14 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Shipping Infomation",
         style: kAppBarTextStyle,
       ),

@@ -5,13 +5,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/widgets/buttons/customButton.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 import '../../utils/constant.dart';
-import '../../utils/secureStorage.dart';
+import '../../utils/secure_storage.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 
-import '../../widgets/alertDialog.dart';
-import '../homeScreen.dart';
+import '../../widgets/alert_dialog.dart';
+import '../home_screen.dart';
 
 const PUBLIC_KEY = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
@@ -107,7 +107,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
 
   _buildCartBar() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 150,
       width: double.infinity,
       child: Row(
@@ -129,10 +129,10 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
                     ),
                   ),
                 ),
-                placeholder: (context, url) => Center(
+                placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Center(
+                errorWidget: (context, url, error) => const Center(
                   child: Icon(Icons.error, color: Colors.red),
                 ),
               ),
@@ -152,7 +152,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
 
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 180,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -162,7 +162,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Total",
                     style: kProductNameStyle,
                   ),
@@ -194,15 +194,15 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
         appBarText: "Secured by Flutterwave",
         buttonColor: kDarkOrange,
         appBarTitleTextStyle: kAppBarTextStyle.copyWith(color: Colors.white),
-        appBarIcon: Icon(Icons.message, color: kDarkBlue),
+        appBarIcon: const Icon(Icons.message, color: kDarkBlue),
         buttonTextStyle:
             kAppBarTextStyle.copyWith(fontSize: 18, color: kDarkBlue),
         appBarColor: kDarkBlue,
-        dialogCancelTextStyle: TextStyle(
+        dialogCancelTextStyle: const TextStyle(
           color: kDarkOrange,
           fontSize: 18,
         ),
-        dialogContinueTextStyle: TextStyle(
+        dialogContinueTextStyle: const TextStyle(
           color: kDarkBlue,
           fontSize: 18,
         ),
@@ -261,7 +261,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
       content: Row(
         children: [
           Icon(iconData ?? Icons.error, color: kDarkOrange),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(message, style: kSnackBarTextStyle),
         ],
       ),
@@ -275,14 +275,14 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Donation Cart ",
         style: kAppBarTextStyle,
       ),

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/shippingInfoScreen.dart';
+import 'package:intola/src/screens/shipping_info_screen.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/widgets/buttons/customButton.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 
 import '../utils/constant.dart';
 
@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
 
   _buildCartBar() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 150,
       width: double.infinity,
       child: Row(
@@ -59,10 +59,10 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
-                placeholder: (context, url) => Center(
+                placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Center(
+                errorWidget: (context, url, error) => const Center(
                   child: Icon(Icons.error, color: Colors.red),
                 ),
               ),
@@ -82,7 +82,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 180,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -92,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Total",
                     style: kProductNameStyle,
                   ),
@@ -131,14 +131,14 @@ class _CartScreenState extends State<CartScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Cart",
         style: kAppBarTextStyle,
       ),

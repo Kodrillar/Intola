@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/product_Model.dart';
+import 'package:intola/src/models/product_model.dart';
 import 'package:intola/src/repositories/product/product_repository.dart';
-import 'package:intola/src/screens/profileScreen.dart';
+import 'package:intola/src/screens/profile_screen.dart';
 import 'package:intola/src/services/api.dart';
 
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/secureStorage.dart';
-import 'package:intola/src/widgets/alertDialog.dart';
-import 'package:intola/src/widgets/bottomNavigationBar.dart';
-import 'package:intola/src/widgets/carouselSlider.dart';
-import 'package:intola/src/widgets/categoryText.dart';
+import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/bottom_navigation_bar.dart';
+import 'package:intola/src/widgets/carousel_slider.dart';
+import 'package:intola/src/widgets/category_text.dart';
 
-import 'package:intola/src/widgets/productCard.dart';
+import 'package:intola/src/widgets/product_card.dart';
 
 ProductRepository _productRepository = ProductRepository();
 
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   getUserName() async {
     var name = await SecureStorage.storage.read(key: "userName");
     setState(() {
-      this.userName = name;
+      userName = name;
     });
   }
 
@@ -89,11 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
 
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
           ),
           _buildFilter(),
-          Container(
+          SizedBox(
             height: 450,
             child: FutureBuilder<List<ProductModel>>(
               future: getData(
@@ -108,14 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   return _buildErrorWidget();
                 }
 
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               },
             ),
           ),
           CategoryText(title: "Exiciting offers"),
-          Container(
+          SizedBox(
             height: 450,
             child: FutureBuilder<List<ProductModel>>(
               future: getData("/exciting_offers"),
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return _buildErrorWidget();
                 }
 
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               },
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           child: Icon(
             Icons.error,
             color: kDarkBlue.withOpacity(.35),
@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           height: 150,
         ),
-        Text(
+        const Text(
           "Oops! No products found \nfor this category.",
           style: kAppBarTextStyle,
         )
@@ -174,11 +174,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildProducts(List<ProductModel> data) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: GridView.builder(
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         itemCount: data.length,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildFilter() {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 50,
         right: 30,
         left: 30,
@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
               dropdownValue = newValue!;
             });
           },
-          value: this.dropdownValue,
+          value: dropdownValue,
         ),
       ),
     );
@@ -241,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: Row(
           children: [
             Expanded(
@@ -263,12 +263,12 @@ class _HomeScreenState extends State<HomeScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) => ProfileScreen(
-                  userEmail: this.userName,
+                  userEmail: userName,
                 ),
               ),
             );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.account_circle,
             color: kDarkBlue,
           ),
@@ -278,6 +278,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   CustomBottomNavigationBar _buildBottomNavigationBar() {
-    return CustomBottomNavigationBar();
+    return const CustomBottomNavigationBar();
   }
 }

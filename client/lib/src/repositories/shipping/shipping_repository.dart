@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/services/shipping/shippingService.dart';
-import 'package:intola/src/utils/requestResponse.dart';
+import 'package:intola/src/services/shipping/shipping_service.dart';
+import 'package:intola/src/utils/request_response.dart';
 
 class ShippingRepository {
-  ShippingService _shippingService = ShippingService();
+  final ShippingService _shippingService = ShippingService();
 
   Future<dynamic> addShippingAddress(
       {required endpoint,

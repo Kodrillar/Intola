@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intola/src/repositories/delivery/delivery_repository.dart';
-import 'package:intola/src/screens/homeScreen.dart';
+import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/widgets/textField.dart';
+import 'package:intola/src/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/constant.dart';
-import '../../widgets/alertDialog.dart';
-import '../../widgets/buttons/customButton.dart';
+import '../../widgets/alert_dialog.dart';
+import '../../widgets/buttons/custom_button.dart';
 
 DeliveryRepository _deliveryRepository = DeliveryRepository();
 
@@ -23,7 +23,7 @@ class UploadDeliveryScreen extends StatefulWidget {
 
 class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
   var _imageFile;
-  ImagePicker _imagePicker = ImagePicker();
+  final ImagePicker _imagePicker = ImagePicker();
 
   bool processingRequest = false;
 
@@ -126,11 +126,11 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
   _buildBottomAppBar() {
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 90,
         child: Center(
           child: processingRequest
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : CustomButton(
                   onTap: () {
                     setState(() {
@@ -171,7 +171,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
       content: Row(
         children: [
           Icon(iconData ?? Icons.error, color: kDarkOrange),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(message, style: kSnackBarTextStyle),
         ],
       ),
@@ -188,7 +188,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
             context: context, builder: (context) => showBottomSheet());
       },
       child: Container(
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         height: 200,
         child: Center(
           child: Text(
@@ -214,12 +214,13 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
   }
 
   ImageProvider _imageProvider() {
-    if (_imageFile != null)
+    if (_imageFile != null) {
       return FileImage(
         File(_imageFile.path),
       );
-    else
-      return AssetImage("assets/images/whitebg.png");
+    } else {
+      return const AssetImage("assets/images/whitebg.png");
+    }
   }
 
   showBottomSheet() {
@@ -236,7 +237,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
             },
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.image,
                   color: kDarkOrange,
                 ),
@@ -254,7 +255,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
             },
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.camera,
                   color: kDarkOrange,
                 ),
@@ -286,14 +287,14 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Upload goods",
         style: kAppBarTextStyle,
       ),

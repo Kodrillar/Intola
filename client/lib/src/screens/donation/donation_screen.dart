@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/donation_Model.dart';
+import 'package:intola/src/models/donation_model.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/widgets/bottomNavigationBar.dart';
-import 'package:intola/src/widgets/donationCard.dart';
+import 'package:intola/src/widgets/bottom_navigation_bar.dart';
+import 'package:intola/src/widgets/donation_card.dart';
 
 import '../../utils/constant.dart';
-import '../../widgets/alertDialog.dart';
+import '../../widgets/alert_dialog.dart';
 
 DonationRepository _donationRepository = DonationRepository();
 
@@ -47,7 +47,7 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: RefreshIndicator(
         onRefresh: getDonations,
         child: FutureBuilder<List<DonationModel>>(
@@ -62,7 +62,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 child: _buildErrorWidget(),
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
@@ -91,7 +91,7 @@ class _DonationScreenState extends State<DonationScreen> {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Donations",
         style: kAppBarTextStyle,
       ),
@@ -104,7 +104,7 @@ class _DonationScreenState extends State<DonationScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             child: Icon(
               Icons.error,
               color: kDarkBlue.withOpacity(.35),
@@ -112,7 +112,7 @@ class _DonationScreenState extends State<DonationScreen> {
             ),
             height: 150,
           ),
-          Center(
+          const Center(
             child: Text(
               "Oops! Kindly check your \ninternet connection",
               style: kAppBarTextStyle,

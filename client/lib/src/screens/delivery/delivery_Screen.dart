@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/delivery_Model.dart';
+import 'package:intola/src/models/delivery_model.dart';
 import 'package:intola/src/repositories/delivery/delivery_repository.dart';
 import 'package:intola/src/screens/delivery/upload_delivery_screen.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/bottomNavigationBar.dart';
-import 'package:intola/src/widgets/deliveryCard.dart';
+import 'package:intola/src/widgets/bottom_navigation_bar.dart';
+import 'package:intola/src/widgets/delivery_card.dart';
 
 import '../../services/api.dart';
-import '../../widgets/alertDialog.dart';
+import '../../widgets/alert_dialog.dart';
 
 DeliveryRepository _deliveryRepository = DeliveryRepository();
 

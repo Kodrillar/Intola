@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/constant.dart';
-import '../../widgets/buttons/customButton.dart';
+import '../../widgets/buttons/custom_button.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
   const DeliveryDetailScreen({
@@ -45,20 +45,20 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   _buildPrice() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       height: 85,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 "Price",
                 style: kProductNameStyle,
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             "\$${widget.price}",
             textAlign: TextAlign.justify,
@@ -71,22 +71,22 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   _buildContact() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       height: 85,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 "Contact",
                 style: kProductNameStyle,
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
-            "${widget.contact}",
+            widget.contact,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -97,22 +97,22 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   _buildPickUpLocation() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       height: 85,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 "Pick up location",
                 style: kProductNameStyle,
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
-            "${widget.location}",
+            widget.location,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -123,22 +123,22 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   _buildProductDetails() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       height: 145,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 "Description",
                 style: kProductNameStyle,
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
-            "${widget.description}",
+            widget.description,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -149,9 +149,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
 
   _buildProductImage() {
     return CachedNetworkImage(
-      imageUrl: "${widget.image}",
+      imageUrl: widget.image,
       imageBuilder: (context, imageProvider) => Container(
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         height: 200,
         decoration: BoxDecoration(
           image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
@@ -159,10 +159,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           color: kDarkOrange.withOpacity(.08),
         ),
       ),
-      placeholder: (context, url) => Center(
+      placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),
-      errorWidget: (context, url, error) => Center(
+      errorWidget: (context, url, error) => const Center(
         child: Icon(Icons.error, color: Colors.red),
       ),
     );
@@ -171,7 +171,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   _buildBottomAppBar() {
     return BottomAppBar(
       elevation: 0,
-      child: Container(
+      child: SizedBox(
         height: 80,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,7 +200,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   _buildSnackBar() {
     return SnackBar(
       backgroundColor: kDarkBlue,
-      content: Text(
+      content: const Text(
         "Delivery accepted! kindly go to pick up location",
       ),
       action: SnackBarAction(
@@ -214,14 +214,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Delivery details",
         style: kAppBarTextStyle,
       ),

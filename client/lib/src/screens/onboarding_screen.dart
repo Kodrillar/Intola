@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intola/src/models/unboardingScreen/onboarding_Screen_Model.dart';
-import 'package:intola/src/screens/auth/signUp_Screen.dart';
+import 'package:intola/src/models/unboarding_screen/onboarding_screen_model.dart';
+import 'package:intola/src/screens/auth/sign_up_screen.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/buttons/customButton.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -14,9 +14,9 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int pageIndex = 0;
-  Duration _duration = Duration(milliseconds: 200);
+  final Duration _duration = const Duration(milliseconds: 200);
 
   void goToPage(int requiredPageIndex) {
     _pageController.animateToPage(
@@ -59,25 +59,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.symmetric(horizontal: 25),
             height: 350,
             child: SvgPicture.asset(
               "assets/onboardingSvg/" + svg,
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
               onboardingText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w800,
                 color: kDarkOrange,
               ),
             ),
           ),
-          SizedBox(height: 110),
+          const SizedBox(height: 110),
           pageIndex == OnboardingScreenModel.svgPicture.length - 5
               ? CustomButton(
                   onTap: () {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/utils/secureStorage.dart';
+import 'package:intola/src/utils/secure_storage.dart';
 
 class ProductService {
   // final baseUrl = "http://localhost:3000/api";

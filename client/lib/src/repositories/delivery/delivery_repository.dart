@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/models/delivery_Model.dart';
-import 'package:intola/src/services/delivery/deliveryService.dart';
-import 'package:intola/src/utils/requestResponse.dart';
+import 'package:intola/src/models/delivery_model.dart';
+import 'package:intola/src/services/delivery/delivery_service.dart';
+import 'package:intola/src/utils/request_response.dart';
 
 class DeliveryRepository {
-  DeliveryService _deliveryService = DeliveryService();
+  final DeliveryService _deliveryService = DeliveryService();
 
   Future<List<DeliveryModel>> getDelivery({required endpoint}) async {
     try {
@@ -26,7 +26,7 @@ class DeliveryRepository {
       );
       return productImage;
     } catch (ex) {
-      throw ex;
+      rethrow;
     }
   }
 

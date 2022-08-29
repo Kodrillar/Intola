@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/productScreen.dart';
+import 'package:intola/src/screens/product_screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -41,7 +41,7 @@ class _ProductCardState extends State<ProductCard> {
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 8,
         ),
         child: Column(
@@ -61,26 +61,26 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
               placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) =>
-                  Center(child: Icon(Icons.error, color: Colors.red)),
+                  const Center(child: Icon(Icons.error, color: Colors.red)),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               widget.productName,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: kDarkBlue,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Slash price
                 Text(
                   "\$${widget.productSlashprice}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.grey,
                       fontSize: 17),
@@ -88,7 +88,7 @@ class _ProductCardState extends State<ProductCard> {
                 //Price
                 Text(
                   "\$${widget.productPrice}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: kDarkBlue,
                     fontSize: 17,
                   ),
