@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intola/src/models/textFieldValidation/validationError_Model.dart';
-import 'package:intola/src/repositories/auth/auth_Repository.dart';
+import 'package:intola/src/repositories/auth/auth_repository.dart';
 import 'package:intola/src/screens/auth/signUp_Screen.dart';
 import 'package:intola/src/screens/homeScreen.dart';
 import 'package:intola/src/services/api.dart';
@@ -46,9 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: ListView(
         children: [
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 120),
+              padding: EdgeInsets.symmetric(vertical: 120),
               child: Text(
                 "Login",
                 style: kAuthTextStyle,
@@ -75,14 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               icon: obscureTextField
-                  ? Icon(Icons.visibility_off)
-                  : Icon(Icons.visibility),
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
             ),
             onChanged: onChangedOfTextField(passwordController),
           ),
           processingRequest
-              ? Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
+              ? const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
                   child: Center(
                     child: CircularProgressIndicator(
                       color: kDarkBlue,
@@ -159,7 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         return;
       }
-      ;
       if (userData["wrongPassword"] == true) {
         setState(() {
           passwordErrorText = "Wrong/Invalid passowrd!";
@@ -168,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         return;
       }
-      ;
 
       await SecureStorage.storage.write(key: "token", value: userData["token"]);
       await SecureStorage.storage

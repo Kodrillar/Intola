@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:intola/src/models/textFieldValidation/validationError_Model.dart';
-import 'package:intola/src/repositories/auth/auth_Repository.dart';
+import 'package:intola/src/repositories/auth/auth_repository.dart';
 import 'package:intola/src/screens/auth/logIn_Screen.dart';
 import 'package:intola/src/screens/homeScreen.dart';
 import 'package:intola/src/services/api.dart';
@@ -52,9 +52,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: ListView(
         children: [
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 120),
+              padding: EdgeInsets.symmetric(vertical: 120),
               child: Text(
                 "Sign Up",
                 style: kAuthTextStyle,
@@ -88,14 +88,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 });
               },
               icon: obscureTextField
-                  ? Icon(Icons.visibility_off)
-                  : Icon(Icons.visibility),
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
             ),
             onChanged: onChanged(passwordController),
           ),
           processingRequest
-              ? Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
+              ? const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
                   child: Center(
                     child: CircularProgressIndicator(
                       color: kDarkOrange,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intola/src/screens/auth/logIn_Screen.dart';
 import 'package:intola/src/screens/cartScreen.dart';
-import 'package:intola/src/screens/delivery/delivery_Screen.dart';
+import 'package:intola/src/screens/delivery/delivery_screen.dart';
 import 'package:intola/src/screens/donation/donation_product_screen.dart';
 import 'package:intola/src/screens/donation/donation_screen.dart';
 import 'package:intola/src/screens/homeScreen.dart';
@@ -11,7 +11,7 @@ import 'package:intola/src/screens/auth/signUp_Screen.dart';
 import 'package:intola/src/screens/purchaseHistoryScreen.dart';
 import 'package:intola/src/screens/shippingInfoScreen.dart';
 import 'package:intola/src/screens/profileScreen.dart';
-import 'package:intola/src/screens/delivery/upload_Delivery_Screen.dart';
+import 'package:intola/src/screens/delivery/upload_delivery_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
