@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intola/src/models/unboardingScreen/onboardingScreenModel.dart';
-import 'package:intola/src/screens/auth/signUpScreen.dart';
+import 'package:intola/src/models/unboardingScreen/onboarding_Screen_Model.dart';
+import 'package:intola/src/screens/auth/signUp_Screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/customButton.dart';
 

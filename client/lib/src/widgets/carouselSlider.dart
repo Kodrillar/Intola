@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:intola/src/models/productModel.dart';
+import 'package:intola/src/models/product_Model.dart';
 import 'package:intola/src/screens/productScreen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';

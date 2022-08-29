@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/donation/donationProductScreen.dart';
+import 'package:intola/src/screens/donation/donation_product_screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
 
@@ -54,7 +54,7 @@ class _DonationCardState extends State<DonationCard> {
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
         height: 455,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -65,7 +65,7 @@ class _DonationCardState extends State<DonationCard> {
                 padding: const EdgeInsets.only(bottom: 15),
                 child: Text(
                   "${widget.email} is donating:",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: kDarkOrange,
@@ -76,7 +76,7 @@ class _DonationCardState extends State<DonationCard> {
               _buildProductName(),
               _buildTotalQuantity(),
               _buildSpotsLeft(),
-              Divider(
+              const Divider(
                 endIndent: 16,
                 indent: 16,
                 color: kDarkOrange,
@@ -102,8 +102,9 @@ class _DonationCardState extends State<DonationCard> {
           ),
         ),
       ),
-      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-      errorWidget: (context, url, error) => Center(
+      placeholder: (context, url) =>
+          const Center(child: CircularProgressIndicator()),
+      errorWidget: (context, url, error) => const Center(
         child: Icon(Icons.error, color: Colors.red),
       ),
     );
@@ -115,7 +116,7 @@ class _DonationCardState extends State<DonationCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Spots left",
             style: kAppBarTextStyle,
           ),
@@ -136,7 +137,7 @@ class _DonationCardState extends State<DonationCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Total quantity",
             style: kAppBarTextStyle,
           ),
@@ -158,7 +159,7 @@ class _DonationCardState extends State<DonationCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "${widget.productName}",
+            widget.productName,
             style: kProductNameStyle,
           ),
           Text(

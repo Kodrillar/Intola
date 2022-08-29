@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/deliveryModel.dart';
+import 'package:intola/src/models/delivery_Model.dart';
 import 'package:intola/src/repositories/delivery/delivery_repository.dart';
-import 'package:intola/src/screens/delivery/uploadDeliveryScreen.dart';
+import 'package:intola/src/screens/delivery/upload_Delivery_Screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/bottomNavigationBar.dart';
 import 'package:intola/src/widgets/deliveryCard.dart';

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/donation/donationShippingInfoScreen.dart';
+import 'package:intola/src/screens/donation/donation_shipping_info_screen.dart';
 import 'package:intola/src/services/api.dart';
 
 import '../../utils/constant.dart';
@@ -46,7 +46,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
   }
 
   _buildProductButton() {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -76,11 +76,11 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
 
   _buildProductQuantity() {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Quantity", style: kAppBarTextStyle),
+          const Text("Quantity", style: kAppBarTextStyle),
           Padding(
             padding: const EdgeInsets.only(left: 16, top: 16),
             child: Row(
@@ -100,7 +100,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
 
   _buildProductDetails() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +118,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             "${widget.description}",
             textAlign: TextAlign.justify,
@@ -133,7 +133,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
     return CachedNetworkImage(
       imageUrl: "${API.baseUrl}/uploads/${widget.image}",
       imageBuilder: (context, imageProvider) => Container(
-        margin: EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -144,10 +144,10 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
           ),
         ),
       ),
-      placeholder: (context, url) => Center(
+      placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),
-      errorWidget: (context, url, error) => Center(
+      errorWidget: (context, url, error) => const Center(
         child: Icon(Icons.error, color: Colors.red),
       ),
     );
@@ -157,14 +157,14 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Donation Shop",
         style: kAppBarTextStyle,
       ),

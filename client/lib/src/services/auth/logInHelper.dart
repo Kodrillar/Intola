@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/models/auth/logInModel.dart';
+import 'package:intola/src/models/auth/logIn_Model.dart';
 
 class LoginHelper {
   // final baseUrl = "http://localhost:3000/api";

@@ -5,7 +5,7 @@ import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/customButton.dart';
 
-import 'donation/donationCartScreen.dart';
+import 'donation/donation_cart_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -31,13 +31,13 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: ListView(
         children: [
           CachedNetworkImage(
             imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
             imageBuilder: (context, imageProvider) => Container(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -48,10 +48,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
               ),
             ),
-            placeholder: (context, url) => Center(
+            placeholder: (context, url) => const Center(
               child: CircularProgressIndicator(),
             ),
-            errorWidget: (context, url, error) => Center(
+            errorWidget: (context, url, error) => const Center(
               child: Icon(Icons.error, color: Colors.red),
             ),
           ),
@@ -63,11 +63,11 @@ class _ProductScreenState extends State<ProductScreen> {
               productPrice: widget.productPrice),
           //  _buildProductQuantity(),
           Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Quantity", style: kAppBarTextStyle),
+                const Text("Quantity", style: kAppBarTextStyle),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 16),
                   child: Row(
@@ -88,7 +88,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   }
                                 });
                               },
-                              icon: Icon(Icons.remove),
+                              icon: const Icon(Icons.remove),
                               color: kLightColor,
                             ),
                             decoration: BoxDecoration(
@@ -96,7 +96,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Container(
@@ -106,7 +106,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   productQuantity++;
                                 });
                               },
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               color: kLightColor,
                             ),
                             decoration: BoxDecoration(
@@ -171,13 +171,13 @@ class _ProductScreenState extends State<ProductScreen> {
       backgroundColor: kDarkBlue,
       content: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.add_shopping_cart_sharp,
             color: kDarkOrange,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(
-            "${widget.productName} added to ${additionalMessage != null ? additionalMessage : ''} cart!",
+            "${widget.productName} added to ${additionalMessage ?? ''} cart!",
             style: kSnackBarTextStyle,
           ),
         ],
@@ -197,7 +197,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -213,14 +213,15 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       // ],
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Shop",
         style: kAppBarTextStyle,
       ),
     );
   }
 
-  Size get preferredSize => Size.fromHeight(35);
+  @override
+  Size get preferredSize => const Size.fromHeight(35);
 }
 
 class ProductDetails extends StatelessWidget {
@@ -237,7 +238,7 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +247,7 @@ class ProductDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "$productName",
+                productName,
                 style: kProductNameStyle,
               ),
               Text(
@@ -255,9 +256,9 @@ class ProductDetails extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
-            "$productDescription",
+            productDescription,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -279,7 +280,7 @@ class ProductButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

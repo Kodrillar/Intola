@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/models/shippingModel.dart';
+import 'package:intola/src/models/shipping_Model.dart';
 import 'package:intola/src/utils/secureStorage.dart';
 
 class ShippingService {

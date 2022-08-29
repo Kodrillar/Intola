@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/purchaseHistoryModel.dart';
+import 'package:intola/src/models/purchase_History_Model.dart';
 import 'package:intola/src/repositories/purchase/purchase_repository.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/widgets/bottomNavigationBar.dart';

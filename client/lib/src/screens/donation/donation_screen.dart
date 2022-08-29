@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/donationModel.dart';
+import 'package:intola/src/models/donation_Model.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/widgets/bottomNavigationBar.dart';

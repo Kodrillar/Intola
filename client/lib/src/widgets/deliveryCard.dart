@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/delivery/deliveryDetailScreen.dart';
+import 'package:intola/src/screens/delivery/delivery_Detail_Screen.dart';
 
 import 'package:intola/src/utils/constant.dart';
 

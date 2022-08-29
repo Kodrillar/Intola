@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:intola/src/models/textFieldValidation/validationErrorModel.dart';
-import 'package:intola/src/repositories/auth/authRepository.dart';
-import 'package:intola/src/screens/auth/logInScreen.dart';
+import 'package:intola/src/models/textFieldValidation/validationError_Model.dart';
+import 'package:intola/src/repositories/auth/auth_Repository.dart';
+import 'package:intola/src/screens/auth/logIn_Screen.dart';
 import 'package:intola/src/screens/homeScreen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';

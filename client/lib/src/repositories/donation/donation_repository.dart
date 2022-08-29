@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/models/donationModel.dart';
+import 'package:intola/src/models/donation_Model.dart';
 import 'package:intola/src/services/donation/donationService.dart';
 import 'package:intola/src/utils/requestResponse.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/productModel.dart';
+import 'package:intola/src/models/product_Model.dart';
 import 'package:intola/src/repositories/product/product_repository.dart';
 import 'package:intola/src/screens/profileScreen.dart';
 import 'package:intola/src/services/api.dart';

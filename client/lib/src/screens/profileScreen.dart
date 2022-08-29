@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/profileModel.dart';
+import 'package:intola/src/models/profile_Model.dart';
 import 'package:intola/src/repositories/profile/profile_repository.dart';
-import 'package:intola/src/screens/auth/logInScreen.dart';
+import 'package:intola/src/screens/auth/logIn_Screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
 

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/models/profileModel.dart';
+import 'package:intola/src/models/profile_Model.dart';
 import 'package:intola/src/services/profile/profileService.dart';
 import 'package:intola/src/utils/requestResponse.dart';
 
