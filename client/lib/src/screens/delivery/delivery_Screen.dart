@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/models/delivery_Model.dart';
 import 'package:intola/src/repositories/delivery/delivery_repository.dart';
-import 'package:intola/src/screens/delivery/upload_Delivery_Screen.dart';
+import 'package:intola/src/screens/delivery/upload_delivery_screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/bottomNavigationBar.dart';
 import 'package:intola/src/widgets/deliveryCard.dart';
@@ -48,7 +48,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: FutureBuilder<List<DeliveryModel>>(
         future: getDelivery(),
         builder: (context, snapshot) {
@@ -59,7 +59,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
           if (snapshot.hasError) {
             return _buildErrorWidget();
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -87,7 +87,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             child: Icon(
               Icons.error,
               color: kDarkBlue.withOpacity(.35),
@@ -95,7 +95,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
             ),
             height: 150,
           ),
-          Center(
+          const Center(
             child: Text(
               "Oops! Kindly check your \ninternet connection",
               style: kAppBarTextStyle,
@@ -110,15 +110,15 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
     return AppBar(
       leading: IconButton(
         color: kDarkBlue,
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, UploadDeliveryScreen.id);
         },
       ),
-      actions: [
+      actions: const [
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: EdgeInsets.only(right: 16.0),
             child: Text(
               "\$0",
               style: kAppBarTextStyle,
@@ -128,7 +128,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
       ],
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
+      title: const Text(
         "Delivery",
         style: kAppBarTextStyle,
       ),

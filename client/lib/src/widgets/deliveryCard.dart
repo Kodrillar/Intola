@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/delivery/delivery_Detail_Screen.dart';
+import 'package:intola/src/screens/delivery/delivery_detail_screen.dart';
 
 import 'package:intola/src/utils/constant.dart';
 
@@ -33,7 +33,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
       height: 500,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -44,7 +44,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
               padding: const EdgeInsets.only(bottom: 15),
               child: Text(
                 "${widget.email} wants to deliver goods:",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: kDarkOrange,
@@ -87,7 +87,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Weight",
             style: kAppBarTextStyle,
           ),
@@ -108,7 +108,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Price",
             style: kAppBarTextStyle,
           ),
@@ -125,7 +125,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
 
   _buildProductImage() {
     return CachedNetworkImage(
-      imageUrl: "${widget.deliveryImage}",
+      imageUrl: widget.deliveryImage,
       imageBuilder: (context, imageProvider) => Container(
         height: 200,
         decoration: BoxDecoration(
@@ -134,10 +134,10 @@ class _DeliveryCardState extends State<DeliveryCard> {
           color: kDarkOrange.withOpacity(.08),
         ),
       ),
-      placeholder: (context, url) => Center(
+      placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),
-      errorWidget: (context, url, error) => Center(
+      errorWidget: (context, url, error) => const Center(
         child: Icon(Icons.error, color: Colors.red),
       ),
     );
