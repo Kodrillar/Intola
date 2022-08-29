@@ -9,11 +9,12 @@ import 'donation/donation_cart_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
+    Key? key,
     required this.productImage,
     required this.productName,
     required this.productPrice,
     required this.productDescription,
-  });
+  }) : super(key: key);
 
   final String productImage;
   final String productPrice;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:intola/src/services/auth/log_in_service.dart';
 import 'package:http/http.dart';
 import 'package:intola/src/services/auth/sign_up_service.dart';
@@ -42,7 +43,7 @@ class AuthRepository {
       return await getData();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
-      print(responseBody);
+      debugPrint(responseBody);
       return jsonDecode(responseBody);
 
       // rethrow;

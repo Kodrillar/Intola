@@ -16,7 +16,7 @@ class ShippingService {
     required country,
     required phone,
     required zipcode,
-    String? apartment_suite,
+    String? apartmentSuite,
   }) async {
     ShippingModel _shippingModel = ShippingModel(
       email: email,
@@ -25,7 +25,7 @@ class ShippingService {
       country: country,
       phone: phone,
       zipcode: zipcode,
-      apartment_suite: apartment_suite,
+      apartmentSuite: apartmentSuite,
     );
     final token = SecureStorage.storage.read(key: "token");
     http.Response response = await http.post(

@@ -7,7 +7,13 @@ import 'package:intola/src/widgets/buttons/custom_button.dart';
 import '../utils/constant.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({this.image, this.price, this.quantity, this.name});
+  const CartScreen({
+    Key? key,
+    this.image,
+    this.price,
+    this.quantity,
+    this.name,
+  }) : super(key: key);
 
   final image;
   final price;

@@ -13,18 +13,19 @@ import 'package:flutterwave_standard/flutterwave.dart';
 import '../../widgets/alert_dialog.dart';
 import '../home_screen.dart';
 
-const PUBLIC_KEY = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
+const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
 DonationRepository _donationRepository = DonationRepository();
 
 class DonationCartScreen extends StatefulWidget {
   const DonationCartScreen({
+    Key? key,
     this.image,
     this.price,
     this.quantity,
     this.name,
     this.description,
-  });
+  }) : super(key: key);
 
   final image;
   final price;
@@ -216,7 +217,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
       final Flutterwave flutterwave = Flutterwave(
         context: context,
         style: style,
-        publicKey: PUBLIC_KEY,
+        publicKey: publicKey,
         currency: "USD",
         txRef: _refText!,
         amount: price.toString(),
@@ -248,7 +249,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
         }
       } else {
         // User cancelled
-        print("Transaction CANCELED BY USER!!!");
+        debugPrint("Transaction CANCELED BY USER!!!");
         _showSnackBar(message: "Transaction Failed!");
       }
     } catch (_) {

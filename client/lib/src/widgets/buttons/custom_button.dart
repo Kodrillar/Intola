@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
+    Key? key,
     required this.onTap,
     required this.buttonName,
     this.buttonColor = kDarkOrange,
     this.width = 120,
-  });
+  }) : super(key: key);
 
   final void Function() onTap;
   final String buttonName;
@@ -25,7 +26,7 @@ class CustomButton extends StatelessWidget {
           child: Center(
             child: Text(
               buttonName,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: kLightColor,

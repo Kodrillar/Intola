@@ -8,6 +8,7 @@ import '../../widgets/buttons/custom_button.dart';
 
 class DonationProductScreen extends StatefulWidget {
   const DonationProductScreen({
+    Key? key,
     this.image,
     this.name,
     this.price,
@@ -15,7 +16,7 @@ class DonationProductScreen extends StatefulWidget {
     this.productId,
     this.spotsleft,
     this.email,
-  });
+  }) : super(key: key);
   final productId;
   final spotsleft;
   final image;

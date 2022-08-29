@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class CategoryText extends StatelessWidget {
-  CategoryText({required this.title});
+  const CategoryText({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: kDarkOrange,
           fontWeight: FontWeight.bold,
           fontSize: 20,

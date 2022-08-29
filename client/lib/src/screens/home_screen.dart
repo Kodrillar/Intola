@@ -18,7 +18,7 @@ import 'package:intola/src/widgets/product_card.dart';
 ProductRepository _productRepository = ProductRepository();
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({this.user});
+  const HomeScreen({Key? key, this.user}) : super(key: key);
   static const id = "/homeScreen";
   final user;
   @override

@@ -6,6 +6,7 @@ import 'package:intola/src/utils/constant.dart';
 
 class DonationCard extends StatefulWidget {
   const DonationCard({
+    Key? key,
     this.id,
     required this.productImage,
     required this.productPrice,
@@ -14,7 +15,7 @@ class DonationCard extends StatefulWidget {
     required this.email,
     required this.productQuantity,
     required this.spotsleft,
-  });
+  }) : super(key: key);
   final id;
   final String productImage;
   final String productPrice;

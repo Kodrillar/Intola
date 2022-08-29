@@ -8,6 +8,7 @@ import 'buttons/custom_button.dart';
 
 class DeliveryCard extends StatefulWidget {
   const DeliveryCard({
+    Key? key,
     required this.email,
     required this.contact,
     required this.deliveryImage,
@@ -15,7 +16,7 @@ class DeliveryCard extends StatefulWidget {
     required this.deliveryPrice,
     required this.description,
     required this.location,
-  });
+  }) : super(key: key);
 
   final String deliveryImage;
   final String email;

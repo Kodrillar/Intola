@@ -14,9 +14,10 @@ PurchaseRepository _purchaseRepository = PurchaseRepository();
 
 class PurchaseHistoryScreen extends StatefulWidget {
   static const id = "/purchaseHistoryScreen";
-  const PurchaseHistoryScreen(
+  const PurchaseHistoryScreen({Key? key}
       // {this.email, this.image, this.name}
-      );
+      )
+      : super(key: key);
 
   // final email;
   // final image;

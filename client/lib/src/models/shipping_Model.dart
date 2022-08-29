@@ -3,7 +3,7 @@ class ShippingModel {
     this.id,
     required this.email,
     required this.address,
-    this.apartment_suite,
+    this.apartmentSuite,
     required this.city,
     required this.country,
     required this.phone,
@@ -12,7 +12,7 @@ class ShippingModel {
   final id;
   final String email;
   final String address;
-  final String? apartment_suite;
+  final String? apartmentSuite;
   final String city;
   final String country;
   final String phone;
@@ -23,7 +23,7 @@ class ShippingModel {
     return {
       "email": email,
       "address": address,
-      "apartment_suite": apartment_suite,
+      "apartment_suite": apartmentSuite,
       "city": city,
       "country": country,
       "phone": phone,

@@ -6,13 +6,14 @@ import '../../widgets/buttons/custom_button.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
   const DeliveryDetailScreen({
+    Key? key,
     required this.image,
     required this.location,
     required this.price,
     required this.contact,
     required this.description,
     required this.weight,
-  });
+  }) : super(key: key);
 
   final String image;
   final String location;

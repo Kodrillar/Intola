@@ -18,7 +18,8 @@ const PUBLIC_KEY = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 
 class ShippingInfoScreen extends StatefulWidget {
-  const ShippingInfoScreen({this.price, this.image, this.name});
+  const ShippingInfoScreen({Key? key, this.price, this.image, this.name})
+      : super(key: key);
 
   final price;
   final image;
@@ -174,7 +175,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
       final ChargeResponse response = await flutterwave.charge();
       if (response != null) {
         if (response.success!) {
-          print("Guyy Transaction work!!!");
+          debugPrint("Transaction succeeded!!!");
           _showSnackBar(
             message: "Transaction successful",
             iconData: Icons.verified_rounded,
@@ -182,7 +183,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
 
           addPurchaseHistory()
               .then(
-            (value) => print("this is value from Future addingpuchase" + value),
+            (value) => debugPrint("value from Future addingpuchase" + value),
           )
               .whenComplete(() {
             Navigator.pushNamedAndRemoveUntil(
@@ -194,7 +195,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
         }
       } else {
         // User cancelled
-        print("Guyy Transaction CANCELED BY USER!!!");
+        debugPrint("Transaction CANCELED BY USER!!!");
         _showSnackBar(message: "Transaction Failed!");
       }
     } catch (_) {

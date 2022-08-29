@@ -13,7 +13,7 @@ import '../widgets/buttons/custom_button.dart';
 ProfileRepository _profileRepository = ProfileRepository();
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({this.userEmail});
+  const ProfileScreen({Key? key, this.userEmail}) : super(key: key);
 
   final userEmail;
   static const id = "/profileScreen";

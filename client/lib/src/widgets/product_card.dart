@@ -6,12 +6,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
+    Key? key,
     required this.productName,
     required this.productImage,
     required this.productDescription,
     required this.productPrice,
     required this.productSlashprice,
-  });
+  }) : super(key: key);
 
   final String productName;
   final String productImage;
