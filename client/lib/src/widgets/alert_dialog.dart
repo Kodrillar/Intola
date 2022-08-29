@@ -10,7 +10,7 @@ Future<void> alertDialog(
       actions: [
         IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
         )
       ],
     ),

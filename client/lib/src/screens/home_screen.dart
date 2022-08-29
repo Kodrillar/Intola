@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: _buildAppBar(),
       body: ListView(
         children: [
-          CategoryText(title: "Top deals"),
+          const CategoryText(title: "Top deals"),
           FutureBuilder<List<ProductModel>>(
             future: getData("/top"),
             builder: (context, snapshot) {
@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          CategoryText(title: "Exiciting offers"),
+          const CategoryText(title: "Exiciting offers"),
           SizedBox(
             height: 450,
             child: FutureBuilder<List<ProductModel>>(

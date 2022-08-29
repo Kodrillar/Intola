@@ -13,7 +13,7 @@ import '../utils/constant.dart';
 import '../widgets/alert_dialog.dart';
 import '../widgets/buttons/custom_button.dart';
 
-const PUBLIC_KEY = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
+const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 
@@ -161,7 +161,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
       final Flutterwave flutterwave = Flutterwave(
         context: context,
         style: style,
-        publicKey: PUBLIC_KEY,
+        publicKey: publicKey,
         currency: "USD",
         txRef: _refText!,
         amount: widget.price.toString(),

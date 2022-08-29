@@ -31,7 +31,7 @@ class _AuthOptionTextState extends State<AuthOptionText> {
             widget.title,
             style: kAuthOptionTextStyle,
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(

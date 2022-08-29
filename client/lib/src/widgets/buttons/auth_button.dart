@@ -22,13 +22,13 @@ class _AuthButtonState extends State<AuthButton> {
       onTap: widget.onTap,
       child: Container(
         height: 50,
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: kDarkBlue),
         child: Center(
           child: Text(
             widget.buttonName,
-            style: TextStyle(
+            style: const TextStyle(
               color: kDarkOrange,
               fontSize: 18,
               fontWeight: FontWeight.w700,

@@ -248,7 +248,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
           _showSnackBar(message: "Transaction Failed!");
         }
       } else {
-        // User cancelled
+        // User cancelled Transaction
         debugPrint("Transaction CANCELED BY USER!!!");
         _showSnackBar(message: "Transaction Failed!");
       }
