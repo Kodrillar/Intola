@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/repositories/delivery/delivery_repository.dart';
+import 'package:intola/src/features/delivery/data/repository/delivery_repository.dart';
 import 'package:intola/src/screens/home_screen.dart';
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../utils/constant.dart';
-import '../../widgets/alert_dialog.dart';
-import '../../widgets/buttons/custom_button.dart';
 
 DeliveryRepository _deliveryRepository = DeliveryRepository();
 

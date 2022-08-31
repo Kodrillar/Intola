@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intola/src/models/delivery_model.dart';
+import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
-class DeliveryService {
+class DeliveryNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = "https://intola.herokuapp.com/api";
 

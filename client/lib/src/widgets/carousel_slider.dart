@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intola/src/models/product_model.dart';
 import 'package:intola/src/screens/product_screen.dart';
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class CustomCarouselSlider {

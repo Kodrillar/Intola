@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
 
 class ProfileService {
   // final baseUrl = "http://localhost:3000/api";

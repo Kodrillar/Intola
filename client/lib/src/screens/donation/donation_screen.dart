@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/models/donation_model.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/donation_card.dart';
 

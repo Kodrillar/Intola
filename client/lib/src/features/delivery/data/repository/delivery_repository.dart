@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
-import 'package:intola/src/models/delivery_model.dart';
-import 'package:intola/src/services/delivery/delivery_service.dart';
+import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
+import 'package:intola/src/features/delivery/data/network/delivery_network_helper.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class DeliveryRepository {
-  final DeliveryService _deliveryService = DeliveryService();
+  final DeliveryNetworkHelper _deliveryService = DeliveryNetworkHelper();
 
   Future<List<DeliveryModel>> getDelivery({required endpoint}) async {
     try {

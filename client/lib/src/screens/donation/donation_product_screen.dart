@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/screens/donation/donation_shipping_info_screen.dart';
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
 
 import '../../utils/constant.dart';
 import '../../widgets/buttons/custom_button.dart';

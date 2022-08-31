@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/models/purchase_history_model.dart';
 import 'package:intola/src/repositories/purchase/purchase_repository.dart';
-import 'package:intola/src/services/api.dart';
+import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 
 import '../utils/constant.dart';
