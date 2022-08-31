@@ -23,7 +23,7 @@ class IntolaApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      initialRoute: OnboardingScreen.id,
+      initialRoute: LoginScreen.id,
       routes: {
         OnboardingScreen.id: (context) => const OnboardingScreen(),
         SignUpScreen.id: (context) => const SignUpScreen(),

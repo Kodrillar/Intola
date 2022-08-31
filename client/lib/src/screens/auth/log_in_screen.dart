@@ -24,8 +24,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   String? emailErrorText;
   String? passwordErrorText;
@@ -33,12 +33,19 @@ class _LoginScreenState extends State<LoginScreen> {
   bool obscureTextField = true;
 
   Future<Map<String, dynamic>> loginUser() async {
-    var loginData = await _authRepository.loginUser(
+    Map<String, dynamic> loginData = await _authRepository.loginUser(
       endpoint: endpoints["loginUser"],
       userEmail: emailController.text.trim(),
       userPassword: passwordController.text.trim(),
     );
     return loginData;
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -169,14 +176,14 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       await SecureStorage.storage.write(key: "token", value: userData["token"]);
-      await SecureStorage.storage
-          .write(key: "userName", value: emailController.text.trim());
+      await SecureStorage.storage.write(
+        key: "userName",
+        value: emailController.text.trim(),
+      );
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen(
-              user: emailController.text.trim(),
-            ),
+            builder: (BuildContext context) => const HomeScreen(),
           ),
           (route) => false);
     } on SocketException {

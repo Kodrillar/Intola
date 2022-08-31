@@ -55,26 +55,27 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _buildAppBar(),
-        bottomNavigationBar: const CustomBottomNavigationBar(),
-        body: RefreshIndicator(
-          onRefresh: getPurchase,
-          child: FutureBuilder<List<PurchaseHistoryModel>>(
-            future: getPurchase(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                var data = snapshot.data;
-                return _buildPurchases(data!);
-              }
-              if (snapshot.hasError) {
-                return _buildErrorWidget();
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
-        ));
+      appBar: _buildAppBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
+      body: RefreshIndicator(
+        onRefresh: getPurchase,
+        child: FutureBuilder<List<PurchaseHistoryModel>>(
+          future: getPurchase(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var data = snapshot.data;
+              return _buildPurchases(data!);
+            }
+            if (snapshot.hasError) {
+              return _buildErrorWidget();
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
+      ),
+    );
   }
 
   _buildErrorWidget() {
