@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:intola/src/models/delivery_model.dart';
 import 'package:intola/src/services/delivery/delivery_service.dart';
-import 'package:intola/src/utils/request_response.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class DeliveryRepository {
   final DeliveryService _deliveryService = DeliveryService();

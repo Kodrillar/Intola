@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intola/src/models/delivery_model.dart';
-import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class DeliveryService {
   // final baseUrl = "http://localhost:3000/api";

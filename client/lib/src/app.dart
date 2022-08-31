@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/auth/log_in_screen.dart';
+import 'package:intola/src/features/auth/presentation/log_in_screen.dart';
+import 'package:intola/src/features/auth/presentation/sign_up_screen.dart';
 import 'package:intola/src/screens/cart_screen.dart';
 import 'package:intola/src/screens/delivery/delivery_screen.dart';
 import 'package:intola/src/screens/donation/donation_product_screen.dart';
 import 'package:intola/src/screens/donation/donation_screen.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/screens/onboarding_screen.dart';
-import 'package:intola/src/screens/auth/sign_up_screen.dart';
 import 'package:intola/src/screens/purchase_history_screen.dart';
 import 'package:intola/src/screens/shipping_info_screen.dart';
 import 'package:intola/src/screens/profile_screen.dart';

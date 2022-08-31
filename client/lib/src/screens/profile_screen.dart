@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/auth/presentation/log_in_screen.dart';
 import 'package:intola/src/models/profile_model.dart';
 import 'package:intola/src/repositories/profile/profile_repository.dart';
-import 'package:intola/src/screens/auth/log_in_screen.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/utils/constant.dart';
-
 import '../widgets/alert_dialog.dart';
 import '../widgets/buttons/custom_button.dart';
 

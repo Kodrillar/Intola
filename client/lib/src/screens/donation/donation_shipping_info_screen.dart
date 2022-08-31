@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/repositories/donation/donation_repository.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/services/api.dart';
-import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
 import '../../repositories/purchase/purchase_repository.dart';

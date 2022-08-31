@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intola/src/services/auth/log_in_service.dart';
+import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
+import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
 import 'package:http/http.dart';
-import 'package:intola/src/services/auth/sign_up_service.dart';
-import 'package:intola/src/utils/request_response.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class AuthRepository {
-  final LoginHelper _loginHelper = LoginHelper();
-  final SignUpHelper _signUpHelper = SignUpHelper();
+  final LoginNetworkHelper _loginHelper = LoginNetworkHelper();
+  final SignUpNetworkHelper _signUpHelper = SignUpNetworkHelper();
 
   Future<Map<String, dynamic>> loginUser(
       {required endpoint, required userEmail, required userPassword}) async {

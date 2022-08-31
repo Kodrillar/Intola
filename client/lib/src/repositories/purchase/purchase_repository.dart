@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:intola/src/models/purchase_history_model.dart';
 import 'package:intola/src/services/purchase/purchase_service.dart';
-import 'package:intola/src/utils/request_response.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class PurchaseRepository {
   final PurchaseHistoryService _purchaseHistoryService =

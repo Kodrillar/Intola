@@ -7,7 +7,7 @@ import 'package:intola/src/repositories/donation/donation_repository.dart';
 import 'package:intola/src/services/api.dart';
 import 'package:intola/src/widgets/buttons/custom_button.dart';
 import '../../utils/constant.dart';
-import '../../utils/secure_storage.dart';
+import '../../utils/cache/secure_storage.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 
 import '../../widgets/alert_dialog.dart';

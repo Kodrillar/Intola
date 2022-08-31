@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:intola/src/models/donation_model.dart';
 import 'package:intola/src/services/donation/donation_service.dart';
-import 'package:intola/src/utils/request_response.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class DonationRepository {
   final DonationService _donationService = DonationService();

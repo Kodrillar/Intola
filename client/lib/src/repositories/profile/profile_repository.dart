@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:intola/src/models/profile_model.dart';
 import 'package:intola/src/services/profile/profile_service.dart';
-import 'package:intola/src/utils/request_response.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class ProfileRepository {
   final ProfileService _profileService = ProfileService();

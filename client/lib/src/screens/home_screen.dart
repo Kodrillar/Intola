@@ -8,7 +8,7 @@ import 'package:intola/src/services/api.dart';
 
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/product_filter_options.dart';
-import 'package:intola/src/utils/secure_storage.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/carousel_slider.dart';
