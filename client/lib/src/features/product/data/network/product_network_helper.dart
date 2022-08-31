@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
-class ProductService {
+class ProductNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = "https://intola.herokuapp.com/api";
   Future<List<dynamic>> getProducts({required endpoint}) async {

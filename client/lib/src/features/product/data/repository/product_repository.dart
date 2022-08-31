@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/models/product_model.dart';
-import 'package:intola/src/services/product/product_service.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
+import 'package:intola/src/features/product/data/network/product_network_helper.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class ProductRepository {
-  final ProductService _productService = ProductService();
+  final ProductNetworkHelper _productService = ProductNetworkHelper();
 
   Future<List<ProductModel>> getProducts({required endpoint}) async {
     try {

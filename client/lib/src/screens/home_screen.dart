@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/product_model.dart';
-import 'package:intola/src/repositories/product/product_repository.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
+import 'package:intola/src/features/product/data/repository/product_repository.dart';
+import 'package:intola/src/features/product/presentation/product_card.dart';
 import 'package:intola/src/screens/profile_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
@@ -12,7 +13,6 @@ import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/carousel_slider.dart';
 import 'package:intola/src/widgets/category_text.dart';
 import 'package:intola/src/widgets/error_display.dart';
-import 'package:intola/src/widgets/product_card.dart';
 
 ProductRepository _productRepository = ProductRepository();
 
