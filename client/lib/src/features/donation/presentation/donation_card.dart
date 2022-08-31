@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/donation/donation_product_screen.dart';
+import 'package:intola/src/features/donation/presentation/screens/donation_product_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 
@@ -30,10 +30,10 @@ class DonationCard extends StatefulWidget {
 }
 
 class _DonationCardState extends State<DonationCard> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

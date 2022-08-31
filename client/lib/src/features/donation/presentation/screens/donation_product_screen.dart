@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/screens/donation/donation_shipping_info_screen.dart';
+import 'package:intola/src/features/donation/presentation/screens/donation_shipping_info_screen.dart';
+import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
-
-import '../../utils/constant.dart';
-import '../../widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 
 class DonationProductScreen extends StatefulWidget {
   const DonationProductScreen({

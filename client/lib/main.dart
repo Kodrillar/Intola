@@ -10,6 +10,8 @@ Future<void> main() async {
       DeviceOrientation.portraitDown,
     ],
   );
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   runApp(
     const IntolaApp(),
   );

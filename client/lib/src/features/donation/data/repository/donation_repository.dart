@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
-import 'package:intola/src/models/donation_model.dart';
-import 'package:intola/src/services/donation/donation_service.dart';
+import 'package:intola/src/features/donation/domain/model/donation_model.dart';
+import 'package:intola/src/features/donation/data/network/donation_service.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class DonationRepository {
@@ -19,11 +18,12 @@ class DonationRepository {
     }
   }
 
-  Future updateDonationSpot(
-      {required endpoint,
-      required id,
-      required spotsleft,
-      required email}) async {
+  Future updateDonationSpot({
+    required endpoint,
+    required id,
+    required spotsleft,
+    required email,
+  }) async {
     try {
       await _donationService.updateSpotsleft(
           endpoint: endpoint, id: id, spotsleft: spotsleft, email: email);

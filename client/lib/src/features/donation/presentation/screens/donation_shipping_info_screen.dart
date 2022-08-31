@@ -1,23 +1,27 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:intola/src/repositories/donation/donation_repository.dart';
+import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
+import 'package:intola/src/repositories/purchase/purchase_repository.dart';
 import 'package:intola/src/screens/home_screen.dart';
+import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
-
-import '../../repositories/purchase/purchase_repository.dart';
-import '../../utils/constant.dart';
-import '../../widgets/alert_dialog.dart';
-import '../../widgets/buttons/custom_button.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 DonationRepository _donationRepository = DonationRepository();
 
 class DonationShippingInfoScreen extends StatefulWidget {
   const DonationShippingInfoScreen(
-      {this.image, this.name, this.productId, this.spotsleft, this.donorEmail});
+      {Key? key,
+      this.image,
+      this.name,
+      this.productId,
+      this.spotsleft,
+      this.donorEmail})
+      : super(key: key);
 
   final productId;
   final spotsleft;

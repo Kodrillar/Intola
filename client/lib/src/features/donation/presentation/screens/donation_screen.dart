@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/donation_model.dart';
-import 'package:intola/src/repositories/donation/donation_repository.dart';
+import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
+import 'package:intola/src/features/donation/domain/model/donation_model.dart';
+import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
-import 'package:intola/src/widgets/donation_card.dart';
-
-import '../../utils/constant.dart';
-import '../../widgets/alert_dialog.dart';
+import 'package:intola/src/features/donation/presentation/donation_card.dart';
 
 DonationRepository _donationRepository = DonationRepository();
 
