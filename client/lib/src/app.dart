@@ -6,7 +6,7 @@ import 'package:intola/src/features/delivery/presentation/upload_delivery_screen
 import 'package:intola/src/features/donation/presentation/screens/donation_product_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
 import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
-import 'package:intola/src/screens/cart_screen.dart';
+import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
 import 'package:intola/src/features/home/screens/home_screen.dart';
 import 'package:intola/src/features/user_onboarding/screen/onboarding_screen.dart';
 import 'package:intola/src/features/shipping/presentation/screens/shipping_info_screen.dart';

@@ -4,7 +4,7 @@ import 'package:intola/src/features/shipping/presentation/screens/shipping_info_
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/buttons/custom_button.dart';
 
-import '../utils/constant.dart';
+import '../../../../utils/constant.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({
