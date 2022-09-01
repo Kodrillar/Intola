@@ -13,26 +13,22 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _navigationButton(
-            context: context,
+        children: const [
+          NavigationButton(
             routeName: HomeScreen.id,
-            icon: const Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined),
           ),
-          _navigationButton(
-            context: context,
+          NavigationButton(
             routeName: DonationScreen.id,
-            icon: const Icon(Icons.clean_hands_outlined),
+            icon: Icon(Icons.clean_hands_outlined),
           ),
-          _navigationButton(
-            context: context,
+          NavigationButton(
             routeName: DeliveryScreen.id,
-            icon: const Icon(Icons.local_shipping_outlined),
+            icon: Icon(Icons.local_shipping_outlined),
           ),
-          _navigationButton(
-            context: context,
+          NavigationButton(
             routeName: PurchaseHistoryScreen.id,
-            icon: const Icon(
+            icon: Icon(
               Icons.shopping_cart_checkout_sharp,
             ),
           )
@@ -40,9 +36,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
       ),
     );
   }
+}
 
-  IconButton _navigationButton(
-      {required Icon icon, required String routeName, required context}) {
+class NavigationButton extends StatelessWidget {
+  const NavigationButton({
+    Key? key,
+    required this.icon,
+    required this.routeName,
+  }) : super(key: key);
+
+  final Icon icon;
+  final String routeName;
+
+  @override
+  Widget build(BuildContext context) {
     return IconButton(
       color: kDarkBlue,
       onPressed: () {
