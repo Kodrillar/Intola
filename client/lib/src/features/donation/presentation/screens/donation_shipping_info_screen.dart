@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/repositories/purchase/purchase_repository.dart';
+import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/models/purchase_history_model.dart';
+import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
-class PurchaseHistoryService {
+class PurchaseHistoryNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = "https://intola.herokuapp.com/api";
   Future<dynamic> getPurchaseHistory({required endpoint}) async {

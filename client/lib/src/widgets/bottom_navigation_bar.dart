@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/delivery/presentation/delivery_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
-import 'package:intola/src/screens/purchase_history_screen.dart';
+import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import '../screens/home_screen.dart';
 

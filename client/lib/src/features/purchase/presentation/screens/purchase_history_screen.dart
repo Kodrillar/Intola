@@ -2,13 +2,12 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/models/purchase_history_model.dart';
-import 'package:intola/src/repositories/purchase/purchase_repository.dart';
+import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
+import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
+import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
-
-import '../utils/constant.dart';
-import '../widgets/alert_dialog.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 

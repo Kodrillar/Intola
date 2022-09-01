@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:intola/src/repositories/purchase/purchase_repository.dart';
+import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';

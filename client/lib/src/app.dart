@@ -9,8 +9,9 @@ import 'package:intola/src/features/profile/presentation/screens/profile_screen.
 import 'package:intola/src/screens/cart_screen.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/screens/onboarding_screen.dart';
-import 'package:intola/src/screens/purchase_history_screen.dart';
 import 'package:intola/src/screens/shipping_info_screen.dart';
+
+import 'features/purchase/presentation/screens/purchase_history_screen.dart';
 
 class IntolaApp extends StatelessWidget {
   const IntolaApp({Key? key}) : super(key: key);
