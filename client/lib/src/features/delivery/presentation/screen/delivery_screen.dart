@@ -7,7 +7,7 @@ import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
-import 'package:intola/src/widgets/delivery_card.dart';
+import 'package:intola/src/features/delivery/presentation/delivery_card.dart';
 
 DeliveryRepository _deliveryRepository = DeliveryRepository();
 

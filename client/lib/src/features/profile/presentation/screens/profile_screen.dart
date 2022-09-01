@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/auth/presentation/log_in_screen.dart';
+import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
 import 'package:intola/src/features/profile/domain/model/profile_model.dart';
 import 'package:intola/src/features/profile/data/repository/profile_repository.dart';
 import 'package:intola/src/utils/network/api.dart';

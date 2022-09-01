@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/delivery/presentation/delivery_detail_screen.dart';
+import 'package:intola/src/features/delivery/presentation/screen/delivery_detail_screen.dart';
 
 import 'package:intola/src/utils/constant.dart';
 
-import 'buttons/custom_button.dart';
+import '../../../widgets/buttons/custom_button.dart';
 
 class DeliveryCard extends StatefulWidget {
   const DeliveryCard({
