@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/features/home/screens/home_screen.dart';
+import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';

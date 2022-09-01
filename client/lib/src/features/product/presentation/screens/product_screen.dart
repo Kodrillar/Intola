@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_cart_screen.dart';
 import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
+import 'package:intola/src/features/product/presentation/product_app_bar.dart';
+import 'package:intola/src/features/product/presentation/product_details.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_button.dart';
@@ -31,7 +33,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const ProductAppBar(),
       body: ListView(
         children: [
           CachedNetworkImage(
@@ -55,13 +57,11 @@ class _ProductScreenState extends State<ProductScreen> {
               child: Icon(Icons.error, color: Colors.red),
             ),
           ),
-          // _buildProductImage(),
-          // _buildProductDetails(),
           ProductDetails(
-              productDescription: widget.productDescription,
-              productName: widget.productName,
-              productPrice: widget.productPrice),
-          //  _buildProductQuantity(),
+            productDescription: widget.productDescription,
+            productName: widget.productName,
+            productPrice: widget.productPrice,
+          ),
           Container(
             margin: const EdgeInsets.all(16),
             child: Column(
@@ -185,86 +185,6 @@ class _ProductScreenState extends State<ProductScreen> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-}
-
-//abstract reusable widgets to widgets module
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      // actions: [
-      //   IconButton(
-      //     onPressed: () {
-      //       Navigator.pushNamed(context, CartScreen.id);
-      //     },
-      //     icon: Icon(Icons.shopping_cart_outlined),
-      //     color: kDarkBlue,
-      //   )
-      // ],
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Shop",
-        style: kAppBarTextStyle,
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(35);
-}
-
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({
-    Key? key,
-    required this.productDescription,
-    required this.productName,
-    required this.productPrice,
-  }) : super(key: key);
-  final String productName;
-  final String productPrice;
-  final String productDescription;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      height: 250,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                productName,
-                style: kProductNameStyle,
-              ),
-              Text(
-                "\$$productPrice",
-                style: kProductNameStyle,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            productDescription,
-            textAlign: TextAlign.justify,
-            style: kProductDetailStyle,
-          )
-        ],
-      ),
-    );
   }
 }
 

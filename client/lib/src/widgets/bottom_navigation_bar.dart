@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/delivery/presentation/screen/delivery_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
+import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
 import 'package:intola/src/utils/constant.dart';
-import '../features/home/screens/home_screen.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
