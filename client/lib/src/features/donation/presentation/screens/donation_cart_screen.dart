@@ -8,7 +8,7 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
@@ -173,7 +173,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
                   )
                 ],
               ),
-              CustomButton(
+              CustomRoundButton(
                 onTap: () {
                   _handleProductPayment(price: totalPrice);
                 },

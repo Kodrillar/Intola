@@ -7,7 +7,7 @@ import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
@@ -156,7 +156,7 @@ class _DonationShippingInfoScreenState
       child: SizedBox(
         height: 120,
         child: Center(
-          child: CustomButton(
+          child: CustomRoundButton(
             onTap: () {
               if (addressController.text.trim().isEmpty ||
                   cityController.text.trim().isEmpty ||

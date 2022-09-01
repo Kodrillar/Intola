@@ -6,7 +6,7 @@ import 'package:intola/src/features/product/presentation/product_app_bar.dart';
 import 'package:intola/src/features/product/presentation/product_details.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -205,14 +205,14 @@ class ProductButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CustomButton(
+          CustomRoundButton(
             onTap: () {
               addProductToCart();
             },
             buttonName: "Add to cart",
             buttonColor: kDarkBlue,
           ),
-          CustomButton(
+          CustomRoundButton(
             onTap: () {
               addProductToDonationCart();
             },

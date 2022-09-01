@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
   const DeliveryDetailScreen({
@@ -176,7 +176,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomButton(
+            CustomRoundButton(
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   _buildSnackBar(),
@@ -185,7 +185,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               buttonName: "Accept",
               buttonColor: kDarkBlue,
             ),
-            CustomButton(
+            CustomRoundButton(
               onTap: () {
                 Navigator.of(context).pop();
               },

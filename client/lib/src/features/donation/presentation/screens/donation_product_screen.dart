@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_shipping_info_screen.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 class DonationProductScreen extends StatefulWidget {
   const DonationProductScreen({
@@ -51,7 +51,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomButton(
+          CustomRoundButton(
             onTap: () {
               Navigator.push(
                 context,

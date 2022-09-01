@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intola/src/features/auth/presentation/screen/sign_up/sign_up_screen.dart';
 import 'package:intola/src/features/user_onboarding/domain/model/onboarding_screen_model.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 110),
           pageIndex == OnboardingScreenModel.svgPicture.length - 5
-              ? CustomButton(
+              ? CustomRoundButton(
                   onTap: () {
                     goToPage(++pageIndex);
                   },
@@ -88,13 +88,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomButton(
+                    CustomRoundButton(
                       onTap: () {
                         goToPage(--pageIndex);
                       },
                       buttonName: "Previous",
                     ),
-                    CustomButton(
+                    CustomRoundButton(
                       onTap: pageIndex ==
                               OnboardingScreenModel.svgPicture.length - 1
                           ? () {

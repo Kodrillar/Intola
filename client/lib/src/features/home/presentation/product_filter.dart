@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/home/data/repository/home_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class ProductsFilter extends StatefulWidget {
+class ProductsFilter extends ConsumerStatefulWidget {
   const ProductsFilter({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProductsFilter> createState() => _ProductsFilterState();
+  ConsumerState<ProductsFilter> createState() => _ProductsFilterState();
 }
 
-class _ProductsFilterState extends State<ProductsFilter> {
+class _ProductsFilterState extends ConsumerState<ProductsFilter> {
   final List<String> dropdownItems = [
     "Phones and Tablets",
     "Computing",
@@ -20,6 +21,7 @@ class _ProductsFilterState extends State<ProductsFilter> {
   ];
   @override
   Widget build(BuildContext context) {
+    final productCategoryTextValue = ref.read(productCategoryTextProvider);
     return Container(
       margin: const EdgeInsets.only(
         top: 50,
@@ -48,11 +50,9 @@ class _ProductsFilterState extends State<ProductsFilter> {
               )
               .toList(),
           onChanged: (String? newValue) {
-            setState(() {
-              dropdownValueNotifier.value = newValue!;
-            });
+            ref.read(productCategoryTextProvider.notifier).state = newValue!;
           },
-          value: dropdownValueNotifier.value,
+          value: productCategoryTextValue,
         ),
       ),
     );

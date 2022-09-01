@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/app.dart';
 
 Future<void> main() async {
@@ -13,6 +14,8 @@ Future<void> main() async {
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   runApp(
-    const IntolaApp(),
+    const ProviderScope(
+      child: IntolaApp(),
+    ),
   );
 }

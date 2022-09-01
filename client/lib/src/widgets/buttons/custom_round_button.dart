@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({
+class CustomRoundButton extends StatelessWidget {
+  const CustomRoundButton({
     Key? key,
     required this.onTap,
     required this.buttonName,

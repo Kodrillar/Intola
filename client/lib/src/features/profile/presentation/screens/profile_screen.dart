@@ -6,7 +6,7 @@ import 'package:intola/src/features/profile/data/repository/profile_repository.d
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 ProfileRepository _profileRepository = ProfileRepository();
 
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                child: CustomButton(
+                child: CustomRoundButton(
                   onTap: () {
                     alertDialog(
                         context: context,
@@ -108,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Center(
-                child: CustomButton(
+                child: CustomRoundButton(
                   onTap: () {
                     Navigator.pushNamedAndRemoveUntil(
                         context, LoginScreen.id, (route) => false);

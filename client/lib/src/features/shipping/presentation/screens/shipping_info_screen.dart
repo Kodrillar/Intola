@@ -10,7 +10,7 @@ import 'package:flutterwave_standard/flutterwave.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/alert_dialog.dart';
-import '../../../../widgets/buttons/custom_button.dart';
+import '../../../../widgets/buttons/custom_round_button.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
@@ -265,7 +265,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
       child: SizedBox(
         height: 120,
         child: Center(
-          child: CustomButton(
+          child: CustomRoundButton(
             onTap: () {
               if (addressController.text.trim().isEmpty ||
                   cityController.text.trim().isEmpty ||

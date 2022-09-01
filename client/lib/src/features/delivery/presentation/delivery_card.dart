@@ -4,7 +4,7 @@ import 'package:intola/src/features/delivery/presentation/screen/delivery_detail
 
 import 'package:intola/src/utils/constant.dart';
 
-import '../../../widgets/buttons/custom_button.dart';
+import '../../../widgets/buttons/custom_round_button.dart';
 
 class DeliveryCard extends StatefulWidget {
   const DeliveryCard({
@@ -56,7 +56,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
             _buildPrice(),
             _buildWeight(),
             Center(
-              child: CustomButton(
+              child: CustomRoundButton(
                 onTap: () {
                   Navigator.push(
                     context,

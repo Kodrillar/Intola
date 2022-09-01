@@ -6,7 +6,7 @@ import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
-import 'package:intola/src/widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -131,7 +131,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
         child: Center(
           child: processingRequest
               ? const CircularProgressIndicator()
-              : CustomButton(
+              : CustomRoundButton(
                   onTap: () {
                     setState(() {
                       processingRequest = true;

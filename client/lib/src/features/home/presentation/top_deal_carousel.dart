@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/product/domain/model/product_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/presentation/product_carousel_slider.dart';
+import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/error_display.dart';
 
 class TopDealsCarousel extends StatelessWidget {
-  const TopDealsCarousel({Key? key, required this.getProductsData})
-      : super(key: key);
-
-  final Future<List<ProductModel>> Function(String category) getProductsData;
+  const TopDealsCarousel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductModel>>(
-      future: getProductsData("/top"),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var data = snapshot.data;
-          return CustomCarouselSlider.getCarouselSlider(
-            carouselItems: data!,
-          );
-        }
-
-        return const Center(child: CircularProgressIndicator());
+    return Consumer(
+      builder: (context, ref, child) {
+        final productValue =
+            ref.watch(getProductsProvider(endpoints["getProducts"]! + '/top'));
+        return productValue.when(
+          data: (data) => CustomCarouselSlider.getCarouselSlider(
+            carouselItems: data,
+          ),
+          error: (error, stackTrace) => const ErrorDisplayWidget(),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }

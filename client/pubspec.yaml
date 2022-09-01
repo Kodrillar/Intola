@@ -30,6 +30,9 @@ dependencies:
   #utility
   image_picker: ^0.8.5
 
+  
+  flutter_riverpod: ^1.0.4
+
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
