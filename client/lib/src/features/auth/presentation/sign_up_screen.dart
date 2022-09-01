@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/features/auth/presentation/log_in_screen.dart';
 import 'package:intola/src/models/text_field_validation/validation_error_model.dart';
 import 'package:intola/src/features/auth/data/repository/auth_repository.dart';
-import 'package:intola/src/screens/home_screen.dart';
+import 'package:intola/src/features/home/screens/home_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
