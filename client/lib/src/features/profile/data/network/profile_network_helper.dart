@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intola/src/utils/network/api.dart';
 
-class ProfileService {
+class ProfileNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = API.baseUrl;
   Future<dynamic> getUser({required endpoint}) async {

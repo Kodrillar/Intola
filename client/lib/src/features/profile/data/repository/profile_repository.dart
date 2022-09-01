@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:intola/src/models/profile_model.dart';
-import 'package:intola/src/services/profile/profile_service.dart';
+import 'package:intola/src/features/profile/domain/model/profile_model.dart';
+import 'package:intola/src/features/profile/data/network/profile_network_helper.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class ProfileRepository {
-  final ProfileService _profileService = ProfileService();
+  final ProfileNetworkHelper _profileService = ProfileNetworkHelper();
 
   Future<ProfileModel> getUser({required endpoint}) async {
     try {

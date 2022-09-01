@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/auth/presentation/log_in_screen.dart';
-import 'package:intola/src/models/profile_model.dart';
-import 'package:intola/src/repositories/profile/profile_repository.dart';
+import 'package:intola/src/features/profile/domain/model/profile_model.dart';
+import 'package:intola/src/features/profile/data/repository/profile_repository.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
-import '../widgets/alert_dialog.dart';
-import '../widgets/buttons/custom_button.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/buttons/custom_button.dart';
 
 ProfileRepository _profileRepository = ProfileRepository();
 

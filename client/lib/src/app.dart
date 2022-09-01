@@ -5,12 +5,12 @@ import 'package:intola/src/features/delivery/presentation/delivery_screen.dart';
 import 'package:intola/src/features/delivery/presentation/upload_delivery_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_product_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
+import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:intola/src/screens/cart_screen.dart';
 import 'package:intola/src/screens/home_screen.dart';
 import 'package:intola/src/screens/onboarding_screen.dart';
 import 'package:intola/src/screens/purchase_history_screen.dart';
 import 'package:intola/src/screens/shipping_info_screen.dart';
-import 'package:intola/src/screens/profile_screen.dart';
 
 class IntolaApp extends StatelessWidget {
   const IntolaApp({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/presentation/product_card.dart';
-import 'package:intola/src/screens/profile_screen.dart';
+import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/product_filter_options.dart';
