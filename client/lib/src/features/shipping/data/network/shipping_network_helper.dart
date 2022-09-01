@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:intola/src/models/shipping_model.dart';
+import 'package:intola/src/features/shipping/domain/model/shipping_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/utils/network/api.dart';
 
-class ShippingService {
+class ShippingNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
-  final baseUrl = "https://intola.herokuapp.com/api";
+  final baseUrl = API.baseUrl;
 
   Future<dynamic> addShippingAddress({
     required endpoint,
