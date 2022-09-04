@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/home/home_controller.dart';
 import 'package:intola/src/features/home/presentation/home_product_grid.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -13,7 +14,8 @@ class MainProductGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: ((_, ref, child) {
-        final productCategoryTextValue = ref.watch(productCategoryTextProvider);
+        final productCategoryTextValue =
+            ref.watch(homeScreenControllerProvider);
         final endpoint = endpoints["getProducts"]! +
             ProductFilterOptions.categoryFilter(productCategoryTextValue);
         final productValue = ref.watch(getProductsProvider(endpoint));

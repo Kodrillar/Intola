@@ -28,6 +28,3 @@ final getProductsProvider =
     return productRepository.getProducts(endpoint: endpoint);
   },
 );
-
-final productCategoryTextProvider =
-    StateProvider.autoDispose<String>((ref) => "Gaming");

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/product/data/repository/product_repository.dart';
+import 'package:intola/src/features/home/home_controller.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class ProductsFilter extends ConsumerStatefulWidget {
@@ -21,7 +21,7 @@ class _ProductsFilterState extends ConsumerState<ProductsFilter> {
   ];
   @override
   Widget build(BuildContext context) {
-    final productCategoryTextValue = ref.read(productCategoryTextProvider);
+    final productCategoryTextValue = ref.watch(homeScreenControllerProvider);
     return Container(
       margin: const EdgeInsets.only(
         top: 50,
@@ -43,14 +43,16 @@ class _ProductsFilterState extends ConsumerState<ProductsFilter> {
           borderRadius: BorderRadius.circular(10),
           items: dropdownItems
               .map(
-                (item) => DropdownMenuItem(
+                (item) => DropdownMenuItem<String>(
                   value: item,
                   child: Text(item),
                 ),
               )
               .toList(),
-          onChanged: (String? newValue) {
-            ref.read(productCategoryTextProvider.notifier).state = newValue!;
+          onChanged: (newValue) {
+            ref
+                .read(homeScreenControllerProvider.notifier)
+                .changeDropdownMenuItem(newValue!);
           },
           value: productCategoryTextValue,
         ),
