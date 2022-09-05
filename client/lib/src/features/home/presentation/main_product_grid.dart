@@ -17,7 +17,7 @@ class MainProductGrid extends StatelessWidget {
         final productCategoryTextValue =
             ref.watch(homeScreenControllerProvider);
         final endpoint = endpoints["getProducts"]! +
-            ProductFilterOptions.categoryFilter(productCategoryTextValue);
+            ProductFilterOptions.getCategoryFilter(productCategoryTextValue);
         final productValue = ref.watch(getProductsProvider(endpoint));
         return SizedBox(
           height: 450,

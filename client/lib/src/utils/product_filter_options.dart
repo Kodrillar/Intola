@@ -4,7 +4,7 @@ class ProductFilterOptions {
   static const String _gaming = "Gaming";
   // static const String _supermarket = 'Supermarket';
 
-  static String categoryFilter(String filterOption) {
+  static String getCategoryFilter(String filterOption) {
     if (filterOption == _phonesAndTablets) {
       return "/phones_and_tablets";
     } else if (filterOption == _computing) {
