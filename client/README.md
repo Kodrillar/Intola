@@ -1,4 +1,4 @@
-<a href="https://github.com/Kodrillar/Intola/client/actions"><img src="https://github.com/Kodrillar/Intola/client/workflows/intola_unit-tests/badge.svg" alt="Build Status"></a>
+<a href="https://github.com/Kodrillar/Intola/client/actions"><img src="https://github.com/Kodrillar/Intola/client/workflows/intola-unit-tests/badge.svg" alt="Build Status"></a>
 
 # Intola
 
