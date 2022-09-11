@@ -36,26 +36,8 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: const ProductAppBar(),
       body: ListView(
         children: [
-          CachedNetworkImage(
-            imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
-            imageBuilder: (context, imageProvider) => Container(
-              margin: const EdgeInsets.all(16),
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: kDarkOrange.withOpacity(.075),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            errorWidget: (context, url, error) => const Center(
-              child: Icon(Icons.error, color: Colors.red),
-            ),
+          ProductImage(
+            productImage: widget.productImage,
           ),
           ProductDetails(
             productDescription: widget.productDescription,
@@ -185,6 +167,40 @@ class _ProductScreenState extends State<ProductScreen> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+}
+
+class ProductImage extends StatelessWidget {
+  const ProductImage({
+    Key? key,
+    required this.productImage,
+  }) : super(key: key);
+
+  final String productImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: "${API.baseUrl}/uploads/$productImage",
+      imageBuilder: (context, imageProvider) => Container(
+        margin: const EdgeInsets.all(16),
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: kDarkOrange.withOpacity(.075),
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+      errorWidget: (context, url, error) => const Center(
+        child: Icon(Icons.error, color: Colors.red),
+      ),
+    );
   }
 }
 

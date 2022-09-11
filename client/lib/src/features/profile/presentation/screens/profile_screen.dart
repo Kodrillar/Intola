@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
 import 'package:intola/src/features/profile/domain/model/profile_model.dart';
 import 'package:intola/src/features/profile/data/repository/profile_repository.dart';
+import 'package:intola/src/features/profile/presentation/profile_app_bar.dart';
+import 'package:intola/src/features/profile/presentation/profile_bottom_app_bar.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
-import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 ProfileRepository _profileRepository = ProfileRepository();
 
@@ -47,8 +47,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomAppBar(),
+      appBar: const ProfileAppBar(),
+      bottomNavigationBar: const ProfileBottomAppBar(),
       body: FutureBuilder<ProfileModel>(
         future: getUser(),
         builder: (context, snapshot) {
@@ -83,59 +83,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }
           return const Center(child: CircularProgressIndicator());
         },
-      ),
-    );
-  }
-
-  _buildBottomAppBar() {
-    return BottomAppBar(
-      elevation: 0,
-      child: SizedBox(
-          height: 120,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: CustomRoundButton(
-                  onTap: () {
-                    alertDialog(
-                        context: context,
-                        title: "Not available!",
-                        content: "coming soon...");
-                  },
-                  buttonName: "Update",
-                  buttonColor: kDarkBlue,
-                ),
-              ),
-              Center(
-                child: CustomRoundButton(
-                  onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, LoginScreen.id, (route) => false);
-                  },
-                  buttonName: "Log out",
-                  buttonColor: kDarkBlue,
-                ),
-              ),
-            ],
-          )),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Profile",
-        style: kAppBarTextStyle,
       ),
     );
   }
