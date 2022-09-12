@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intola/src/features/auth/presentation/screen/sign_up/sign_up_screen.dart';
 import 'package:intola/src/features/user_onboarding/domain/model/onboarding_screen_model.dart';
@@ -35,17 +36,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        onPageChanged: (newValue) {
-          setState(() {
-            pageIndex = newValue;
-          });
-        },
-        controller: _pageController,
-        itemCount: OnboardingScreenModel.svgPicture.length,
-        itemBuilder: (context, index) => _buildOnboardingScreen(
-          OnboardingScreenModel.svgPicture[index],
-          OnboardingScreenModel.onboardingText[index],
+      backgroundColor: kDarkBlue,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: PageView.builder(
+          onPageChanged: (newValue) {
+            setState(() {
+              pageIndex = newValue;
+            });
+          },
+          controller: _pageController,
+          itemCount: OnboardingScreenModel.svgPicture.length,
+          itemBuilder: (context, index) => _buildOnboardingScreen(
+            OnboardingScreenModel.svgPicture[index],
+            OnboardingScreenModel.onboardingText[index],
+          ),
         ),
       ),
     );
@@ -59,25 +64,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 25,
+            ),
             height: 350,
             child: SvgPicture.asset(
               "assets/onboardingSvg/" + svg,
             ),
           ),
-          const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+          const SizedBox(height: 20),
+          Container(
+            height: 120,
+            //  color: Colors.red,
+            margin: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
               onboardingText,
               style: const TextStyle(
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w800,
                 color: kDarkOrange,
               ),
             ),
           ),
-          const SizedBox(height: 110),
+          const SizedBox(height: 50),
           pageIndex == OnboardingScreenModel.svgPicture.length - 5
               ? CustomRoundButton(
                   onTap: () {

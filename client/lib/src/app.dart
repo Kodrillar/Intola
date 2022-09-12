@@ -28,7 +28,7 @@ class IntolaApp extends StatelessWidget {
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
       ),
-      initialRoute: LoginScreen.id,
+      initialRoute: OnboardingScreen.id,
       routes: {
         OnboardingScreen.id: (context) => const OnboardingScreen(),
         SignUpScreen.id: (context) => const SignUpScreen(),
