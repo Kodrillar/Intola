@@ -177,7 +177,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
                 onTap: () {
                   _handleProductPayment(price: totalPrice);
                 },
-                buttonName: "Pay now",
+                buttonText: "Pay now",
                 buttonColor: kDarkBlue,
               )
             ],

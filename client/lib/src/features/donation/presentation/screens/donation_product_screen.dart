@@ -66,7 +66,7 @@ class _DonationProductScreenState extends State<DonationProductScreen> {
                 ),
               );
             },
-            buttonName: "Checkout",
+            buttonText: "Checkout",
             buttonColor: kDarkBlue,
           ),
         ],

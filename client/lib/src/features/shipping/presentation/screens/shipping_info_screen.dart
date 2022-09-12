@@ -279,7 +279,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                 _handleProductPayment();
               }
             },
-            buttonName: "Pay now",
+            buttonText: "Pay now",
             buttonColor: kDarkBlue,
           ),
         ),

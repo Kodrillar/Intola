@@ -123,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   );
                 },
-                buttonName: "Checkout",
+                buttonText: "Checkout",
                 buttonColor: kDarkBlue,
               )
             ],

@@ -5,13 +5,13 @@ class CustomRoundButton extends StatelessWidget {
   const CustomRoundButton({
     Key? key,
     required this.onTap,
-    required this.buttonName,
+    required this.buttonText,
     this.buttonColor = kDarkOrange,
     this.width = 120,
   }) : super(key: key);
 
   final void Function() onTap;
-  final String buttonName;
+  final String buttonText;
   final double? width;
   final Color? buttonColor;
   @override
@@ -25,7 +25,7 @@ class CustomRoundButton extends StatelessWidget {
           height: 50,
           child: Center(
             child: Text(
-              buttonName,
+              buttonText,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

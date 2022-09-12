@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
 import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
@@ -55,78 +56,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 120),
-              child: Text(
-                "Sign Up",
-                style: kAuthTextStyle,
+      //TODO: create annotated region widget
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: ListView(
+          children: [
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 120),
+                child: Text(
+                  "Sign Up",
+                  style: kAuthTextStyle,
+                ),
               ),
             ),
-          ),
-          CustomTextField(
-            hintText: "fullname",
-            labelText: "fullname",
-            controller: fullnameController,
-            errorText: fullnameErrorText,
-            onChanged: onChanged(fullnameController),
-          ),
-          CustomTextField(
-            hintText: "email",
-            labelText: "email",
-            controller: emailController,
-            errorText: emailErrorText,
-            onChanged: onChanged(emailController),
-          ),
-          CustomTextField(
-            hintText: "password",
-            labelText: "password",
-            controller: passwordController,
-            errorText: passwordErrorText,
-            obscureText: obscureTextField,
-            visibilityIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  obscureTextField = !obscureTextField;
-                });
-              },
-              icon: obscureTextField
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
+            CustomTextField(
+              hintText: "fullname",
+              labelText: "fullname",
+              controller: fullnameController,
+              errorText: fullnameErrorText,
+              onChanged: onChanged(fullnameController),
             ),
-            onChanged: onChanged(passwordController),
-          ),
-          processingRequest
-              ? const Padding(
-                  padding: EdgeInsets.only(bottom: 16.0),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: kDarkOrange,
+            CustomTextField(
+              hintText: "email",
+              labelText: "email",
+              controller: emailController,
+              errorText: emailErrorText,
+              onChanged: onChanged(emailController),
+            ),
+            CustomTextField(
+              hintText: "password",
+              labelText: "password",
+              controller: passwordController,
+              errorText: passwordErrorText,
+              obscureText: obscureTextField,
+              visibilityIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    obscureTextField = !obscureTextField;
+                  });
+                },
+                icon: obscureTextField
+                    ? const Icon(Icons.visibility_off)
+                    : const Icon(Icons.visibility),
+              ),
+              onChanged: onChanged(passwordController),
+            ),
+            processingRequest
+                ? const Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: kDarkOrange,
+                      ),
                     ),
+                  )
+                : AuthButton(
+                    buttonName: "Sign Up",
+                    onTap: () async {
+                      setState(() {
+                        processingRequest = true;
+                      });
+                      textFieldValidationLogic();
+                    },
                   ),
-                )
-              : AuthButton(
-                  buttonName: "Sign Up",
-                  onTap: () async {
-                    setState(() {
-                      processingRequest = true;
-                    });
-                    textFieldValidationLogic();
-                  },
-                ),
-          AuthOptionText(
-            title: "Already have an account?",
-            optionText: "Login",
-            optionTextStyle: kAuthOptionTextStyle.copyWith(
-              color: kDarkOrange,
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, LoginScreen.id);
-            },
-          )
-        ],
+            AuthOptionText(
+              title: "Already have an account?",
+              optionText: "Login",
+              optionTextStyle: kAuthOptionTextStyle.copyWith(
+                color: kDarkOrange,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
+            )
+          ],
+        ),
       ),
     );
   }

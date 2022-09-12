@@ -72,7 +72,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
                     ),
                   );
                 },
-                buttonName: "Take delivery",
+                buttonText: "Take delivery",
                 buttonColor: kDarkBlue,
               ),
             )

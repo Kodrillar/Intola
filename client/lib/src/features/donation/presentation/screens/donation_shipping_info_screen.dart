@@ -210,7 +210,7 @@ class _DonationShippingInfoScreenState
                 );
               }
             },
-            buttonName: "Done",
+            buttonText: "Done",
             buttonColor: kDarkBlue,
           ),
         ),

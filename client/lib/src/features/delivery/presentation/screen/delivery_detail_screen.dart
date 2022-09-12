@@ -182,14 +182,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                   _buildSnackBar(),
                 );
               },
-              buttonName: "Accept",
+              buttonText: "Accept",
               buttonColor: kDarkBlue,
             ),
             CustomRoundButton(
               onTap: () {
                 Navigator.of(context).pop();
               },
-              buttonName: "Cancel",
+              buttonText: "Cancel",
             )
           ],
         ),

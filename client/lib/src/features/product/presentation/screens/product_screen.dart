@@ -225,14 +225,14 @@ class ProductButton extends StatelessWidget {
             onTap: () {
               addProductToCart();
             },
-            buttonName: "Add to cart",
+            buttonText: "Add to cart",
             buttonColor: kDarkBlue,
           ),
           CustomRoundButton(
             onTap: () {
               addProductToDonationCart();
             },
-            buttonName: "Donate",
+            buttonText: "Donate",
           )
         ],
       ),

@@ -24,7 +24,7 @@ class ProfileBottomAppBar extends StatelessWidget {
                       title: "Not available!",
                       content: "coming soon...");
                 },
-                buttonName: "Update",
+                buttonText: "Update",
                 buttonColor: kDarkBlue,
               ),
             ),
@@ -34,7 +34,7 @@ class ProfileBottomAppBar extends StatelessWidget {
                   Navigator.pushNamedAndRemoveUntil(
                       context, LoginScreen.id, (route) => false);
                 },
-                buttonName: "Log out",
+                buttonText: "Log out",
                 buttonColor: kDarkBlue,
               ),
             ),

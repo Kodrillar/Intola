@@ -158,7 +158,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
                       });
                     }
                   },
-                  buttonName: "Upload",
+                  buttonText: "Upload",
                   buttonColor: kDarkBlue,
                 ),
         ),
