@@ -5,7 +5,7 @@ import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/features/user_onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
-class CacheRepository {
+class UserOnboardingRepository {
   Future<Widget> fetchInitialScreen() async {
     await Future.delayed(const Duration(seconds: 1));
     final userIsOnboarded =
@@ -22,11 +22,11 @@ class CacheRepository {
   }
 }
 
-final cacheRepositoryProvider = Provider<CacheRepository>(
-  (ref) => CacheRepository(),
+final userOnboardingRepositoryProvider = Provider<UserOnboardingRepository>(
+  (ref) => UserOnboardingRepository(),
 );
 
 final getInitialScreenProvider = FutureProvider<Widget>((ref) {
-  final cacheRepsitory = ref.watch(cacheRepositoryProvider);
-  return cacheRepsitory.fetchInitialScreen();
+  final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
+  return userOnboardingRepository.fetchInitialScreen();
 });
