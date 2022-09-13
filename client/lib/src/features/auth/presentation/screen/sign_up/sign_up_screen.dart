@@ -11,6 +11,7 @@ import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/features/auth/presentation/auth_button.dart';
 import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
+import 'package:intola/src/widgets/annotated_region.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
 AuthRepository _authRepository = AuthRepository();
@@ -56,9 +57,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //TODO: create annotated region widget
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
+      body: SystemUIOverlayAnnotatedRegion(
+        systemUiOverlayStyle: SystemUiOverlayStyle.dark,
         child: ListView(
           children: [
             const Center(
