@@ -5,6 +5,7 @@ import 'package:intola/src/features/user_onboarding/domain/model/onboarding_scre
 import 'package:intola/src/features/user_onboarding/presentation/onboarding_screen_controller.dart';
 import 'package:intola/src/features/user_onboarding/presentation/onboarding_view.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/widgets/annotated_region.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   OnboardingScreen({Key? key}) : super(key: key);
@@ -32,8 +33,8 @@ class OnboardingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: kDarkBlue,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
+      body: SystemUIOverlayAnnotatedRegion(
+        systemUiOverlayStyle: SystemUiOverlayStyle.light,
         child: PageView.builder(
           onPageChanged: ref
               .read(onboardingScreenControllerProvider.notifier)
