@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/features/auth/data/repository/auth_repository.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -127,7 +126,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 color: kDarkOrange,
               ),
               onTap: () {
-                Navigator.pushNamed(context, LoginScreen.id);
+                Navigator.pushNamed(
+                  context,
+                  RouteName.loginScreen.name,
+                );
               },
             )
           ],
@@ -200,11 +202,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await SecureStorage.storage.write(key: "token", value: userData["token"]);
       await SecureStorage.storage
           .write(key: "userName", value: emailController.text.trim());
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const HomeScreen(),
-        ),
+        RouteName.homeScreen.name,
       );
     } on SocketException {
       setState(() {

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/delivery/presentation/screen/delivery_screen.dart';
-import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
-import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -13,22 +10,22 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
+        children: [
           NavigationButton(
-            routeName: HomeScreen.id,
-            icon: Icon(Icons.home_outlined),
+            routeName: RouteName.homeScreen.name,
+            icon: const Icon(Icons.home_outlined),
           ),
           NavigationButton(
-            routeName: DonationScreen.id,
-            icon: Icon(Icons.clean_hands_outlined),
+            routeName: RouteName.donationScreen.name,
+            icon: const Icon(Icons.clean_hands_outlined),
           ),
           NavigationButton(
-            routeName: DeliveryScreen.id,
-            icon: Icon(Icons.local_shipping_outlined),
+            routeName: RouteName.deliveryScreen.name,
+            icon: const Icon(Icons.local_shipping_outlined),
           ),
           NavigationButton(
-            routeName: PurchaseHistoryScreen.id,
-            icon: Icon(
+            routeName: RouteName.purchaseHistoryScreen.name,
+            icon: const Icon(
               Icons.shopping_cart_checkout_sharp,
             ),
           )

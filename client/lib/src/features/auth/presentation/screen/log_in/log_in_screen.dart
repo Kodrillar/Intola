@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/auth/presentation/screen/sign_up/sign_up_screen.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/features/auth/data/repository/auth_repository.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -113,7 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
               color: kDarkOrange,
             ),
             onTap: () {
-              Navigator.pushNamed(context, SignUpScreen.id);
+              Navigator.pushNamed(
+                context,
+                RouteName.signUpScreen.name,
+              );
             },
           )
         ],
@@ -179,12 +181,10 @@ class _LoginScreenState extends State<LoginScreen> {
         key: "userName",
         value: emailController.text.trim(),
       );
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => const HomeScreen(),
-          ),
-          (route) => false);
+      Navigator.pushNamed(
+        context,
+        RouteName.homeScreen.name,
+      );
     } on SocketException {
       setState(() {
         processingRequest = false;

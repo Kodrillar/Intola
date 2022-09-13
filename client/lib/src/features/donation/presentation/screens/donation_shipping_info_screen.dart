@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
@@ -196,8 +196,8 @@ class _DonationShippingInfoScreenState
                       actions: [
                         IconButton(
                           onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, HomeScreen.id, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                RouteName.homeScreen.name, (route) => false);
                           },
                           icon: const Icon(Icons.done),
                         ),
@@ -206,7 +206,7 @@ class _DonationShippingInfoScreenState
                   },
                 ).whenComplete(
                   () => Navigator.pushNamedAndRemoveUntil(
-                      context, HomeScreen.id, (route) => false),
+                      context, RouteName.homeScreen.name, (route) => false),
                 );
               }
             },

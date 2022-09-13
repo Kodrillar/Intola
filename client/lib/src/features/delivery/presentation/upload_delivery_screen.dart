@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/delivery/data/repository/delivery_repository.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
@@ -151,8 +151,8 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
                       addDelivery().whenComplete(() {
                         if (_imageFile != null) {
                           updateProductImage().whenComplete(
-                            () => Navigator.pushNamedAndRemoveUntil(
-                                context, HomeScreen.id, (route) => false),
+                            () => Navigator.pushNamedAndRemoveUntil(context,
+                                RouteName.homeScreen.name, (route) => false),
                           );
                         } //Later, add a default image if imagePath is null
                       });

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
@@ -32,7 +32,7 @@ class ProfileBottomAppBar extends StatelessWidget {
               child: CustomRoundButton(
                 onTap: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, LoginScreen.id, (route) => false);
+                      context, RouteName.loginScreen.name, (route) => false);
                 },
                 buttonText: "Log out",
                 buttonColor: kDarkBlue,
