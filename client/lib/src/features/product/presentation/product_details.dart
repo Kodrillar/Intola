@@ -16,7 +16,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      height: 250,
+      height: 150,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,6 +36,8 @@ class ProductDetails extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             productDescription,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 4,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
