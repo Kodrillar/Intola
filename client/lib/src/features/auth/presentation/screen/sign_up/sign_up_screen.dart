@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             const Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 120),
+                padding: EdgeInsets.symmetric(vertical: 100),
                 child: Text(
                   "Sign Up",
                   style: kAuthTextStyle,

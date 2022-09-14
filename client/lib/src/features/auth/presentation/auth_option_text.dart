@@ -4,13 +4,13 @@ import 'package:intola/src/utils/constant.dart';
 class AuthOptionText extends StatefulWidget {
   const AuthOptionText({
     Key? key,
-    this.optionTextStyle,
+    required this.optionTextStyle,
     this.onTap,
     required this.title,
     required this.optionText,
   }) : super(key: key);
 
-  final optionTextStyle;
+  final TextStyle optionTextStyle;
   final String title;
   final String optionText;
   final void Function()? onTap;
@@ -22,23 +22,26 @@ class AuthOptionText extends StatefulWidget {
 class _AuthOptionTextState extends State<AuthOptionText> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            widget.title,
-            style: kAuthOptionTextStyle,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Text(
-            widget.optionText,
-            style: widget.optionTextStyle,
-          )
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.title,
+              style: kAuthOptionTextStyle,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              widget.optionText,
+              style: widget.optionTextStyle,
+            )
+          ],
+        ),
       ),
     );
   }

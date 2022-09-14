@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           const Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 120),
+              padding: EdgeInsets.symmetric(vertical: 100),
               child: Text(
                 "Login",
                 style: kAuthTextStyle,

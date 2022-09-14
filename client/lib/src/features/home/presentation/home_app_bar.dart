@@ -13,7 +13,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(30),
         child: Row(
           children: [
             Expanded(
@@ -21,6 +21,8 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   "Hi, $userName",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                   style: kHeadingTextStyle,
                 ),
               ),
@@ -50,5 +52,5 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(140);
+  Size get preferredSize => const Size.fromHeight(110);
 }
