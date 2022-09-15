@@ -47,7 +47,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
       setState(() {
         processingRequest = false;
       });
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
@@ -57,7 +57,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
         processingRequest = false;
       });
 
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",
@@ -72,13 +72,13 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
         imagePath: _imageFile.path,
       );
     } on SocketException {
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
     } catch (ex) {
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",

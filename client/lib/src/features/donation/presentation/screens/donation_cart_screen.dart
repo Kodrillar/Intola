@@ -61,13 +61,13 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
         spotsleft: widget.quantity.toString(),
       );
     } on SocketException {
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
     } catch (_) {
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",

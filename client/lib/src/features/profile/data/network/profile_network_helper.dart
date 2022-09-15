@@ -1,15 +1,19 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
 
 class ProfileNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = API.baseUrl;
-  Future<dynamic> getUser({required endpoint}) async {
+  Future<dynamic> getUser() async {
+    final user = await SecureStorage.storage.read(key: 'userName');
     http.Response response = await http.get(
-      Uri.parse(baseUrl + endpoint),
-      headers: {"Content-Type": "application/json"},
+      Uri.parse(baseUrl + endpoints["getUser"]! + '/$user'),
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
 
     if (response.statusCode == 200) {

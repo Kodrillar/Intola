@@ -35,7 +35,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
         endpoint: endpoints["getPurchase"],
       );
     } on SocketException {
-      alertDialog(
+      showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",

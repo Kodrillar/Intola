@@ -36,9 +36,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProfileScreen(
-                  userEmail: userName,
-                ),
+                builder: (context) => const ProfileScreen(),
               ),
             );
           },
