@@ -22,7 +22,6 @@ class ProfileRepository {
   }
 
   Future<void> signOutUser() async {
-    throw Exception('badd');
     await SecureStorage.storage.delete(key: 'token');
   }
 }
