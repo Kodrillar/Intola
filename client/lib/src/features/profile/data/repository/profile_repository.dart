@@ -11,9 +11,9 @@ class ProfileRepository {
   ProfileRepository({required this.profileNetworkHelper});
   final ProfileNetworkHelper profileNetworkHelper;
 
-  Future<ProfileModel> getUser() async {
+  Future<ProfileModel> fetchUser() async {
     try {
-      var user = await profileNetworkHelper.getUser();
+      var user = await profileNetworkHelper.fetchUserData();
       return ProfileModel.fromJson(user);
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
@@ -35,5 +35,5 @@ final profileRepositoryProvider = Provider.autoDispose<ProfileRepository>(
 final fetchUserProfileProvider =
     FutureProvider.autoDispose<ProfileModel>((ref) {
   final profileRepository = ref.watch(profileRepositoryProvider);
-  return profileRepository.getUser();
+  return profileRepository.fetchUser();
 });

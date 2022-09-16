@@ -7,7 +7,7 @@ import 'package:intola/src/utils/network/api.dart';
 class ProfileNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = API.baseUrl;
-  Future<dynamic> getUser() async {
+  Future<dynamic> fetchUserData() async {
     final user = await SecureStorage.storage.read(key: 'userName');
     http.Response response = await http.get(
       Uri.parse(baseUrl + endpoints["getUser"]! + '/$user'),
