@@ -21,7 +21,7 @@ class OnboardingView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(onboardingScreenControllerProvider.notifier);
+    final controller = ref.watch(onboardingScreenControllerProvider.notifier);
     return Container(
       color: kDarkBlue,
       width: MediaQuery.of(context).size.width,
@@ -51,7 +51,7 @@ class OnboardingView extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 50),
-          state.showNextButton()
+          controller.showNextButton()
               ? CustomRoundButton(
                   onTap: () {
                     goToPage(
@@ -95,8 +95,9 @@ class OnboardingView extends ConsumerWidget {
                                     .goToNextPage(),
                               );
                             },
-                      buttonText:
-                          state.changeButtonText() ? "Get started" : "Next",
+                      buttonText: controller.changeButtonText()
+                          ? "Get started"
+                          : "Next",
                     ),
                   ],
                 ),
