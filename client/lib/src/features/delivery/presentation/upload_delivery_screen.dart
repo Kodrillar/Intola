@@ -22,7 +22,7 @@ class UploadDeliveryScreen extends StatefulWidget {
 }
 
 class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
-  var _imageFile;
+  XFile? _imageFile;
   final ImagePicker _imagePicker = ImagePicker();
 
   bool processingRequest = false;
@@ -69,7 +69,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
     try {
       await _deliveryRepository.updateProductImage(
         endpoint: endpoints["updateDeliveryImage"],
-        imagePath: _imageFile.path,
+        imagePath: _imageFile!.path,
       );
     } on SocketException {
       showAlertDialog(
@@ -216,7 +216,7 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
   ImageProvider _imageProvider() {
     if (_imageFile != null) {
       return FileImage(
-        File(_imageFile.path),
+        File(_imageFile!.path),
       );
     } else {
       return const AssetImage("assets/images/whitebg.png");

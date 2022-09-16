@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/features/delivery/data/repository/delivery_repository.dart';
-import 'package:intola/src/features/delivery/presentation/upload_delivery_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
@@ -110,7 +110,9 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
         color: kDarkBlue,
         icon: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, UploadDeliveryScreen.id);
+          Navigator.of(context).pushNamed(
+            RouteName.uploadDeliveryScreen.name,
+          );
         },
       ),
       actions: const [
