@@ -46,6 +46,8 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key> 
-	<string>Photo Library Access</string>
+	<string>Intola needs photo library access to select images</string>
+	<key>NSCameraUsageDescription</key> 
+	<string>Intola needs to access your camera to capture images</string>
 </dict>
 </plist>
