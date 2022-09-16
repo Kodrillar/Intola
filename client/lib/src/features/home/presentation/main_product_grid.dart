@@ -23,7 +23,9 @@ class MainProductGrid extends StatelessWidget {
           height: 450,
           child: productValue.when(
             data: (data) => HomeProductGrid(data: data),
-            error: (error, stackTrace) => const ErrorDisplayWidget(),
+            error: (error, stackTrace) => ErrorDisplayWidget(
+              errorMessage: error.toString(),
+            ),
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),

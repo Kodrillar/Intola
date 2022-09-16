@@ -18,7 +18,9 @@ class TopDealsCarousel extends StatelessWidget {
           data: (data) => CustomCarouselSlider.getCarouselSlider(
             carouselItems: data,
           ),
-          error: (error, stackTrace) => const ErrorDisplayWidget(),
+          error: (error, stackTrace) => ErrorDisplayWidget(
+            errorMessage: error.toString(),
+          ),
           loading: () => const Center(child: CircularProgressIndicator()),
         );
       },

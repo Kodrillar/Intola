@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/features/delivery/data/repository/delivery_repository.dart';
-import 'package:intola/src/routing/route.dart';
+import 'package:intola/src/features/delivery/presentation/delivery_app_bar.dart';
 import 'package:intola/src/utils/network/api.dart';
-import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/features/delivery/presentation/delivery_card.dart';
+import 'package:intola/src/widgets/error_display.dart';
 
 DeliveryRepository _deliveryRepository = DeliveryRepository();
 
@@ -45,17 +45,21 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: const DeliveryScreenAppBar(),
       bottomNavigationBar: const CustomBottomNavigationBar(),
       body: FutureBuilder<List<DeliveryModel>>(
         future: getDelivery(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return _buildDeliveryCard(snapshot.data!);
+            return DeliveryScreenCards(
+              data: snapshot.data!,
+            );
           }
 
           if (snapshot.hasError) {
-            return _buildErrorWidget();
+            return ErrorDisplayWidget(
+              errorMessage: snapshot.error.toString(),
+            );
           }
           return const Center(
             child: CircularProgressIndicator(),
@@ -64,73 +68,24 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
       ),
     );
   }
+}
 
-  _buildDeliveryCard(List<DeliveryModel> data) {
+class DeliveryScreenCards extends StatelessWidget {
+  const DeliveryScreenCards({Key? key, required this.data}) : super(key: key);
+  final List<DeliveryModel> data;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) => DeliveryCard(
-          email: data[index].email,
-          contact: data[index].contact,
-          deliveryImage: data[index].image,
-          deliveryWeight: data[index].weight,
-          deliveryPrice: data[index].price,
-          description: data[index].description,
-          location: data[index].location),
-    );
-  }
-
-  _buildErrorWidget() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Icon(
-              Icons.error,
-              color: kDarkBlue.withOpacity(.35),
-              size: 100,
-            ),
-            height: 150,
-          ),
-          const Center(
-            child: Text(
-              "Oops! Kindly check your \ninternet connection",
-              style: kAppBarTextStyle,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            RouteName.uploadDeliveryScreen.name,
-          );
-        },
-      ),
-      actions: const [
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Text(
-              "\$0",
-              style: kAppBarTextStyle,
-            ),
-          ),
-        ),
-      ],
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Delivery",
-        style: kAppBarTextStyle,
+        email: data[index].email,
+        contact: data[index].contact,
+        deliveryImage: data[index].image,
+        deliveryWeight: data[index].weight,
+        deliveryPrice: data[index].price,
+        description: data[index].description,
+        location: data[index].location,
       ),
     );
   }

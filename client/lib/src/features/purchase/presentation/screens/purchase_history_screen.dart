@@ -8,6 +8,7 @@ import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
+import 'package:intola/src/widgets/error_display.dart';
 
 PurchaseRepository _purchaseRepository = PurchaseRepository();
 
@@ -66,40 +67,15 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
               return _buildPurchases(data!);
             }
             if (snapshot.hasError) {
-              return _buildErrorWidget();
+              return ErrorDisplayWidget(
+                errorMessage: snapshot.error.toString(),
+              );
             }
             return const Center(
               child: CircularProgressIndicator(),
             );
           },
         ),
-      ),
-    );
-  }
-
-  _buildErrorWidget() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Icon(
-              Icons.error,
-              color: kDarkBlue.withOpacity(.35),
-              size: 100,
-            ),
-            height: 150,
-          ),
-          const Text(
-            "No purchase(s)! ",
-            style: kAppBarTextStyle,
-          ),
-          const SizedBox(height: 5),
-          const Text(
-            "Shop items and track \ndelivery status here.",
-            style: kAppBarTextStyle,
-          ),
-        ],
       ),
     );
   }

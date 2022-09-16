@@ -21,7 +21,9 @@ class ExcitingOfferProductGrid extends StatelessWidget {
             return HomeProductGrid(data: data!);
           }
           if (snapshot.hasError) {
-            return const ErrorDisplayWidget();
+            return ErrorDisplayWidget(
+              errorMessage: snapshot.error.toString(),
+            );
           }
 
           return const Center(

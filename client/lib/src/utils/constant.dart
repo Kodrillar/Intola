@@ -28,6 +28,11 @@ const kAppBarTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+const kErrorTextStyle = TextStyle(
+  color: kDarkBlue,
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+);
 const kProductNameStyle = TextStyle(
   color: kDarkBlue,
   fontSize: 20,

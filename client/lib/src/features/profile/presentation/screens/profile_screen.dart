@@ -4,6 +4,7 @@ import 'package:intola/src/features/profile/data/repository/profile_repository.d
 import 'package:intola/src/features/profile/presentation/profile_app_bar.dart';
 import 'package:intola/src/features/profile/presentation/profile_bottom_app_bar.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/widgets/error_display.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -40,8 +41,9 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
-        //TODO: change error widget
-        error: (error, stackTrace) => ErrorWidget(error),
+        error: (error, stackTrace) => ErrorDisplayWidget(
+          errorMessage: error.toString(),
+        ),
       ),
     );
   }
