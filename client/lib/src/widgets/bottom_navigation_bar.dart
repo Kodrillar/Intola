@@ -53,7 +53,7 @@ class NavigationButton extends StatelessWidget {
         Navigator.pushNamedAndRemoveUntil(
           context,
           routeName,
-          ModalRoute.withName('/'),
+          (route) => false,
         );
       },
       icon: icon,
