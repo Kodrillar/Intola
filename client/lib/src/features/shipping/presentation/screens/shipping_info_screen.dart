@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
 import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -14,7 +15,8 @@ import '../../../../widgets/buttons/custom_round_button.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
-PurchaseRepository _purchaseRepository = PurchaseRepository();
+PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
+    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper());
 
 class ShippingInfoScreen extends StatefulWidget {
   const ShippingInfoScreen({Key? key, this.price, this.image, this.name})

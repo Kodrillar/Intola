@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
+import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
 import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
@@ -10,7 +11,8 @@ import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
-PurchaseRepository _purchaseRepository = PurchaseRepository();
+PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
+    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper());
 DonationRepository _donationRepository = DonationRepository();
 
 class DonationShippingInfoScreen extends StatefulWidget {

@@ -14,9 +14,24 @@ Map<String, String> endpoints = {
   "getPurchase": "/purchase"
 };
 
+class Endpoints {
+  static String get registerUser => "/user/register";
+  static String get loginUser => "/user/auth";
+  static String get fetchUserDetails => "/user/auth";
+  static String get fetchProducts => "/products";
+  static String get fetchDonations => "/donations";
+  static String get updateDonation => "/donations";
+  static String get addDonation => "/donations/donate";
+  static String get addShippingInfo => "/shipping";
+  static String get addDelivery => "/delivery";
+  static String get updateDeliveryImage => "/delivery";
+  static String get fetchDelivery => "/delivery";
+  static String get addPurchase => "/purchase";
+  static String get fetchPurchase => '/purchase';
+}
+
 class API {
-  // String baseUrl = "";
-  static const baseUrl = "https://intola.herokuapp.com/api";
+  static String get baseUrl => "https://intola.herokuapp.com/api";
 
   static Uri getRequestUrl({required String path}) => Uri(
         scheme: "http",

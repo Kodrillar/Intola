@@ -3,16 +3,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/utils/network/api.dart';
 
 class PurchaseHistoryNetworkHelper {
-  // final baseUrl = "http://localhost:3000/api";
-  final baseUrl = "https://intola.herokuapp.com/api";
-  Future<dynamic> getPurchaseHistory({required endpoint}) async {
+  Future<dynamic> fetchPurchaseHistory() async {
     final token = await SecureStorage.storage.read(key: "token");
 
     http.Response response = await http.get(
       Uri.parse(
-        baseUrl + endpoint,
+        API.baseUrl + Endpoints.fetchPurchase,
       ),
       headers: {
         "X-auth-token": "$token",
@@ -27,20 +26,12 @@ class PurchaseHistoryNetworkHelper {
   }
 
   Future<dynamic> addPurchaseHistory({
-    required endpoint,
-    required email,
-    required image,
-    required name,
+    required PurchaseHistoryModel purchaseHistoryModel,
   }) async {
-    PurchaseHistoryModel _purchaseHistoryModel = PurchaseHistoryModel(
-      email: email,
-      image: image,
-      name: name,
-    );
     final token = await SecureStorage.storage.read(key: "token");
     http.Response response = await http.post(
       Uri.parse(
-        baseUrl + endpoint,
+        API.baseUrl + Endpoints.addPurchase,
       ),
       headers: {
         "accept": "applicaton/json; charset=utf-8",
@@ -48,7 +39,7 @@ class PurchaseHistoryNetworkHelper {
         "X-auth-token": "$token",
       },
       body: jsonEncode(
-        _purchaseHistoryModel.toJson(),
+        purchaseHistoryModel.toJson(),
       ),
     );
 
