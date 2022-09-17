@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import '../../../../../mocks.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('Profile Repository', () {
     test('fetchUser() returns ProfileModel', () async {
       final profileRepository = MockProfileRepository();
@@ -17,6 +18,17 @@ void main() {
 
       verify(profileRepository.fetchUser).called(1);
       expect(profileData, kProfileDataReplica);
+    });
+
+    test('signOutUser() deletes userToken', () async {
+      final profileRepository = MockProfileRepository();
+
+      when(profileRepository.signOutUser)
+          .thenAnswer((_) => Future<void>.value());
+
+      await profileRepository.signOutUser();
+
+      verify(profileRepository.signOutUser).called(1);
     });
   });
 }
