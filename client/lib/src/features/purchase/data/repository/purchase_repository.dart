@@ -10,9 +10,6 @@ class PurchaseRepository {
 
   Future<List<PurchaseHistoryModel>> getPurchaseHistory({
     required endpoint,
-    // required email,
-    // required image,
-    // required name,
   }) async {
     try {
       var getPurchaseHistory =
@@ -23,7 +20,6 @@ class PurchaseRepository {
           .toList();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
-
       return jsonDecode(responseBody);
     }
   }

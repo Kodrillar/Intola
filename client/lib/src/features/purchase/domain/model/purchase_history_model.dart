@@ -4,15 +4,16 @@ class PurchaseHistoryModel {
     required this.email,
     required this.image,
     required this.name,
-    this.date,
     this.status,
+    this.date,
   });
-  final id;
+
+  final String? id;
   final String email;
   final String image;
   final String name;
-  final date;
-  final status;
+  final String? date;
+  final String? status;
 
   PurchaseHistoryModel.fromJson(json)
       : id = json["id"],
@@ -24,6 +25,10 @@ class PurchaseHistoryModel {
 
   Map<String, dynamic> toJson() {
     //"date(created_at)", "status" and "id" is set by server
-    return {"email": email, "image": image, "name": name};
+    return {
+      "email": email,
+      "image": image,
+      "name": name,
+    };
   }
 }
