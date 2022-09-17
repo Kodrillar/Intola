@@ -1,5 +1,5 @@
 class ProductModel {
-  ProductModel({
+  const ProductModel({
     this.id,
     required this.name,
     required this.image,

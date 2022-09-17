@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
+import 'package:intola/src/features/profile/domain/model/profile_model.dart';
 
 const kLightColor = Colors.white;
 
@@ -47,4 +49,22 @@ const kProductDetailStyle = TextStyle(
 const kSnackBarTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   fontSize: 12,
+);
+
+const kProductReplica = ProductModel(
+  name: 'name',
+  image: 'image',
+  price: 'price',
+  slashprice: 'slashprice',
+  description: 'description',
+  quantity: 'quantity',
+);
+
+const kProductListReplica = <ProductModel>[
+  kProductReplica,
+];
+
+const kProfileDataReplica = ProfileModel(
+  email: 'email',
+  fullname: 'fullname',
 );

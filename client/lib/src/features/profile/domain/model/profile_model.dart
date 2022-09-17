@@ -1,5 +1,5 @@
 class ProfileModel {
-  ProfileModel({
+  const ProfileModel({
     required this.email,
     required this.fullname,
   });
