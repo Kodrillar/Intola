@@ -9,36 +9,19 @@ class ShippingNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = API.baseUrl;
 
-  Future<dynamic> addShippingAddress({
-    required endpoint,
-    required email,
-    required address,
-    required city,
-    required country,
-    required phone,
-    required zipcode,
-    String? apartmentSuite,
-  }) async {
-    ShippingModel _shippingModel = ShippingModel(
-      email: email,
-      address: address,
-      city: city,
-      country: country,
-      phone: phone,
-      zipcode: zipcode,
-      apartmentSuite: apartmentSuite,
-    );
+  Future<void> addShippingAddress(
+      {required ShippingModel shippingModel}) async {
     final token = SecureStorage.storage.read(key: "token");
     http.Response response = await http.post(
       Uri.parse(
-        baseUrl + endpoint,
+        baseUrl + Endpoints.addShippingInfo,
       ),
       headers: {
         "X-auth-token": "$token",
         "accept": "application/json; charset=utf-8",
       },
       body: jsonEncode(
-        _shippingModel.toJson(),
+        shippingModel.toJson(),
       ),
     );
 
