@@ -9,7 +9,6 @@ import 'package:intola/src/features/donation/presentation/screens/donation_scree
 import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
-import 'package:intola/src/features/shipping/presentation/screens/shipping_info_screen.dart';
 import 'package:intola/src/features/user_onboarding/presentation/screen/onboarding_screen.dart';
 
 enum RouteName {
@@ -20,7 +19,7 @@ enum RouteName {
   donationScreen,
   deliveryScreen,
   cartScreen,
-  shippingInfoScreen,
+  // shippingInfoScreen,
   profileScreen,
   uploadDeliveryScreen,
   donationProductScreen,
@@ -38,7 +37,7 @@ class AppRoute {
     RouteName.donationScreen.name: (context) => const DonationScreen(),
     RouteName.deliveryScreen.name: (context) => const DeliveryScreen(),
     RouteName.cartScreen.name: (context) => const CartScreen(),
-    RouteName.shippingInfoScreen.name: (context) => const ShippingInfoScreen(),
+    //RouteName.shippingInfoScreen.name: (context) => const ShippingInfoScreen(),
     RouteName.profileScreen.name: (context) => const ProfileScreen(),
     RouteName.uploadDeliveryScreen.name: (context) =>
         const UploadDeliveryScreen(),

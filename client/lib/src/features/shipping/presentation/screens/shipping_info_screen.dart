@@ -3,15 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
 import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
+import 'package:intola/src/features/shipping/presentation/shipping_info_app_bar.dart';
+import 'package:intola/src/features/shipping/presentation/shipping_info_bottom_app_bar.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/widgets/snack_bar.dart';
 import 'package:intola/src/widgets/text_field.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/alert_dialog.dart';
-import '../../../../widgets/buttons/custom_round_button.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
@@ -19,14 +21,16 @@ PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
     purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper());
 
 class ShippingInfoScreen extends StatefulWidget {
-  const ShippingInfoScreen({Key? key, this.price, this.image, this.name})
-      : super(key: key);
+  const ShippingInfoScreen({
+    Key? key,
+    required this.price,
+    required this.image,
+    required this.name,
+  }) : super(key: key);
 
-  final price;
-  final image;
-  final name;
-
-  static const id = "/shippingInfo";
+  final double price;
+  final String image;
+  final String name;
 
   @override
   _ShippingInfoScreenState createState() => _ShippingInfoScreenState();
@@ -96,8 +100,9 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomAppBar(),
+      appBar: const ShippingInfoAppBar(),
+      bottomNavigationBar:
+          ShippingInfoBottomAppBar(onTap: validateAndHandlePayment),
       body: ListView(
         children: [
           CustomTextField(
@@ -195,7 +200,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
           _showSnackBar(message: "Transaction Failed!");
         }
       } else {
-        // User cancelled
+        // User cancelled transaction
         debugPrint("Transaction CANCELED BY USER!!!");
         _showSnackBar(message: "Transaction Failed!");
       }
@@ -204,122 +209,23 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
     }
   }
 
-  // _payNow({required BuildContext context}) async {
-  //   try {
-  //     Flutterwave flutterwave = Flutterwave.forUIPayment(
-  //       context: this.context,
-  //       encryptionKey: ENCRYPTION_KEY,
-  //       publicKey: PUBLIC_KEY,
-  //       currency: _currency,
-  //       amount: widget.price.toString(),
-  //       email: userEmail!,
-  //       fullName: "Intola",
-  //       txRef: _refText!,
-  //       isDebugMode: true,
-  //       phoneNumber: "0123456789",
-  //       acceptCardPayment: true,
-  //       acceptUSSDPayment: true,
-  //       acceptAccountPayment: true,
-  //       acceptFrancophoneMobileMoney: false,
-  //       acceptGhanaPayment: false,
-  //       acceptMpesaPayment: false,
-  //       acceptRwandaMoneyPayment: false,
-  //       acceptUgandaPayment: false,
-  //       acceptZambiaPayment: false,
-  //     );
-
-  //     final ChargeResponse response =
-  //         await flutterwave.initializeForUiPayments();
-
-  //     if (response == null) {
-  //       print("Transaction Failed! Try again");
-  //     } else {
-  //       print(response.message);
-  //       print(response.status);
-
-  //       if (response.status == "success") {
-  //         _showSnackBar(
-  //           message: "Transaction sucessful",
-  //           iconData: Icons.verified_rounded,
-  //         );
-
-  //         addPurchaseHistory()
-  //             .then(
-  //           (value) => print("this is value from Future addingpuchase" + value),
-  //         )
-  //             .whenComplete(() {
-  //           Navigator.pushNamedAndRemoveUntil(
-  //               context, HomeScreen.id, (route) => false);
-  //         });
-
-  //         //add to purchase History
-  //       }
-  //     }
-  //   } catch (error) {
-  //     print("this is ERROR =>$error");
-  //     _showSnackBar(message: "Transaction Failed!");
-  //   }
-  // }
-
-  _buildBottomAppBar() {
-    return BottomAppBar(
-      elevation: 0,
-      child: SizedBox(
-        height: 120,
-        child: Center(
-          child: CustomRoundButton(
-            onTap: () {
-              if (addressController.text.trim().isEmpty ||
-                  cityController.text.trim().isEmpty ||
-                  countryController.text.trim().isEmpty ||
-                  phoneController.text.trim().isEmpty ||
-                  zipCodeController.text.trim().isEmpty) {
-                _showSnackBar(
-                  message: "Fields not marked \nas 'optional' can't be empty!",
-                );
-              } else {
-                _handleProductPayment();
-              }
-            },
-            buttonText: "Pay now",
-            buttonColor: kDarkBlue,
-          ),
-        ),
-      ),
-    );
+  void validateAndHandlePayment() {
+    if (addressController.text.trim().isEmpty ||
+        cityController.text.trim().isEmpty ||
+        countryController.text.trim().isEmpty ||
+        phoneController.text.trim().isEmpty ||
+        zipCodeController.text.trim().isEmpty) {
+      _showSnackBar(
+        message: "Fields not marked \nas 'optional' can't be empty!",
+      );
+    } else {
+      _handleProductPayment();
+    }
   }
 
-  //Abstract this to a single widget
   void _showSnackBar({required String message, IconData? iconData}) {
-    var _snackBar = SnackBar(
-      content: Row(
-        children: [
-          Icon(iconData ?? Icons.error, color: kDarkOrange),
-          const SizedBox(width: 5),
-          Text(message, style: kSnackBarTextStyle),
-        ],
-      ),
-      backgroundColor: kDarkBlue,
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Shipping Infomation",
-        style: kAppBarTextStyle,
-      ),
+    ScaffoldMessenger.of(context).showSnackBar(
+      customSnackBar(snackBarMessage: message),
     );
   }
 }

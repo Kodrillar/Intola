@@ -6,8 +6,8 @@ import 'package:intola/src/features/shipping/data/network/shipping_network_helpe
 import 'package:intola/src/features/shipping/domain/model/shipping_model.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
-class ShippingRepository {
-  ShippingRepository({required this.shippingNetworkHelper});
+class ShippingInfoRepository {
+  ShippingInfoRepository({required this.shippingNetworkHelper});
   final ShippingNetworkHelper shippingNetworkHelper;
 
   Future<dynamic> addShippingAddress(
@@ -37,8 +37,9 @@ class ShippingRepository {
   }
 }
 
-final shippingRepositoryProvider = Provider.autoDispose<ShippingRepository>(
-  (ref) => ShippingRepository(shippingNetworkHelper: ShippingNetworkHelper()),
+final shippingRepositoryProvider = Provider.autoDispose<ShippingInfoRepository>(
+  (ref) =>
+      ShippingInfoRepository(shippingNetworkHelper: ShippingNetworkHelper()),
 );
 
 final addShippingAddressProvider =
