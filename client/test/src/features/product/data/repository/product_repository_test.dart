@@ -6,9 +6,8 @@ import 'package:mocktail/mocktail.dart';
 import '../../../../../mocks.dart';
 
 void main() {
-  final productRepository = MockProductRepository();
-
   test('getProducts returns array of ProductModel', () async {
+    final productRepository = MockProductRepository();
     when(() => productRepository.getProducts(endpoint: 'endpoint')).thenAnswer(
       (_) => Future<List<ProductModel>>.value(kProductListReplica),
     );

@@ -3,23 +3,19 @@ import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/data/network/product_network_helper.dart';
 
 class ProductRepository {
-  final ProductNetworkHelper _productService = ProductNetworkHelper();
+  ProductRepository({required this.productNetworkHelper});
+  final ProductNetworkHelper productNetworkHelper;
 
   Future<List<ProductModel>> getProducts({required String endpoint}) async {
-    // try {
-    var products = await _productService.getProducts(endpoint: endpoint);
+    var products = await productNetworkHelper.getProducts(endpoint: endpoint);
 
     return products.map<ProductModel>(ProductModel.fromJson).toList();
-    // } on Response catch (response) {
-    //   var responseBody = RequestResponse.requestResponse(response);
-
-    //   return jsonDecode(responseBody);
-    // }
   }
 }
 
-final productRepositoryProvider =
-    Provider.autoDispose<ProductRepository>((ref) => ProductRepository());
+final productRepositoryProvider = Provider.autoDispose<ProductRepository>(
+  (ref) => ProductRepository(productNetworkHelper: ProductNetworkHelper()),
+);
 
 final getProductsProvider =
     FutureProvider.autoDispose.family<List<ProductModel>, String>(
@@ -28,3 +24,11 @@ final getProductsProvider =
     return productRepository.getProducts(endpoint: endpoint);
   },
 );
+
+ // try {
+
+ // } on Response catch (response) {
+    //   var responseBody = RequestResponse.requestResponse(response);
+
+    //   return jsonDecode(responseBody);
+    // }
