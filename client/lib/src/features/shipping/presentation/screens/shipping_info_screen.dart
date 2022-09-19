@@ -91,6 +91,17 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
   }
 
   @override
+  void dispose() {
+    addressController.dispose();
+    countryController.dispose();
+    cityController.dispose();
+    phoneController.dispose();
+    zipCodeController.dispose();
+    apartmentController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     getUserEmail();
     setRef();
