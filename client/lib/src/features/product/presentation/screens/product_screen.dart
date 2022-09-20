@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/donation/presentation/screens/donation_cart_screen.dart';
+import 'package:intola/src/features/cart/presentation/screen/donation_cart_screen.dart';
 import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
 import 'package:intola/src/features/product/presentation/product_details.dart';

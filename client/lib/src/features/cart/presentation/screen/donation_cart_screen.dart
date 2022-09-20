@@ -10,6 +10,7 @@ import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:intola/src/widgets/snack_bar.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
@@ -256,18 +257,9 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
   }
 
   void _showSnackBar({required String message, IconData? iconData}) {
-    var _snackBar = SnackBar(
-      content: Row(
-        children: [
-          Icon(iconData ?? Icons.error, color: kDarkOrange),
-          const SizedBox(width: 5),
-          Text(message, style: kSnackBarTextStyle),
-        ],
-      ),
-      backgroundColor: kDarkBlue,
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+      snackBarMessage: message,
+    ));
   }
 
   AppBar _buildAppBar() {

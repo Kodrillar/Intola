@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
-import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/features/donation/presentation/donation_screen_app_bar.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/features/donation/presentation/donation_card.dart';
+import 'package:intola/src/widgets/error_display.dart';
 
 DonationRepository _donationRepository = DonationRepository();
 
@@ -44,32 +45,38 @@ class _DonationScreenState extends State<DonationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: const DonationScreenAppBar(),
       bottomNavigationBar: const CustomBottomNavigationBar(),
-      body: RefreshIndicator(
-        onRefresh: getDonations,
-        child: FutureBuilder<List<DonationModel>>(
-          future: getDonations(),
-          builder: (context, snaphsot) {
-            if (snaphsot.hasData) {
-              var data = snaphsot.data;
-              return _buildDonationCard(data!);
-            }
-            if (snaphsot.hasError) {
-              return Center(
-                child: _buildErrorWidget(),
-              );
-            }
+      body: FutureBuilder<List<DonationModel>>(
+        future: getDonations(),
+        builder: (context, snaphsot) {
+          if (snaphsot.hasData) {
+            var data = snaphsot.data;
+            return DonationDisplayCards(data: data!);
+          }
+          if (snaphsot.hasError) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: ErrorDisplayWidget(
+                errorMessage: "Oops! Kindly check your \ninternet connection",
+              ),
             );
-          },
-        ),
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
+}
 
-  _buildDonationCard(List<DonationModel> data) {
+class DonationDisplayCards extends StatelessWidget {
+  const DonationDisplayCards({Key? key, required this.data}) : super(key: key);
+
+  final List<DonationModel> data;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) => DonationCard(
@@ -81,42 +88,6 @@ class _DonationScreenState extends State<DonationScreen> {
         productQuantity: data[index].quantity,
         email: data[index].email,
         spotsleft: data[index].spotsleft,
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Donations",
-        style: kAppBarTextStyle,
-      ),
-    );
-  }
-
-  _buildErrorWidget() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Icon(
-              Icons.error,
-              color: kDarkBlue.withOpacity(.35),
-              size: 100,
-            ),
-            height: 150,
-          ),
-          const Center(
-            child: Text(
-              "Oops! Kindly check your \ninternet connection",
-              style: kAppBarTextStyle,
-            ),
-          )
-        ],
       ),
     );
   }
