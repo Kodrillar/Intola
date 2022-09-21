@@ -5,16 +5,16 @@ import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
-class DonationService {
+class DonationNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
   final baseUrl = API.baseUrl;
 
-  Future<List<dynamic>> getDonations({required endpoint}) async {
+  Future<List<dynamic>> getDonations() async {
     final token = await SecureStorage.storage.read(key: "token");
 
     final http.Response response = await http.get(
       Uri.parse(
-        baseUrl + endpoint,
+        baseUrl + Endpoints.fetchDonations,
       ),
       headers: {"X-auth-token": "$token"},
     );
@@ -27,7 +27,7 @@ class DonationService {
     throw response;
   }
 
-  Future donate(
+  Future donateProduct(
       {required endpoint,
       required email,
       required image,

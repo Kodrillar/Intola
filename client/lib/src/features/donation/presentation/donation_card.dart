@@ -44,8 +44,8 @@ class _DonationCardState extends State<DonationCard> {
           MaterialPageRoute(
             builder: (context) => DonationProductScreen(
               productId: widget.id,
-              image: widget.productImage,
-              name: widget.productName,
+              productImage: widget.productImage,
+              productName: widget.productName,
               price: widget.productPrice,
               description: widget.productDescription,
               spotsleft: widget.spotsleft,

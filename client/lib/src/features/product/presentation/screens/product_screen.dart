@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/cart/presentation/screen/donation_cart_screen.dart';
 import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
-import 'package:intola/src/features/product/presentation/product_details.dart';
-import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/product_details.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
+import 'package:intola/src/widgets/product_image.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -104,7 +103,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ],
             ),
           ),
-          ProductButton(
+          ProductCtaButton(
             addProductToCart: addProductToCart,
             addProductToDonationCart: addProductToDonationCart,
           )
@@ -170,42 +169,8 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 }
 
-class ProductImage extends StatelessWidget {
-  const ProductImage({
-    Key? key,
-    required this.productImage,
-  }) : super(key: key);
-
-  final String productImage;
-
-  @override
-  Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: "${API.baseUrl}/uploads/$productImage",
-      imageBuilder: (context, imageProvider) => Container(
-        margin: const EdgeInsets.all(16),
-        height: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: kDarkOrange.withOpacity(.075),
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-      errorWidget: (context, url, error) => const Center(
-        child: Icon(Icons.error, color: Colors.red),
-      ),
-    );
-  }
-}
-
-class ProductButton extends StatelessWidget {
-  const ProductButton({
+class ProductCtaButton extends StatelessWidget {
+  const ProductCtaButton({
     Key? key,
     required this.addProductToCart,
     required this.addProductToDonationCart,

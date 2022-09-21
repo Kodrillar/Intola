@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
@@ -14,7 +15,8 @@ import 'package:intola/src/widgets/snack_bar.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
-DonationRepository _donationRepository = DonationRepository();
+DonationRepository _donationRepository =
+    DonationRepository(donationNetworkHelper: DonationNetworkHelper());
 
 class DonationCartScreen extends StatefulWidget {
   const DonationCartScreen({
@@ -51,7 +53,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
 
   Future addDonation() async {
     try {
-      await _donationRepository.donate(
+      await _donationRepository.donateProduct(
         endpoint: endpoints["donate"],
         email: userEmail,
         image: widget.image,
