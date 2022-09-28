@@ -176,11 +176,13 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      await SecureStorage.storage.write(key: "token", value: userData["token"]);
-      await SecureStorage.storage.write(
+      await SecureStorage().write(
+          storeObject: StoreObject(key: "token", value: userData["token"]));
+      await SecureStorage().write(
+          storeObject: StoreObject(
         key: "userName",
         value: emailController.text.trim(),
-      );
+      ));
       Navigator.pushNamed(
         context,
         RouteName.homeScreen.name,

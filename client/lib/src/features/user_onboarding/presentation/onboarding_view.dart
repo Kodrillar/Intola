@@ -80,8 +80,11 @@ class OnboardingView extends ConsumerWidget {
                               .read(onboardingScreenControllerProvider.notifier)
                               .navigateToAuthScreen()
                           ? () async {
-                              await SecureStorage.storage.write(
-                                  key: 'userOnboarded', value: 'success');
+                              //TODO: add this to user_onboarding Repository
+                              await SecureStorage().write(
+                                storeObject: StoreObject(
+                                    key: 'userOnboarded', value: 'success'),
+                              );
                               Navigator.pushNamed(
                                 context,
                                 RouteName.signUpScreen.name,

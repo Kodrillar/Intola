@@ -52,6 +52,7 @@ const kSnackBarTextStyle = TextStyle(
 );
 
 const kProductReplica = ProductModel(
+  id: '1',
   name: 'name',
   image: 'image',
   price: 'price',

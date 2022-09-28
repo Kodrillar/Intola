@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class PurchaseHistoryRepository {
@@ -50,7 +51,8 @@ class PurchaseHistoryRepository {
 final purchaseHistoryRepositoryProvider =
     Provider.autoDispose<PurchaseHistoryRepository>(
   (ref) => PurchaseHistoryRepository(
-    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper(),
+    purchaseHistoryNetworkHelper:
+        PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()),
   ),
 );
 

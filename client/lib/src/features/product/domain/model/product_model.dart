@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 class ProductModel {
   const ProductModel({
-    this.id,
+    required this.id,
     required this.name,
     required this.image,
     required this.price,
@@ -8,20 +10,45 @@ class ProductModel {
     required this.description,
     required this.quantity,
   });
-  final id;
+  final String id;
   final String name;
   final String image;
   final String price;
   final String slashprice;
   final String description;
-  final String quantity;
+  //Number of the exact product left
+  final String? quantity;
 
-  ProductModel.fromJson(json)
-      : id = json["id"],
-        name = json["name"],
-        image = json["image"],
-        price = json["price"],
-        slashprice = json["slashprice"],
-        description = json["description"],
-        quantity = json["quantity"];
+  factory ProductModel.fromJson(json) {
+    return ProductModel(
+      id: json["id"],
+      name: json["name"],
+      image: json["image"],
+      price: json["price"],
+      slashprice: json["slashprice"],
+      description: json["description"],
+      quantity: json["quantity"],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'ProductModel(id: $id, name: $name, image: $image, price: $price, slashprice: $slashprice, description: $description, quantity: $quantity)';
+  }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'id': id});
+    result.addAll({'name': name});
+    result.addAll({'image': image});
+    result.addAll({'price': price});
+    result.addAll({'slashprice': slashprice});
+    result.addAll({'description': description});
+    result.addAll({'quantity': quantity});
+
+    return result;
+  }
+
+  String toJson() => jsonEncode(toMap());
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intola/src/features/shipping/data/network/shipping_network_helper.dart';
 import 'package:intola/src/features/shipping/domain/model/shipping_model.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class ShippingInfoRepository {
@@ -38,8 +39,11 @@ class ShippingInfoRepository {
 }
 
 final shippingRepositoryProvider = Provider.autoDispose<ShippingInfoRepository>(
-  (ref) =>
-      ShippingInfoRepository(shippingNetworkHelper: ShippingNetworkHelper()),
+  (ref) => ShippingInfoRepository(
+    shippingNetworkHelper: ShippingNetworkHelper(
+      secureStorage: SecureStorage(),
+    ),
+  ),
 );
 
 final addShippingAddressProvider =

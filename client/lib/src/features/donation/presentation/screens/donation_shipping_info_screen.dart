@@ -12,10 +12,14 @@ import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
+//TODO: Remove this
 PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
-    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper());
-DonationRepository _donationRepository =
-    DonationRepository(donationNetworkHelper: DonationNetworkHelper());
+    purchaseHistoryNetworkHelper:
+        PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()));
+DonationRepository _donationRepository = DonationRepository(
+    donationNetworkHelper: DonationNetworkHelper(
+  secureStorage: SecureStorage(),
+));
 
 class DonationShippingInfoScreen extends StatefulWidget {
   const DonationShippingInfoScreen(
@@ -100,7 +104,7 @@ class _DonationShippingInfoScreenState
   }
 
   void getUserEmail() async {
-    var email = await SecureStorage.storage.read(key: "userName");
+    var email = await SecureStorage().read(key: "userName");
     setState(() {
       userEmail = email;
     });

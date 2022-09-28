@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/data/network/product_network_helper.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class ProductRepository {
   ProductRepository({required this.productNetworkHelper});
@@ -14,7 +15,9 @@ class ProductRepository {
 }
 
 final productRepositoryProvider = Provider.autoDispose<ProductRepository>(
-  (ref) => ProductRepository(productNetworkHelper: ProductNetworkHelper()),
+  (ref) => ProductRepository(
+      productNetworkHelper:
+          ProductNetworkHelper(secureStorage: SecureStorage())),
 );
 
 final getProductsProvider =

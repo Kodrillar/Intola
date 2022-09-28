@@ -22,6 +22,7 @@ class HomeProductGrid extends StatelessWidget {
           crossAxisSpacing: 0.0,
         ),
         itemBuilder: (context, index) => ProductCard(
+          productId: data[index].id,
           productName: data[index].name,
           productImage: data[index].image,
           productDescription: data[index].description,

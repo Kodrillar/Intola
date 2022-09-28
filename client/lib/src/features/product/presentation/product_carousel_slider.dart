@@ -26,6 +26,7 @@ class CustomCarouselSlider {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProductScreen(
+                          productId: product.id,
                           productImage: product.image,
                           productDescription: product.description,
                           productName: product.name,

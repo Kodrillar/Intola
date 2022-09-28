@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 class ProductCard extends StatefulWidget {
   const ProductCard({
     Key? key,
+    required this.productId,
     required this.productName,
     required this.productImage,
     required this.productDescription,
@@ -14,6 +15,7 @@ class ProductCard extends StatefulWidget {
     required this.productSlashprice,
   }) : super(key: key);
 
+  final String productId;
   final String productName;
   final String productImage;
   final String productSlashprice;
@@ -33,6 +35,7 @@ class _ProductCardState extends State<ProductCard> {
           context,
           MaterialPageRoute(
             builder: (context) => ProductScreen(
+              productId: widget.productId,
               productImage: widget.productImage,
               productName: widget.productName,
               productDescription: widget.productDescription,

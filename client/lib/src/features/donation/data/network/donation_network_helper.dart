@@ -7,10 +7,11 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class DonationNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
+  DonationNetworkHelper({required this.secureStorage});
   final baseUrl = API.baseUrl;
-
+  final SecureStorage secureStorage;
   Future<List<dynamic>> getDonations() async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     final http.Response response = await http.get(
       Uri.parse(
@@ -36,7 +37,7 @@ class DonationNetworkHelper {
       required name,
       required quantity,
       required spotsleft}) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     DonationModel _donationModel = DonationModel(
       email: email,
@@ -74,7 +75,7 @@ class DonationNetworkHelper {
       required id,
       required email,
       required spotsleft}) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.put(
       Uri.parse(baseUrl + endpoint),

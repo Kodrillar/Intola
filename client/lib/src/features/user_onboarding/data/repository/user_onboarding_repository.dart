@@ -6,10 +6,12 @@ import 'package:intola/src/features/user_onboarding/presentation/screen/onboardi
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class UserOnboardingRepository {
+  UserOnboardingRepository({required this.secureStorage});
+  final SecureStorage secureStorage;
+
   Future<Widget> fetchInitialScreen() async {
-    final userIsOnboarded =
-        await SecureStorage.storage.read(key: 'userOnboarded');
-    final userLoggedIn = await SecureStorage.storage.read(key: 'token');
+    final userIsOnboarded = await secureStorage.read(key: 'userOnboarded');
+    final userLoggedIn = await secureStorage.read(key: 'token');
 
     if (userIsOnboarded == null) {
       return OnboardingScreen();
@@ -23,7 +25,7 @@ class UserOnboardingRepository {
 
 final userOnboardingRepositoryProvider =
     Provider.autoDispose<UserOnboardingRepository>(
-  (ref) => UserOnboardingRepository(),
+  (ref) => UserOnboardingRepository(secureStorage: SecureStorage()),
 );
 
 final getInitialScreenProvider = FutureProvider.autoDispose<Widget>((ref) {

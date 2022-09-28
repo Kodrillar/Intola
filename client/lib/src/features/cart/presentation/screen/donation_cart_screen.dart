@@ -15,8 +15,10 @@ import 'package:intola/src/widgets/snack_bar.dart';
 
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
-DonationRepository _donationRepository =
-    DonationRepository(donationNetworkHelper: DonationNetworkHelper());
+DonationRepository _donationRepository = DonationRepository(
+    donationNetworkHelper: DonationNetworkHelper(
+  secureStorage: SecureStorage(),
+));
 
 class DonationCartScreen extends StatefulWidget {
   const DonationCartScreen({
@@ -45,7 +47,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
   String? userEmail;
 
   void getUserEmail() async {
-    var email = await SecureStorage.storage.read(key: "userName");
+    var email = await SecureStorage().read(key: "userName");
     setState(() {
       userEmail = email;
     });

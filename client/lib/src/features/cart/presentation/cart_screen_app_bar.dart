@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class ProductAppBar extends StatelessWidget with PreferredSizeWidget {
-  const ProductAppBar({Key? key}) : super(key: key);
+class CartScreenAppBar extends StatelessWidget with PreferredSizeWidget {
+  const CartScreenAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +14,10 @@ class ProductAppBar extends StatelessWidget with PreferredSizeWidget {
           Navigator.pop(context);
         },
       ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            //shopping cart not implemented
-            Navigator.pushNamed(
-              context,
-              RouteName.cartScreen.name,
-            );
-          },
-          icon: const Icon(Icons.shopping_cart_outlined),
-          color: kDarkBlue,
-        )
-      ],
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: const Text(
-        "Shop",
+        "Cart",
         style: kAppBarTextStyle,
       ),
     );

@@ -18,7 +18,8 @@ import '../../../../widgets/alert_dialog.dart';
 const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
 
 PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
-    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper());
+    purchaseHistoryNetworkHelper:
+        PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()));
 
 class ShippingInfoScreen extends StatefulWidget {
   const ShippingInfoScreen({
@@ -71,7 +72,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
   }
 
   void getUserEmail() async {
-    var email = await SecureStorage.storage.read(key: "userName");
+    var email = await SecureStorage().read(key: "userName");
     setState(() {
       userEmail = email;
     });

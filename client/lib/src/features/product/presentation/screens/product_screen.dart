@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
 import 'package:intola/src/features/cart/presentation/screen/donation_cart_screen.dart';
-import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
 import 'package:intola/src/widgets/product_details.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/product_image.dart';
 
-class ProductScreen extends StatefulWidget {
+class ProductScreen extends ConsumerStatefulWidget {
   const ProductScreen({
     Key? key,
+    required this.productId,
     required this.productImage,
     required this.productName,
     required this.productPrice,
@@ -20,14 +23,13 @@ class ProductScreen extends StatefulWidget {
   final String productPrice;
   final String productName;
   final String productDescription;
-
-  static const id = "/productScreen";
+  final String productId;
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductScreenState extends ConsumerState<ProductScreen> {
   int productQuantity = 1;
   @override
   Widget build(BuildContext context) {
@@ -114,19 +116,18 @@ class _ProductScreenState extends State<ProductScreen> {
 
   void addProductToCart() {
     _showSnackBar();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return CartScreen(
-            image: widget.productImage,
-            quantity: productQuantity,
-            price: widget.productPrice,
+    ref.read(cartRepositoryProvider).addToCart(
+          product: ProductModel(
+            id: widget.productId,
             name: widget.productName,
-          );
-        },
-      ),
-    );
+            image: widget.productImage,
+            price: widget.productPrice,
+            slashprice: '',
+            description: widget.productDescription,
+            quantity: '',
+          ),
+          productQuantity: productQuantity,
+        );
   }
 
   void addProductToDonationCart() {

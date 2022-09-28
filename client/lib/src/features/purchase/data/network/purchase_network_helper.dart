@@ -6,8 +6,10 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
 
 class PurchaseHistoryNetworkHelper {
+  PurchaseHistoryNetworkHelper({required this.secureStorage});
+  final SecureStorage secureStorage;
   Future<dynamic> fetchPurchaseHistory() async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.get(
       Uri.parse(
@@ -28,7 +30,7 @@ class PurchaseHistoryNetworkHelper {
   Future<dynamic> addPurchaseHistory({
     required PurchaseHistoryModel purchaseHistoryModel,
   }) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
     http.Response response = await http.post(
       Uri.parse(
         API.baseUrl + Endpoints.addPurchase,

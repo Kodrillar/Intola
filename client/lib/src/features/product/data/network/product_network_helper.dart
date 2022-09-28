@@ -5,9 +5,11 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class ProductNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
+  ProductNetworkHelper({required this.secureStorage});
+  SecureStorage secureStorage;
   final baseUrl = "https://intola.herokuapp.com/api";
   Future<List<dynamic>> getProducts({required endpoint}) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.get(
       Uri.parse(baseUrl + endpoint),

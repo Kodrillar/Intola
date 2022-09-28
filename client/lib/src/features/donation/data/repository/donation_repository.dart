@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class DonationRepository {
@@ -65,7 +66,10 @@ class DonationRepository {
 }
 
 final donationRepositoryProvider = Provider.autoDispose<DonationRepository>(
-  (ref) => DonationRepository(donationNetworkHelper: DonationNetworkHelper()),
+  (ref) => DonationRepository(
+    donationNetworkHelper:
+        DonationNetworkHelper(secureStorage: SecureStorage()),
+  ),
 );
 
 final getDonationsProvider = FutureProvider.autoDispose((ref) {

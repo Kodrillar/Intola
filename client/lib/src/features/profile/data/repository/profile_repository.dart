@@ -8,8 +8,10 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class ProfileRepository {
-  ProfileRepository({required this.profileNetworkHelper});
+  ProfileRepository(
+      {required this.profileNetworkHelper, required this.secureStorage});
   final ProfileNetworkHelper profileNetworkHelper;
+  final SecureStorage secureStorage;
 
   Future<ProfileModel> fetchUser() async {
     try {
@@ -22,14 +24,15 @@ class ProfileRepository {
   }
 
   Future<void> signOutUser() async {
-    await SecureStorage.storage.delete(key: 'token');
+    await secureStorage.delete(key: 'token');
   }
 }
 
 final profileRepositoryProvider = Provider.autoDispose<ProfileRepository>(
   (ref) => ProfileRepository(
-    profileNetworkHelper: ProfileNetworkHelper(),
-  ),
+      profileNetworkHelper:
+          ProfileNetworkHelper(secureStorage: SecureStorage()),
+      secureStorage: SecureStorage()),
 );
 
 final fetchUserProfileProvider =

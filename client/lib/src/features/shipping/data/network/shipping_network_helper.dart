@@ -7,11 +7,13 @@ import 'package:intola/src/utils/network/api.dart';
 
 class ShippingNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
+  ShippingNetworkHelper({required this.secureStorage});
   final baseUrl = API.baseUrl;
+  final SecureStorage secureStorage;
 
   Future<void> addShippingAddress(
       {required ShippingModel shippingModel}) async {
-    final token = SecureStorage.storage.read(key: "token");
+    final token = secureStorage.read(key: "token");
     http.Response response = await http.post(
       Uri.parse(
         baseUrl + Endpoints.addShippingInfo,

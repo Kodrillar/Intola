@@ -7,10 +7,12 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class DeliveryNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
+  DeliveryNetworkHelper({required this.secureStorage});
   final baseUrl = "https://intola.herokuapp.com/api";
+  final SecureStorage secureStorage;
 
   Future<List<dynamic>> getDelivery({required endpoint}) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.get(
       Uri.parse(
@@ -40,7 +42,7 @@ class DeliveryNetworkHelper {
       location: location,
       contact: contact,
     );
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.post(
       Uri.parse(
@@ -63,7 +65,7 @@ class DeliveryNetworkHelper {
   }
 
   Future updateProductImage({required endpoint, required imagePath}) async {
-    final token = await SecureStorage.storage.read(key: "token");
+    final token = await secureStorage.read(key: "token");
 
     http.MultipartRequest request = http.MultipartRequest(
       "PATCH",
