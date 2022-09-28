@@ -26,13 +26,13 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
       deliveryData = await _deliveryRepository.getDelivery(
           endpoint: endpoints["getDelivery"]);
     } on SocketException {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
     } catch (ex) {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",

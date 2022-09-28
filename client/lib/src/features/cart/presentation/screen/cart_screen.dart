@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
@@ -7,6 +6,7 @@ import 'package:intola/src/features/cart/presentation/cart_screen_app_bar.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/shipping/presentation/screens/shipping_info_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 import '../../../../utils/constant.dart';
@@ -55,39 +55,15 @@ class CartProductBar extends ConsumerWidget {
   final int productQuantity;
   final ProductModel productModel;
 
-  Future<bool> confirmDialog(context) async {
-    return await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        title: Text(
-          'Are you sure you want to remove this product?',
-          style: kAppBarTextStyle.copyWith(fontSize: 15),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, false);
-            },
-            child: const Text('no'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, true);
-            },
-            child: const Text('yes'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Dismissible(
       confirmDismiss: (direction) {
-        Future<bool> shouldDelete = confirmDialog(context);
-        return shouldDelete;
+        return CustomAlertDialog.showConfirmationAlertDialog(
+          context: context,
+          title: 'Remove from cart!',
+          content: 'Are you sure you want to remove this product?',
+        );
       },
       background: const Center(
         child: Text('swipe to remove...'),

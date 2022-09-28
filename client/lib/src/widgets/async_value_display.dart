@@ -5,7 +5,7 @@ import 'package:intola/src/widgets/alert_dialog.dart';
 extension AsyncValueDisplayX on AsyncValue {
   showErrorAlertDialog(BuildContext context) {
     if (!isRefreshing && hasError) {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: 'Error',
         content: error.toString(),

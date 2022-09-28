@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         processingRequest = false;
       });
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         processingRequest = false;
       });
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Internal Error",
         content: "Server Error, try again!",

@@ -30,7 +30,7 @@ class ProfileBottomAppBar extends ConsumerWidget {
                   Center(
                     child: CustomRoundButton(
                       onTap: () {
-                        showAlertDialog(
+                        CustomAlertDialog.showAlertDialog(
                           context: context,
                           title: "Not available!",
                           content: "coming soon...",

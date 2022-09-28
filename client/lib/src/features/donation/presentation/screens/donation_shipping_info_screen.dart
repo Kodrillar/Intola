@@ -65,13 +65,13 @@ class _DonationShippingInfoScreenState
         name: widget.name,
       );
     } on SocketException {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
     } catch (_) {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",
@@ -89,13 +89,13 @@ class _DonationShippingInfoScreenState
         spotsleft: productSpotsleft,
       );
     } on SocketException {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
     } catch (_) {
-      showAlertDialog(
+      CustomAlertDialog.showAlertDialog(
         context: context,
         title: "Oops! something went wrong.",
         content: "Contact support team",
