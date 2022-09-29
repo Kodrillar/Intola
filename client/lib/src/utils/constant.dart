@@ -15,7 +15,7 @@ const kAuthTextStyle = TextStyle(
 );
 const kAuthOptionTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
-  color: kDarkColor,
+  color: kDarkBlue,
 );
 
 const kHeadingTextStyle = TextStyle(

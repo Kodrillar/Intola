@@ -69,10 +69,11 @@ class CartProductBar extends ConsumerWidget {
         title: 'Remove from cart!',
         content: 'Are you sure you want to remove this product?',
       ),
-      background: const Center(
+      background: Center(
         child: Text(
           'swipe to remove...',
-          style: kAuthOptionTextStyle,
+          style:
+              kAuthOptionTextStyle.copyWith(color: kDarkBlue.withOpacity(.6)),
         ),
       ),
       key: UniqueKey(),
