@@ -94,7 +94,8 @@ class CartRepository {
   Future<void> deleteCartItem(String productId) async {
     final Map<String, ProductItem>? cachedCartData = await fetchCart();
 
-    cachedCartData!.remove(productId);
+    if (cachedCartData == null) return;
+    cachedCartData.remove(productId);
 
     if (cachedCartData.isEmpty) {
       await secureStorage.delete(key: 'cart');

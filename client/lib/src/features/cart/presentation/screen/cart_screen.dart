@@ -16,7 +16,6 @@ class CartScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fetchCart = ref.watch(fetchCartProvider);
-
     return Scaffold(
       appBar: const CartScreenAppBar(),
       bottomNavigationBar: fetchCart.asData?.value == null
@@ -24,8 +23,11 @@ class CartScreen extends ConsumerWidget {
           : const CartScreenBottomAppBar(),
       body: fetchCart.when(
         data: (data) => data == null
-            ? const Center(
-                child: Text('cart is empty'),
+            ? Center(
+                child: Text(
+                  'cart is empty!',
+                  style: kAppBarTextStyle.copyWith(color: kDarkOrange),
+                ),
               )
             : ListView.builder(
                 itemCount: data.values.length,
@@ -38,12 +40,15 @@ class CartScreen extends ConsumerWidget {
           child: Text(error.toString()),
         ),
         loading: () => const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         ),
       ),
     );
   }
 }
+
+/// Implement a stream-based cart system and controller
+///  to handle immediate state changes
 
 class CartProductBar extends ConsumerWidget {
   const CartProductBar({
@@ -58,21 +63,21 @@ class CartProductBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Dismissible(
-      confirmDismiss: (direction) {
-        return CustomAlertDialog.showConfirmationAlertDialog(
-          context: context,
-          title: 'Remove from cart!',
-          content: 'Are you sure you want to remove this product?',
-        );
-      },
+      confirmDismiss: (direction) =>
+          CustomAlertDialog.showConfirmationAlertDialog(
+        context: context,
+        title: 'Remove from cart!',
+        content: 'Are you sure you want to remove this product?',
+      ),
       background: const Center(
-        child: Text('swipe to remove...'),
+        child: Text(
+          'swipe to remove...',
+          style: kAuthOptionTextStyle,
+        ),
       ),
       key: UniqueKey(),
       onDismissed: (direction) =>
-          ref.read(cartRepositoryProvider).deleteCartItem(
-                productModel.id,
-              ),
+          ref.read(cartRepositoryProvider).deleteCartItem(productModel.id),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         height: 120,
