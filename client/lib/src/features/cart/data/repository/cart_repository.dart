@@ -128,7 +128,6 @@ class CartRepository {
   }
 
   Future<double?> getTotalPrice() async {
-    await Future.delayed(const Duration(seconds: 2));
     final Map<String, ProductItem>? cachedCartData = await fetchCart();
 
     if (cachedCartData != null) {
@@ -136,7 +135,7 @@ class CartRepository {
       for (var entry in cachedCartData.entries) {
         cartTotalPrice += entry.value.productPrice;
       }
-      print(cartTotalPrice.roundToDouble());
+
       return cartTotalPrice.roundToDouble();
     }
 
