@@ -24,6 +24,7 @@ class ProfileRepository {
   }
 
   Future<void> signOutUser() async {
+    await secureStorage.delete(key: 'cart');
     await secureStorage.delete(key: 'token');
   }
 }
