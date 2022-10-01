@@ -135,7 +135,6 @@ class CartRepository {
       for (var entry in cachedCartData.entries) {
         cartTotalPrice += entry.value.productPrice;
       }
-
       return cartTotalPrice.roundToDouble();
     }
 

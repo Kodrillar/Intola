@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -12,6 +12,15 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pushNamed(context, RouteName.profileScreen.name);
+        },
+        icon: const Icon(
+          Icons.account_circle,
+          color: kDarkBlue,
+        ),
+      ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(30),
         child: Row(
@@ -33,15 +42,10 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfileScreen(),
-              ),
-            );
+            Navigator.pushNamed(context, RouteName.cartScreen.name);
           },
           icon: const Icon(
-            Icons.account_circle,
+            Icons.shopping_cart_outlined,
             color: kDarkBlue,
           ),
         ),

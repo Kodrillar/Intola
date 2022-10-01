@@ -8,6 +8,7 @@ import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/shipping/presentation/screens/shipping_info_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
 import '../../../../utils/constant.dart';
@@ -17,6 +18,10 @@ class CartScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fetchCart = ref.watch(fetchCartProvider);
+    ref.listen<AsyncValue>(
+      cartScreenControllerProvider,
+      (previouseState, newState) => newState.showErrorAlertDialog(context),
+    );
     return Scaffold(
       appBar: const CartScreenAppBar(),
       bottomNavigationBar: fetchCart.asData?.value == null
@@ -168,25 +173,6 @@ class CartScreenBottomAppBar extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text(
-              //       "Total",
-              //       style: kProductNameStyle,
-              //     ),
-              //     TextButton(
-              //       onPressed: () {},
-              //       child: Text(
-              //         'Get total', // "\$${totalPrice.floor()}",
-              //         style: kProductNameStyle.copyWith(
-              //           color: kDarkOrange,
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // ),
-
               state.isLoading
                   ? const CircularProgressIndicator.adaptive()
                   : CustomRoundButton(
