@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
 import 'package:intola/src/features/cart/presentation/cart_screen_app_bar.dart';
+import 'package:intola/src/features/cart/presentation/cart_screen_controller.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/shipping/presentation/screens/shipping_info_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -72,8 +73,9 @@ class CartProductBar extends ConsumerWidget {
       background: Center(
         child: Text(
           'swipe to remove...',
-          style:
-              kAuthOptionTextStyle.copyWith(color: kDarkBlue.withOpacity(.6)),
+          style: kAuthOptionTextStyle.copyWith(
+            color: kDarkBlue.withOpacity(.6),
+          ),
         ),
       ),
       key: UniqueKey(),
@@ -151,11 +153,12 @@ class CartProductBar extends ConsumerWidget {
   }
 }
 
-class CartScreenBottomAppBar extends StatelessWidget {
+class CartScreenBottomAppBar extends ConsumerWidget {
   const CartScreenBottomAppBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(cartScreenControllerProvider);
     return BottomAppBar(
       elevation: 10,
       child: SizedBox(
@@ -165,40 +168,60 @@ class CartScreenBottomAppBar extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Total",
-                    style: kProductNameStyle,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Get total', // "\$${totalPrice.floor()}",
-                      style: kProductNameStyle.copyWith(
-                        color: kDarkOrange,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              CustomRoundButton(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ShippingInfoScreen(
-                        image: 'image',
-                        price: 4.3, //totalPrice,
-                        name: 'name',
-                      ),
-                    ),
-                  );
-                },
-                buttonText: "Checkout",
-                buttonColor: kDarkBlue,
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text(
+              //       "Total",
+              //       style: kProductNameStyle,
+              //     ),
+              //     TextButton(
+              //       onPressed: () {},
+              //       child: Text(
+              //         'Get total', // "\$${totalPrice.floor()}",
+              //         style: kProductNameStyle.copyWith(
+              //           color: kDarkOrange,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
+
+              state.isLoading
+                  ? const CircularProgressIndicator.adaptive()
+                  : CustomRoundButton(
+                      onTap: () async {
+                        final totalPrice = await ref
+                            .read(cartScreenControllerProvider.notifier)
+                            .getCartTotalPrice();
+
+                        if (totalPrice == null) return;
+
+                        final checkout =
+                            await CustomAlertDialog.showConfirmationAlertDialog(
+                          context: context,
+                          title: 'Total',
+                          content: 'You\'re about to pay \$$totalPrice',
+                          falseConfirmationWidget: const Text('cancel'),
+                          truthyConfirmationWidget: const Text('proceed'),
+                        );
+
+                        if (checkout) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShippingInfoScreen(
+                                image: 'image',
+                                price: totalPrice, //totalPrice,
+                                name: 'name',
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      buttonText: "Checkout",
+                      buttonColor: kDarkBlue,
+                    )
             ],
           ),
         ),

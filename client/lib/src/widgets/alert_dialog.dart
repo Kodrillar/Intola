@@ -39,11 +39,12 @@ class CustomAlertDialog {
     );
   }
 
-  static Future<bool> showConfirmationAlertDialog({
-    required BuildContext context,
-    required String title,
-    required String content,
-  }) async {
+  static Future<bool> showConfirmationAlertDialog(
+      {required BuildContext context,
+      required String title,
+      required String content,
+      Widget? falseConfirmationWidget,
+      Widget? truthyConfirmationWidget}) async {
     return await showDialog(
       barrierDismissible: false,
       context: context,
@@ -64,13 +65,13 @@ class CustomAlertDialog {
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
-                  child: const Text('no'),
+                  child: falseConfirmationWidget ?? const Text('no'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, true);
                   },
-                  child: const Text('yes'),
+                  child: truthyConfirmationWidget ?? const Text('yes'),
                 ),
               ],
             )
@@ -90,13 +91,13 @@ class CustomAlertDialog {
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
-                  child: const Text('no'),
+                  child: falseConfirmationWidget ?? const Text('no'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, true);
                   },
-                  child: const Text('yes'),
+                  child: truthyConfirmationWidget ?? const Text('yes'),
                 ),
               ],
             ),

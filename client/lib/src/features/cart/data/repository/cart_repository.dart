@@ -127,7 +127,21 @@ class CartRepository {
     return null;
   }
 
-  void getTotalPrice() {}
+  Future<double?> getTotalPrice() async {
+    await Future.delayed(const Duration(seconds: 2));
+    final Map<String, ProductItem>? cachedCartData = await fetchCart();
+
+    if (cachedCartData != null) {
+      double cartTotalPrice = 0;
+      for (var entry in cachedCartData.entries) {
+        cartTotalPrice += entry.value.productPrice;
+      }
+      print(cartTotalPrice.roundToDouble());
+      return cartTotalPrice.roundToDouble();
+    }
+
+    return null;
+  }
 }
 
 final cartRepositoryProvider = Provider.autoDispose<CartRepository>(

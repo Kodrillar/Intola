@@ -182,7 +182,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
         publicKey: publicKey,
         currency: "USD",
         txRef: _refText!,
-        amount: widget.price.toString(),
+        amount: '2333',
         customer: customer,
         paymentOptions: "ussd, card, barter, payattitude",
         customization: Customization(title: "Test Payment"),
@@ -190,7 +190,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
         redirectUrl: 'https://github.com/Kodrillar',
       );
 
-      final ChargeResponse response = await flutterwave.charge();
+      final ChargeResponse? response = await flutterwave.charge();
       if (response != null) {
         if (response.success!) {
           debugPrint("Transaction succeeded!!!");
