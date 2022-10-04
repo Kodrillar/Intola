@@ -28,6 +28,8 @@ final getProductsProvider =
   },
 );
 
+final cartProductQuantityProvider = StateProvider.autoDispose<int>((ref) => 10);
+
  // try {
 
  // } on Response catch (response) {

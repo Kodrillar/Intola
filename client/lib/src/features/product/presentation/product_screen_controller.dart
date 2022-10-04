@@ -1,19 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 
-class ProductScreenController extends StateNotifier<int> {
-  ProductScreenController() : super(10);
+class ProductScreenController extends StateNotifier<AsyncValue> {
+  ProductScreenController({required this.cartRepository})
+      : super(const AsyncData(null));
 
-  void incrementCartProductQuantity() {
-    state++;
-  }
+  final CartRepository cartRepository;
 
-  void decreaseCartProductQuantity() {
-    if (state > 1) {
-      state--;
-    }
+  Future<void> addProductToCart(
+      {required ProductModel product, required cartProductQuantity}) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => cartRepository.addToCart(
+          product: product,
+          cartProductQuantity: cartProductQuantity,
+        ));
   }
 }
 
 final productScreenControllerProvider =
-    StateNotifierProvider.autoDispose<ProductScreenController, int>(
-        (ref) => ProductScreenController());
+    StateNotifierProvider.autoDispose<ProductScreenController, AsyncValue>(
+  (ref) => ProductScreenController(
+      cartRepository: ref.watch(cartRepositoryProvider)),
+);

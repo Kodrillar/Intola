@@ -12,7 +12,7 @@ class CartRepository {
 
   Future<void> addToCart({
     required ProductModel product,
-    required int productQuantity,
+    required int cartProductQuantity,
   }) async {
     final Map<String, ProductItem>? cachedCartData = await fetchCart();
 
@@ -23,7 +23,7 @@ class CartRepository {
         _updateCartProduct(
           cachedCartData: cachedCartData,
           productId: product.id,
-          productQuantity: productQuantity,
+          productQuantity: cartProductQuantity,
         );
         return;
       }
@@ -31,14 +31,14 @@ class CartRepository {
       _addProductToCart(
         cachedCartData: cachedCartData,
         product: product,
-        productQuantity: productQuantity,
+        productQuantity: cartProductQuantity,
       );
       return;
     }
 
     _createCartWithProduct(
       product: product,
-      productQuantity: productQuantity,
+      productQuantity: cartProductQuantity,
     );
   }
 
@@ -48,7 +48,7 @@ class CartRepository {
 
     shoppingCart[product.id] = ProductItem(
       productModel: product,
-      productQuantity: productQuantity,
+      cartProductQuantity: productQuantity,
     );
 
     await secureStorage.write(
@@ -67,7 +67,7 @@ class CartRepository {
     cachedCartData.addAll({
       product.id: ProductItem(
         productModel: product,
-        productQuantity: productQuantity,
+        cartProductQuantity: productQuantity,
       )
     });
 
@@ -82,7 +82,7 @@ class CartRepository {
     required int productQuantity,
   }) async {
     ProductItem productItem = cachedCartData[productId]!;
-    productItem.productQuantity += productQuantity;
+    productItem.cartProductQuantity += productQuantity;
     await secureStorage.write(
       storeObject: StoreObject(
         key: 'cart',

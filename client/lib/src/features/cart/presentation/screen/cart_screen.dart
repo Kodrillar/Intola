@@ -39,7 +39,8 @@ class CartScreen extends ConsumerWidget {
                 itemCount: data.values.length,
                 itemBuilder: (context, index) => CartProductBar(
                   productModel: data.values.toList()[index].productModel,
-                  productQuantity: data.values.toList()[index].productQuantity,
+                  productQuantity:
+                      data.values.toList()[index].cartProductQuantity,
                 ),
               ),
         error: (error, stackTrace) => Center(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
 import 'package:intola/src/features/product/presentation/product_screen_controller.dart';
@@ -7,6 +8,7 @@ import 'package:intola/src/widgets/product_details.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/product_image.dart';
+import 'package:intola/src/widgets/snack_bar.dart';
 
 class ProductScreen extends ConsumerWidget {
   const ProductScreen({required this.product, Key? key}) : super(key: key);
@@ -15,7 +17,33 @@ class ProductScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartProductQuantity = ref.watch(productScreenControllerProvider);
+    final cartProductQuantity = ref.watch(cartProductQuantityProvider);
+    final controller = ref.watch(productScreenControllerProvider);
+
+    _showSnackBar([String? additionalMessage]) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackBar(
+          snackBarMessage:
+              "${product.name} added to ${additionalMessage ?? ''} cart!",
+          iconData: Icons.shopping_cart_outlined,
+        ),
+      );
+    }
+
+    void _addProductToCart() {
+      _showSnackBar();
+      ref.read(productScreenControllerProvider.notifier).addProductToCart(
+            product: product,
+            cartProductQuantity: cartProductQuantity,
+          );
+    }
+
+    void Function() _addProductToDonationCart() {
+      return () {
+        _showSnackBar("Donation");
+      };
+    }
+
     return Scaffold(
       appBar: const ProductAppBar(),
       body: ListView(
@@ -48,10 +76,12 @@ class ProductScreen extends ConsumerWidget {
                           Container(
                             child: IconButton(
                               onPressed: () {
-                                ref
-                                    .read(productScreenControllerProvider
-                                        .notifier)
-                                    .decreaseCartProductQuantity();
+                                if (cartProductQuantity > 1) {
+                                  ref
+                                      .read(
+                                          cartProductQuantityProvider.notifier)
+                                      .state--;
+                                }
                               },
                               icon: const Icon(Icons.remove),
                               color: kLightColor,
@@ -68,9 +98,8 @@ class ProductScreen extends ConsumerWidget {
                             child: IconButton(
                               onPressed: () {
                                 ref
-                                    .read(productScreenControllerProvider
-                                        .notifier)
-                                    .incrementCartProductQuantity();
+                                    .read(cartProductQuantityProvider.notifier)
+                                    .state++;
                               },
                               icon: const Icon(Icons.add),
                               color: kLightColor,
@@ -89,72 +118,12 @@ class ProductScreen extends ConsumerWidget {
             ),
           ),
           ProductCtaButton(
-            addProductToCart:
-                addProductToCart(cartProductQuantity: cartProductQuantity),
-            addProductToDonationCart: addProductToDonationCart(context),
+            addProductToCart: _addProductToCart,
+            addProductToDonationCart: _addProductToDonationCart(),
           )
         ],
       ),
     );
-  }
-
-  void Function() addProductToCart({required int cartProductQuantity}) {
-    return () {
-      // _showSnackBar();
-      // ref.read(cartRepositoryProvider).addToCart(
-      //       product: ProductModel(
-      //         id: productId,
-      //         name: productName,
-      //         image: productImage,
-      //         price: productPrice,
-      //         slashprice: '',
-      //         description: productDescription,
-      //         quantity: '',
-      //       ),
-      //       productQuantity: productQuantity,
-      //     );
-    };
-  }
-
-  void Function() addProductToDonationCart(BuildContext context) {
-    return () {
-      _showSnackBar(context, "Donation");
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) {
-      //       return DonationCartScreen(
-      //         image: widget.productImage,
-      //         quantity: ,
-      //         price: widget.productPrice,
-      //         name: widget.productName,
-      //         description: widget.productDescription,
-      //       );
-      //     },
-      //   ),
-      // );
-    };
-  }
-
-  _showSnackBar(BuildContext context, [String? additionalMessage]) {
-    SnackBar snackBar = SnackBar(
-      backgroundColor: kDarkBlue,
-      content: Row(
-        children: [
-          const Icon(
-            Icons.add_shopping_cart_sharp,
-            color: kDarkOrange,
-          ),
-          const SizedBox(width: 5),
-          Text(
-            "${product.name} added to ${additionalMessage ?? ''} cart!",
-            style: kSnackBarTextStyle,
-          ),
-        ],
-      ),
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 

@@ -237,7 +237,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
 
   void _showSnackBar({required String message, IconData? iconData}) {
     ScaffoldMessenger.of(context).showSnackBar(
-      customSnackBar(snackBarMessage: message),
+      CustomSnackBar(snackBarMessage: message),
     );
   }
 }
