@@ -9,6 +9,8 @@ import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/product_image.dart';
 
+final productQuantityProvider = StateProvider.autoDispose<int>((ref) => 1);
+
 class ProductScreen extends ConsumerStatefulWidget {
   const ProductScreen({
     Key? key,
@@ -30,9 +32,9 @@ class ProductScreen extends ConsumerStatefulWidget {
 }
 
 class _ProductScreenState extends ConsumerState<ProductScreen> {
-  int productQuantity = 1;
   @override
   Widget build(BuildContext context) {
+    final productQuan = ref.watch(productQuantityProvider);
     return Scaffold(
       appBar: const ProductAppBar(),
       body: ListView(
@@ -57,7 +59,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '$productQuantity',
+                        '$productQuan',
                         style: kAppBarTextStyle.copyWith(color: kDarkOrange),
                       ),
                       Row(
@@ -65,11 +67,11 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                           Container(
                             child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  if (productQuantity > 1) {
-                                    productQuantity--;
-                                  }
-                                });
+                                // setState(() {
+                                //   if (productQuantity > 1) {
+                                //     productQuantity--;
+                                //   }
+                                // });
                               },
                               icon: const Icon(Icons.remove),
                               color: kLightColor,
@@ -85,9 +87,9 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                           Container(
                             child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  productQuantity++;
-                                });
+                                ref
+                                    .read(productQuantityProvider.notifier)
+                                    .state = 4;
                               },
                               icon: const Icon(Icons.add),
                               color: kLightColor,
@@ -106,7 +108,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
             ),
           ),
           ProductCtaButton(
-            addProductToCart: addProductToCart,
+            addProductToCart: addProductToCart(productQuantity: productQuan),
             addProductToDonationCart: addProductToDonationCart,
           )
         ],
@@ -114,20 +116,22 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
     );
   }
 
-  void addProductToCart() {
-    _showSnackBar();
-    ref.read(cartRepositoryProvider).addToCart(
-          product: ProductModel(
-            id: widget.productId,
-            name: widget.productName,
-            image: widget.productImage,
-            price: widget.productPrice,
-            slashprice: '',
-            description: widget.productDescription,
-            quantity: '',
-          ),
-          productQuantity: productQuantity,
-        );
+  void Function() addProductToCart({required int productQuantity}) {
+    return () {
+      _showSnackBar();
+      ref.read(cartRepositoryProvider).addToCart(
+            product: ProductModel(
+              id: widget.productId,
+              name: widget.productName,
+              image: widget.productImage,
+              price: widget.productPrice,
+              slashprice: '',
+              description: widget.productDescription,
+              quantity: '',
+            ),
+            productQuantity: productQuantity,
+          );
+    };
   }
 
   void addProductToDonationCart() {
@@ -138,7 +142,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
         builder: (context) {
           return DonationCartScreen(
             image: widget.productImage,
-            quantity: productQuantity,
+            quantity: productQuantityProvider,
             price: widget.productPrice,
             name: widget.productName,
             description: widget.productDescription,

@@ -9,8 +9,12 @@ class CartScreenController extends StateNotifier<AsyncValue<double?>> {
 
   Future<double?> getCartTotalPrice() async {
     state = const AsyncLoading<double?>();
-    state = await AsyncValue.guard(() => cartRepository.getTotalPrice());
-    return state.value;
+    final result = await AsyncValue.guard(() => cartRepository.getTotalPrice());
+    if (mounted) {
+      state = result;
+      return state.value;
+    }
+    return null;
   }
 }
 
