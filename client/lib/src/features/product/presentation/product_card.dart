@@ -1,32 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/screens/product_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class ProductCard extends StatefulWidget {
-  const ProductCard({
-    Key? key,
-    required this.productId,
-    required this.productName,
-    required this.productImage,
-    required this.productDescription,
-    required this.productPrice,
-    required this.productSlashprice,
-  }) : super(key: key);
+class ProductCard extends StatelessWidget {
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
-  final String productId;
-  final String productName;
-  final String productImage;
-  final String productSlashprice;
-  final String productPrice;
-  final String productDescription;
-
-  @override
-  _ProductCardState createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -34,13 +16,7 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductScreen(
-              productId: widget.productId,
-              productImage: widget.productImage,
-              productName: widget.productName,
-              productDescription: widget.productDescription,
-              productPrice: widget.productPrice,
-            ),
+            builder: (context) => ProductScreen(product: product),
           ),
         );
       },
@@ -52,7 +28,7 @@ class _ProductCardState extends State<ProductCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CachedNetworkImage(
-              imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
+              imageUrl: "${API.baseUrl}/uploads/${product.image}",
               imageBuilder: (context, imageProvider) => Container(
                 height: 115,
                 decoration: BoxDecoration(
@@ -71,7 +47,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             const SizedBox(height: 10),
             Text(
-              widget.productName,
+              product.name,
               style: const TextStyle(
                 fontSize: 20,
                 color: kDarkBlue,
@@ -83,7 +59,7 @@ class _ProductCardState extends State<ProductCard> {
               children: [
                 //Slash price
                 Text(
-                  "\$${widget.productSlashprice}",
+                  "\$${product.slashprice}",
                   style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.grey,
@@ -91,7 +67,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 //Price
                 Text(
-                  "\$${widget.productPrice}",
+                  "\$${product.price}",
                   style: const TextStyle(
                     color: kDarkBlue,
                     fontSize: 17,
