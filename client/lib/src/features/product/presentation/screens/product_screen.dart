@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/cart/presentation/screen/donation_cart_screen.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
@@ -47,6 +48,16 @@ class ProductScreen extends ConsumerWidget {
     void Function() _addProductToDonationCart() {
       return () {
         _showSnackBar("Donation");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DonationCartScreen(
+              image: product.image,
+              price: product.price,
+              quantity: cartProductQuantity,
+            ),
+          ),
+        );
       };
     }
 
@@ -63,6 +74,7 @@ class ProductScreen extends ConsumerWidget {
             productPrice: product.price,
           ),
           Container(
+            height: 120,
             margin: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,9 +85,14 @@ class ProductScreen extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '$cartProductQuantity',
-                        style: kAppBarTextStyle.copyWith(color: kDarkOrange),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          '$cartProductQuantity',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: kAppBarTextStyle.copyWith(color: kDarkOrange),
+                        ),
                       ),
                       Row(
                         children: [
