@@ -11,10 +11,13 @@ class ProductScreenController extends StateNotifier<AsyncValue> {
   Future<void> addProductToCart(
       {required ProductModel product, required cartProductQuantity}) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => cartRepository.addToCart(
+    final asyncValue = await AsyncValue.guard(() => cartRepository.addToCart(
           product: product,
           cartProductQuantity: cartProductQuantity,
         ));
+    if (mounted) {
+      state = asyncValue;
+    }
   }
 }
 

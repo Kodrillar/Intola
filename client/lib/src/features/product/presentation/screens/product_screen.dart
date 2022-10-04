@@ -4,6 +4,7 @@ import 'package:intola/src/features/product/data/repository/product_repository.d
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
 import 'package:intola/src/features/product/presentation/product_screen_controller.dart';
+import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/product_details.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
@@ -18,7 +19,12 @@ class ProductScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartProductQuantity = ref.watch(cartProductQuantityProvider);
-    final controller = ref.watch(productScreenControllerProvider);
+    // final controller = ref.watch(productScreenControllerProvider);
+
+    ref.listen<AsyncValue>(productScreenControllerProvider,
+        (previousState, newState) {
+      newState.showErrorAlertDialog(context);
+    });
 
     _showSnackBar([String? additionalMessage]) {
       ScaffoldMessenger.of(context).showSnackBar(
