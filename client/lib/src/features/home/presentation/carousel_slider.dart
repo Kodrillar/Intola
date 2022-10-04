@@ -6,8 +6,14 @@ import 'package:intola/src/features/product/presentation/screens/product_screen.
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class CustomCarouselSlider {
-  static getCarouselSlider({required List<ProductModel> carouselItems}) {
+class CustomCarouselSlider extends StatelessWidget {
+  const CustomCarouselSlider({Key? key, required this.carouselItems})
+      : super(key: key);
+
+  final List<ProductModel> carouselItems;
+
+  @override
+  Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
         height: 180,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
-import 'package:intola/src/features/product/presentation/product_carousel_slider.dart';
+import 'package:intola/src/features/home/presentation/carousel_slider.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
@@ -15,7 +15,7 @@ class TopDealsCarousel extends StatelessWidget {
         final productValue =
             ref.watch(getProductsProvider(endpoints["getProducts"]! + '/top'));
         return productValue.when(
-          data: (data) => CustomCarouselSlider.getCarouselSlider(
+          data: (data) => CustomCarouselSlider(
             carouselItems: data,
           ),
           error: (error, stackTrace) => ErrorDisplayWidget(
