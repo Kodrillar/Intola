@@ -261,9 +261,9 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
   }
 
   void _showSnackBar({required String message, IconData? iconData}) {
-    ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-      snackBarMessage: message,
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(snackBarMessage: message),
+    );
   }
 
   AppBar _buildAppBar() {
