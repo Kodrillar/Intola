@@ -8,8 +8,9 @@ const {jsonwebtoken} = require("../utils/webToken")
 
 router.post("/", asyncErrorHandler(async(req, res)=>{
     
-    if(!req.body.email || !req.body.password) return res.status(400).send("Request body can't be empty");
+    
     const {email, password} = req.body;
+    if(!email || !password) return res.status(400).send("Request body can't be empty");
 
     const findUserQuery = "SELECT * FROM users_by_email WHERE email=?";
     let user = await(await client).execute(findUserQuery, [email]);

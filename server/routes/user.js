@@ -7,6 +7,7 @@ const asyncErrorHandler = require("../middleware/asyncErrorHandler")
 router.post("/", asyncErrorHandler( async (req, res)=>{
 
     const {email, fullname, password} = req.body;
+    if(!email || !password || !fullname) return res.status(400).send("Request body can't be empty");
 
     const findUserQuery = "SELECT email FROM users_by_email WHERE email= ?";
     let user = await (await client).execute(findUserQuery, [email]); 
