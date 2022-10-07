@@ -20,7 +20,7 @@ router.post('/', auth , asyncErrorHandler(async(req, res)=>{
     if(!req.body.products) return res.status(400).send('request.body.products is required');
     const {products} = req.body;
     
-    const addPurchaseQuery = "INSERT INTO purchases_by_user(email, id, created_at, products) VALUES(?, uuid(),toTimestamp(now()), ? )";
+    const addPurchaseQuery = "INSERT INTO purchases_by_user(email, id, created_at, products) VALUES(?, now(),toTimestamp(now()), ? )";
     await(await client).execute(addPurchaseQuery, [email, products], { prepare: true });
 
     res.json({"msg":"success"});
