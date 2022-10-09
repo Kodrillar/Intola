@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
@@ -28,7 +29,7 @@ class PurchaseHistoryNetworkHelper {
   }
 
   Future<dynamic> addPurchaseHistory({
-    required PurchaseHistoryModel purchaseHistoryModel,
+    required List<ProductModel> products,
   }) async {
     final token = await secureStorage.read(key: "token");
     http.Response response = await http.post(
@@ -41,7 +42,7 @@ class PurchaseHistoryNetworkHelper {
         "X-auth-token": "$token",
       },
       body: jsonEncode(
-        purchaseHistoryModel.toJson(),
+        PurchaseHistoryModel.generateJsonPurchaseList(products),
       ),
     );
 

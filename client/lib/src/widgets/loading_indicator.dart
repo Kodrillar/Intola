@@ -8,12 +8,19 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SystemUIOverlayAnnotatedRegion(
+    return const SystemUIOverlayAnnotatedRegion(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
-      child: Container(
-        color: kDarkBlue,
-        child: const Center(
-          child: CircularProgressIndicator(),
+      child: Scaffold(
+        backgroundColor: kDarkBlue,
+        body: Center(
+          child: Text(
+            'please wait...',
+            style: TextStyle(
+              color: kDarkOrange,
+              fontWeight: FontWeight.w800,
+              fontSize: 25,
+            ),
+          ),
         ),
       ),
     );

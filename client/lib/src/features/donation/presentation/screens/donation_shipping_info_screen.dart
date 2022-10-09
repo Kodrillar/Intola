@@ -14,6 +14,7 @@ import 'package:intola/src/widgets/text_field.dart';
 
 //TODO: Remove this
 PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
+    secureStorage: SecureStorage(),
     purchaseHistoryNetworkHelper:
         PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()));
 DonationRepository _donationRepository = DonationRepository(
@@ -58,12 +59,7 @@ class _DonationShippingInfoScreenState
 
   Future addPurchaseHistory() async {
     try {
-      await _purchaseRepository.addPurchaseHistory(
-        endpoint: endpoints["addPurchase"],
-        email: userEmail,
-        image: widget.image,
-        name: widget.name,
-      );
+      await _purchaseRepository.addPurchaseHistory(products: []);
     } on SocketException {
       CustomAlertDialog.showAlertDialog(
         context: context,

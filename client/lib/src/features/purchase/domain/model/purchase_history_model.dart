@@ -1,7 +1,8 @@
+import '../../../product/domain/model/product_model.dart';
+
 class PurchaseHistoryModel {
   PurchaseHistoryModel({
     this.id,
-    required this.email,
     required this.image,
     required this.name,
     this.status,
@@ -9,26 +10,39 @@ class PurchaseHistoryModel {
   });
 
   final String? id;
-  final String email;
   final String image;
   final String name;
   final String? date;
   final String? status;
 
   PurchaseHistoryModel.fromJson(json)
-      : id = json["id"],
-        email = json["email"],
-        image = json["image"],
-        name = json["name"],
-        date = json["created_at"],
-        status = json["status"];
+      : id = json['id'],
+        date = json["date"],
+        image = json['image'],
+        name = json['name'],
+        status = json['status'];
 
-  Map<String, dynamic> toJson() {
-    //"date(created_at)", "status" and "id" is set by server
+  static Map<String, dynamic> generateJsonPurchaseList(
+      List<ProductModel> products) {
+    // "date(created_at)", and "id" is set by server
+
+    // initial status of  purchase delivery is set to 'pending '
+    // and updated in server on delivery
+
+    final List<Map> productPurchases = [];
+
+    for (var product in products) {
+      productPurchases.add(
+        {
+          'name': product.name,
+          'image': product.image,
+          'status': 'pending',
+        },
+      );
+    }
+
     return {
-      "email": email,
-      "image": image,
-      "name": name,
+      "products": productPurchases,
     };
   }
 }

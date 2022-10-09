@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/cart/presentation/screen/donation_cart_screen.dart';
+import 'package:intola/src/features/donation/presentation/screens/donation_payment_screen.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/product_app_bar.dart';
@@ -27,11 +27,10 @@ class ProductScreen extends ConsumerWidget {
       newState.showErrorAlertDialog(context);
     });
 
-    _showSnackBar([String? additionalMessage]) {
+    _showSnackBar() {
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackBar(
-          snackBarMessage:
-              "${product.name} added to ${additionalMessage ?? ''} cart!",
+          snackBarMessage: "${product.name} added to cart!",
           iconData: Icons.shopping_cart_outlined,
         ),
       );
@@ -45,20 +44,16 @@ class ProductScreen extends ConsumerWidget {
           );
     }
 
-    void Function() _addProductToDonationCart() {
-      return () {
-        _showSnackBar("Donation");
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DonationCartScreen(
-              image: product.image,
-              price: product.price,
-              quantity: cartProductQuantity,
-            ),
+    void _donateProduct() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DonationPaymentScreen(
+            product: product,
+            productQuantity: cartProductQuantity,
           ),
-        );
-      };
+        ),
+      );
     }
 
     return Scaffold(
@@ -142,7 +137,7 @@ class ProductScreen extends ConsumerWidget {
           ),
           ProductCtaButton(
             addProductToCart: _addProductToCart,
-            addProductToDonationCart: _addProductToDonationCart(),
+            addProductToDonationCart: _donateProduct,
           )
         ],
       ),

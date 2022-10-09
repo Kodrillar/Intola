@@ -197,11 +197,7 @@ class CartScreenBottomAppBar extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ShippingInfoScreen(
-                                image: 'image',
-                                price: totalPrice, //totalPrice,
-                                name: 'name',
-                              ),
+                              builder: (context) => const ShippingInfoScreen(),
                             ),
                           );
                         }

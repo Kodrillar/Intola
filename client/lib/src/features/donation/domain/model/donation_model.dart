@@ -10,7 +10,7 @@ class DonationModel {
     required this.spotsleft,
   });
 
-  final id;
+  final String? id;
   final String email;
   final String image;
   final String price;

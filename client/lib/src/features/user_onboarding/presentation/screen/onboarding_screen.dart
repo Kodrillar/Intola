@@ -11,15 +11,13 @@ class OnboardingScreen extends ConsumerWidget {
   OnboardingScreen({Key? key}) : super(key: key);
   final PageController _pageController = PageController();
 
-  static const id = "/onboardingScreen";
-
-  final Duration _duration = const Duration(milliseconds: 200);
+  final Duration _duration = const Duration(milliseconds: 400);
 
   void goToPage(int pageIndex) {
     _pageController.animateToPage(
       pageIndex,
       duration: _duration,
-      curve: Curves.easeIn,
+      curve: Curves.linearToEaseOut,
     );
 
     // void changePageColor() {

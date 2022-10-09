@@ -21,9 +21,8 @@ class PurchaseHistoryScreen extends ConsumerWidget {
         error: (error, stackTrace) => ErrorDisplayWidget(
           errorMessage: error.toString(),
         ),
-        loading: () => const Center(
-          child: RefreshProgressIndicator(),
-        ),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
       ),
     );
   }

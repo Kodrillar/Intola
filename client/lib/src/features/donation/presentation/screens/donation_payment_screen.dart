@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
@@ -20,29 +21,21 @@ DonationRepository _donationRepository = DonationRepository(
   secureStorage: SecureStorage(),
 ));
 
-class DonationCartScreen extends StatefulWidget {
-  const DonationCartScreen({
+class DonationPaymentScreen extends StatefulWidget {
+  const DonationPaymentScreen({
+    required this.product,
+    required this.productQuantity,
     Key? key,
-    this.image,
-    this.price,
-    this.quantity,
-    this.name,
-    this.description,
   }) : super(key: key);
 
-  final image;
-  final price;
-  final quantity;
-  final name;
-  final description;
-
-  static const id = "/cartScreen";
+  final ProductModel product;
+  final int productQuantity;
 
   @override
-  _DonationCartScreenState createState() => _DonationCartScreenState();
+  _DonationPaymentScreenState createState() => _DonationPaymentScreenState();
 }
 
-class _DonationCartScreenState extends State<DonationCartScreen> {
+class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
   String? _refText;
   String? userEmail;
 
@@ -58,12 +51,12 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
       await _donationRepository.donateProduct(
         endpoint: endpoints["donate"],
         email: userEmail,
-        image: widget.image,
-        price: widget.price,
-        description: widget.description,
-        name: widget.name,
-        quantity: widget.quantity.toString(),
-        spotsleft: widget.quantity.toString(),
+        image: widget.product.image,
+        price: widget.product.price,
+        description: widget.product.description,
+        name: widget.product.name,
+        quantity: widget.productQuantity.toString(),
+        spotsleft: widget.productQuantity.toString(),
       );
     } on SocketException {
       CustomAlertDialog.showAlertDialog(
@@ -121,7 +114,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
             child: Padding(
               padding: const EdgeInsets.only(right: 50),
               child: CachedNetworkImage(
-                imageUrl: "${API.baseUrl}/uploads/${widget.image}",
+                imageUrl: "${API.baseUrl}/uploads/${widget.product.image}",
                 imageBuilder: (context, imageProvider) => Container(
                   height: 100,
                   decoration: BoxDecoration(
@@ -143,7 +136,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
             ),
           ),
           Text(
-            "\$${widget.price} X ${widget.quantity}",
+            "\$${widget.product.price} X ${widget.productQuantity}",
             style: kAppBarTextStyle,
           )
         ],
@@ -152,7 +145,8 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
   }
 
   _buildBottomAppBar() {
-    var totalPrice = double.parse(widget.price) * widget.quantity;
+    var totalPrice =
+        double.parse(widget.product.price) * widget.productQuantity;
 
     return BottomAppBar(
       elevation: 0,
@@ -262,7 +256,10 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
 
   void _showSnackBar({required String message, IconData? iconData}) {
     ScaffoldMessenger.of(context).showSnackBar(
-      CustomSnackBar(snackBarMessage: message),
+      CustomSnackBar(
+        snackBarMessage: message,
+        iconData: iconData,
+      ),
     );
   }
 
@@ -278,7 +275,7 @@ class _DonationCartScreenState extends State<DonationCartScreen> {
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: const Text(
-        "Donation Cart ",
+        "Donation Payment ",
         style: kAppBarTextStyle,
       ),
     );

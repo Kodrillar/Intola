@@ -62,7 +62,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
             );
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator.adaptive(),
           );
         },
       ),

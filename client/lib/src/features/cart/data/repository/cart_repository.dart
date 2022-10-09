@@ -120,7 +120,6 @@ class CartRepository {
       for (var entry in deserializedCartData.entries) {
         cartData[entry.key] = ProductItem.fromJson(jsonDecode(entry.value));
       }
-      print(cartData);
       return cartData;
     }
 

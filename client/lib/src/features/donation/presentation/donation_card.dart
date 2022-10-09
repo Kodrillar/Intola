@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_product_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
@@ -7,23 +8,10 @@ import 'package:intola/src/utils/constant.dart';
 class DonationCard extends StatefulWidget {
   const DonationCard({
     Key? key,
-    this.id,
-    required this.productImage,
-    required this.productPrice,
-    required this.productName,
-    required this.productDescription,
-    required this.email,
-    required this.productQuantity,
-    required this.spotsleft,
+    required this.donation,
   }) : super(key: key);
-  final id;
-  final String productImage;
-  final String productPrice;
-  final String productName;
-  final String email;
-  final String productDescription;
-  final String productQuantity;
-  final String spotsleft;
+
+  final DonationModel donation;
 
   @override
   _DonationCardState createState() => _DonationCardState();
@@ -43,13 +31,7 @@ class _DonationCardState extends State<DonationCard> {
           context,
           MaterialPageRoute(
             builder: (context) => DonationProductScreen(
-              productId: widget.id,
-              productImage: widget.productImage,
-              productName: widget.productName,
-              price: widget.productPrice,
-              description: widget.productDescription,
-              spotsleft: widget.spotsleft,
-              email: widget.email,
+              donation: widget.donation,
             ),
           ),
         );
@@ -65,7 +47,7 @@ class _DonationCardState extends State<DonationCard> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 15),
                 child: Text(
-                  "${widget.email} is donating:",
+                  "${widget.donation.email} is donating:",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -91,7 +73,7 @@ class _DonationCardState extends State<DonationCard> {
 
   _buildProductImage() {
     return CachedNetworkImage(
-      imageUrl: "${API.baseUrl}/uploads/${widget.productImage}",
+      imageUrl: "${API.baseUrl}/uploads/${widget.donation.image}",
       imageBuilder: (context, imageProvider) => Container(
         height: 200,
         decoration: BoxDecoration(
@@ -122,7 +104,7 @@ class _DonationCardState extends State<DonationCard> {
             style: kAppBarTextStyle,
           ),
           Text(
-            "x${widget.spotsleft}",
+            "x${widget.donation.spotsleft}",
             style: kAppBarTextStyle.copyWith(
               color: kDarkOrange,
             ),
@@ -143,7 +125,7 @@ class _DonationCardState extends State<DonationCard> {
             style: kAppBarTextStyle,
           ),
           Text(
-            "x${widget.productQuantity}",
+            "x${widget.donation.quantity}",
             style: kAppBarTextStyle.copyWith(
               color: kDarkOrange,
             ),
@@ -160,11 +142,11 @@ class _DonationCardState extends State<DonationCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            widget.productName,
+            widget.donation.name,
             style: kProductNameStyle,
           ),
           Text(
-            "\$${widget.productPrice}",
+            "\$${widget.donation.price}",
             style: kProductNameStyle,
           ),
         ],

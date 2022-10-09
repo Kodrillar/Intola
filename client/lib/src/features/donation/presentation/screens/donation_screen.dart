@@ -38,14 +38,7 @@ class DonationDisplayCards extends StatelessWidget {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) => DonationCard(
-        id: data[index].id,
-        productImage: data[index].image,
-        productPrice: data[index].price.toString(),
-        productDescription: data[index].description,
-        productName: data[index].name,
-        productQuantity: data[index].quantity,
-        email: data[index].email,
-        spotsleft: data[index].spotsleft,
+        donation: data[index],
       ),
     );
   }

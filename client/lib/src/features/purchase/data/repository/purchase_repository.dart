@@ -1,48 +1,56 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class PurchaseHistoryRepository {
-  PurchaseHistoryRepository({required this.purchaseHistoryNetworkHelper});
+  PurchaseHistoryRepository(
+      {required this.purchaseHistoryNetworkHelper,
+      required this.secureStorage});
 
   final PurchaseHistoryNetworkHelper purchaseHistoryNetworkHelper;
 
+  final SecureStorage secureStorage;
+
   Future<List<PurchaseHistoryModel>> fetchPurchaseHistory() async {
     try {
-      var purchaseHistoryData =
+      final purchaseHistoryData =
           await purchaseHistoryNetworkHelper.fetchPurchaseHistory();
 
-      return purchaseHistoryData
+      final List<Map> purchasedProductList = [];
+
+      //TODO: improve time complexity
+      for (var purchase in purchaseHistoryData) {
+        for (var product in purchase['products']) {
+          purchasedProductList.add({
+            'id': purchase['id'],
+            'name': product['name'],
+            'image': product['image'],
+            'status': product['status'],
+            'date': purchase['created_at']
+          });
+        }
+      }
+
+      return purchasedProductList
           .map<PurchaseHistoryModel>(PurchaseHistoryModel.fromJson)
           .toList();
     } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
+      final responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
     }
   }
 
-  Future<dynamic> addPurchaseHistory({
-    required endpoint,
-    required email,
-    required image,
-    required name,
-  }) async {
+  Future<void> addPurchaseHistory(
+      {required List<ProductModel> products}) async {
     try {
-      var purchaseHistoryResponse =
-          await purchaseHistoryNetworkHelper.addPurchaseHistory(
-        purchaseHistoryModel: PurchaseHistoryModel(
-          email: email,
-          image: image,
-          name: name,
-        ),
-      );
-      return purchaseHistoryResponse;
+      await purchaseHistoryNetworkHelper.addPurchaseHistory(products: products);
     } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
+      final responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
     }
   }
@@ -51,8 +59,10 @@ class PurchaseHistoryRepository {
 final purchaseHistoryRepositoryProvider =
     Provider.autoDispose<PurchaseHistoryRepository>(
   (ref) => PurchaseHistoryRepository(
-    purchaseHistoryNetworkHelper:
-        PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()),
+    secureStorage: SecureStorage(),
+    purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper(
+      secureStorage: SecureStorage(),
+    ),
   ),
 );
 
