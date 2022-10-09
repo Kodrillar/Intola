@@ -1,4 +1,4 @@
-package com.example.intola
+package com.kodrillar.intola
 
 import io.flutter.embedding.android.FlutterActivity
 
