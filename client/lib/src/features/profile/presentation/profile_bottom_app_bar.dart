@@ -20,6 +20,7 @@ class ProfileBottomAppBar extends ConsumerWidget {
     });
     return BottomAppBar(
       elevation: 0,
+      color: Colors.transparent,
       child: SizedBox(
         height: 120,
         child: state.isLoading

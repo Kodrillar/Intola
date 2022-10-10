@@ -171,8 +171,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
   _buildBottomAppBar() {
     return BottomAppBar(
       elevation: 0,
+      color: Colors.transparent,
       child: SizedBox(
-        height: 80,
+        height: 120,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

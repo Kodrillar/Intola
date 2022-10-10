@@ -58,6 +58,10 @@ class ProductScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: const ProductAppBar(),
+      bottomNavigationBar: ProductCtaButton(
+        addProductToCart: _addProductToCart,
+        addProductToDonationCart: _donateProduct,
+      ),
       body: ListView(
         children: [
           ProductImage(
@@ -135,16 +139,13 @@ class ProductScreen extends ConsumerWidget {
               ],
             ),
           ),
-          ProductCtaButton(
-            addProductToCart: _addProductToCart,
-            addProductToDonationCart: _donateProduct,
-          )
         ],
       ),
     );
   }
 }
 
+//TODO: create bottom app bar widget
 class ProductCtaButton extends StatelessWidget {
   const ProductCtaButton({
     Key? key,
@@ -157,25 +158,29 @@ class ProductCtaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomRoundButton(
-            onTap: () {
-              addProductToCart();
-            },
-            buttonText: "Add to cart",
-            buttonColor: kDarkBlue,
-          ),
-          CustomRoundButton(
-            onTap: () {
-              addProductToDonationCart();
-            },
-            buttonText: "Donate",
-          )
-        ],
+    return BottomAppBar(
+      color: Colors.transparent,
+      elevation: 0,
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomRoundButton(
+              onTap: () {
+                addProductToCart();
+              },
+              buttonText: "Add to cart",
+              buttonColor: kDarkBlue,
+            ),
+            CustomRoundButton(
+              onTap: () {
+                addProductToDonationCart();
+              },
+              buttonText: "Donate",
+            )
+          ],
+        ),
       ),
     );
   }

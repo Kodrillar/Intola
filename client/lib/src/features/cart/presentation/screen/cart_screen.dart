@@ -168,7 +168,7 @@ class CartScreenBottomAppBar extends ConsumerWidget {
     return BottomAppBar(
       elevation: 10,
       child: SizedBox(
-        height: 150,
+        height: 120,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
