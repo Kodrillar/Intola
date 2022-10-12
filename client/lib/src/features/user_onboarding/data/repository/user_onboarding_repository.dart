@@ -10,7 +10,8 @@ class UserOnboardingRepository {
   final SecureStorage secureStorage;
 
   Future<Widget> fetchInitialScreen() async {
-    final userIsOnboarded = await secureStorage.read(key: 'userOnboarded');
+    const userIsOnboarded = null;
+    // await secureStorage.read(key: 'userOnboarded');
     final userLoggedIn = await secureStorage.read(key: 'token');
 
     if (userIsOnboarded == null) {
