@@ -196,14 +196,14 @@ class _LoginScreenState extends State<LoginScreen> {
         title: "Network Error",
         content: "Unable to connect to the internet!",
       );
-    } catch (_) {
+    } catch (ex) {
       setState(() {
         processingRequest = false;
       });
       CustomAlertDialog.showAlertDialog(
         context: context,
-        title: "Internal Error",
-        content: "Server Error, try again!",
+        title: " Error",
+        content: ex.toString(),
       );
     }
   }

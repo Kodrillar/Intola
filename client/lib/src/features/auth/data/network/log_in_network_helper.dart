@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:intola/src/features/auth/domain/model/log_in_model.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class LoginNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
@@ -24,12 +25,7 @@ class LoginNetworkHelper {
       ),
     );
 
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body);
-
-      return responseBody;
-    }
-
-    throw response;
+    var responseDataBody = RequestResponse.requestResponse(response);
+    return jsonDecode(responseDataBody);
   }
 }

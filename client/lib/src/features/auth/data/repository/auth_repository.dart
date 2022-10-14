@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
 import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
-import 'package:http/http.dart';
-import 'package:intola/src/utils/network/request_response.dart';
 
 class AuthRepository {
   final LoginNetworkHelper _loginHelper = LoginNetworkHelper();
@@ -40,12 +36,8 @@ class AuthRepository {
       {required Future<T> Function() getData}) async {
     try {
       return await getData();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      debugPrint(responseBody);
-      return jsonDecode(responseBody);
-
-      // rethrow;
+    } catch (ex) {
+      rethrow;
     }
   }
 }
