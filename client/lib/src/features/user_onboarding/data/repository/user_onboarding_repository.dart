@@ -1,24 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_screen.dart';
-import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
-import 'package:intola/src/features/user_onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+
+enum InitializationStatus { onboarding, authentication, homeScreen }
 
 class UserOnboardingRepository {
   UserOnboardingRepository({required this.secureStorage});
   final SecureStorage secureStorage;
 
-  Future<Widget> fetchInitialScreen() async {
+  Future<InitializationStatus> fetchInitialScreen() async {
     final userIsOnboarded = await secureStorage.read(key: 'userOnboarded');
     final userLoggedIn = await secureStorage.read(key: 'token');
 
     if (userIsOnboarded == null) {
-      return OnboardingScreen();
+      return InitializationStatus.onboarding;
     } else if (userLoggedIn == null) {
-      return const LoginScreen();
+      return InitializationStatus.authentication;
     } else {
-      return const HomeScreen();
+      return InitializationStatus.homeScreen;
     }
   }
 }
@@ -28,7 +26,8 @@ final userOnboardingRepositoryProvider =
   (ref) => UserOnboardingRepository(secureStorage: SecureStorage()),
 );
 
-final getInitialScreenProvider = FutureProvider.autoDispose<Widget>((ref) {
+final getInitialScreenProvider =
+    FutureProvider.autoDispose<InitializationStatus>((ref) {
   final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
   return userOnboardingRepository.fetchInitialScreen();
 });
