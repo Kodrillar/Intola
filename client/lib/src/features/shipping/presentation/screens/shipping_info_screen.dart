@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/payment/application/payment_service.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_app_bar.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_bottom_app_bar.dart';
+import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 import 'package:intola/src/widgets/snack_bar.dart';
 import 'package:intola/src/widgets/text_field.dart';
@@ -16,6 +17,7 @@ class ShippingInfoScreen extends ConsumerStatefulWidget {
 }
 
 class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController apartmentController = TextEditingController();
@@ -42,17 +44,6 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
       (previouState, newState) => newState.showErrorAlertDialog(context),
     );
 
-    bool textFieldIsValid() {
-      if (addressController.text.trim().isNotEmpty &&
-          cityController.text.trim().isNotEmpty &&
-          countryController.text.trim().isNotEmpty &&
-          phoneController.text.trim().isNotEmpty &&
-          zipCodeController.text.trim().isNotEmpty) {
-        return true;
-      }
-      return false;
-    }
-
     void _showSnackBar({required String message}) {
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackBar(snackBarMessage: message),
@@ -60,7 +51,7 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
     }
 
     void processPayment() {
-      if (textFieldIsValid()) {
+      if (_formKey.currentState!.validate()) {
         ref
             .read(paymentServiceProvider.notifier)
             .processProductPayment(context);
@@ -77,40 +68,76 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
             appBar: const ShippingInfoAppBar(),
             bottomNavigationBar:
                 ShippingInfoBottomAppBar(onTap: processPayment),
-            // TODO: Remove textfields from Listview
-            body: ListView(
-              children: [
-                CustomTextField(
-                  controller: addressController,
-                  hintText: "Address",
-                  labelText: "Address",
+            body: Form(
+              key: _formKey,
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        controller: addressController,
+                        hintText: "Address",
+                        labelText: "Address",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return ValidationErrorMessage.addressError.message;
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomTextField(
+                        controller: apartmentController,
+                        hintText: "Apartment suite(optional)",
+                        labelText: "Apartment suite",
+                      ),
+                      CustomTextField(
+                        controller: cityController,
+                        hintText: "City",
+                        labelText: "City",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return ValidationErrorMessage.cityError.message;
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomTextField(
+                        controller: countryController,
+                        hintText: "Country",
+                        labelText: "Country",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return ValidationErrorMessage.countryError.message;
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomTextField(
+                        controller: phoneController,
+                        hintText: "Phone",
+                        labelText: "Phone",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return ValidationErrorMessage.phoneError.message;
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomTextField(
+                        controller: zipCodeController,
+                        hintText: "Zip code",
+                        labelText: "Zip code",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return ValidationErrorMessage.zipcodeError.message;
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                CustomTextField(
-                  controller: apartmentController,
-                  hintText: "Apartment suite(optional)",
-                  labelText: "Apartment suite",
-                ),
-                CustomTextField(
-                  controller: cityController,
-                  hintText: "City",
-                  labelText: "City",
-                ),
-                CustomTextField(
-                  controller: countryController,
-                  hintText: "Country",
-                  labelText: "Country",
-                ),
-                CustomTextField(
-                  controller: phoneController,
-                  hintText: "Phone",
-                  labelText: "Phone",
-                ),
-                CustomTextField(
-                  controller: zipCodeController,
-                  hintText: "Zip code",
-                  labelText: "Zip code",
-                ),
-              ],
+              ),
             ),
           );
   }
