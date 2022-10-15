@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
+import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/cart/presentation/cart_screen_app_bar.dart';
 import 'package:intola/src/features/cart/presentation/cart_screen_controller.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
@@ -35,14 +36,7 @@ class CartScreen extends ConsumerWidget {
                   style: kAppBarTextStyle.copyWith(color: kDarkOrange),
                 ),
               )
-            : ListView.builder(
-                itemCount: data.values.length,
-                itemBuilder: (context, index) => CartProductBar(
-                  productModel: data.values.toList()[index].productModel,
-                  productQuantity:
-                      data.values.toList()[index].cartProductQuantity,
-                ),
-              ),
+            : CartView(data: data),
         error: (error, stackTrace) => Center(
           child: Text(error.toString()),
         ),
@@ -56,6 +50,24 @@ class CartScreen extends ConsumerWidget {
 
 /// Implement a stream-based cart system and controller
 ///  to handle immediate state changes
+
+class CartView extends StatelessWidget {
+  const CartView({Key? key, required this.data}) : super(key: key);
+  final Map<String, ProductItem> data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      child: ListView.builder(
+        itemCount: data.values.length,
+        itemBuilder: (context, index) => CartProductBar(
+          productModel: data.values.toList()[index].productModel,
+          productQuantity: data.values.toList()[index].cartProductQuantity,
+        ),
+      ),
+    );
+  }
+}
 
 class CartProductBar extends ConsumerWidget {
   const CartProductBar({

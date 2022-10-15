@@ -19,13 +19,12 @@ class ProductScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartProductQuantity = ref.watch(cartProductQuantityProvider);
-    // final controller = ref.watch(productScreenControllerProvider);
-
     ref.listen<AsyncValue>(productScreenControllerProvider,
         (previousState, newState) {
       newState.showErrorAlertDialog(context);
     });
+    final cartProductQuantity = ref.watch(cartProductQuantityProvider);
+    // final controller = ref.watch(productScreenControllerProvider);
 
     _showSnackBar() {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -62,84 +61,88 @@ class ProductScreen extends ConsumerWidget {
         addProductToCart: _addProductToCart,
         addProductToDonationCart: _donateProduct,
       ),
-      body: ListView(
-        children: [
-          ProductImage(
-            productImage: product.image,
-          ),
-          ProductDetails(
-            productDescription: product.description,
-            productName: product.name,
-            productPrice: product.price,
-          ),
-          Container(
-            height: 120,
-            margin: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Quantity", style: kAppBarTextStyle),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          '$cartProductQuantity',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: kAppBarTextStyle.copyWith(color: kDarkOrange),
+      body: Scrollbar(
+        child: ListView(
+          children: [
+            ProductImage(
+              productImage: product.image,
+            ),
+            ProductDetails(
+              productDescription: product.description,
+              productName: product.name,
+              productPrice: product.price,
+            ),
+            Container(
+              height: 120,
+              margin: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Quantity", style: kAppBarTextStyle),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, top: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            '$cartProductQuantity',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                kAppBarTextStyle.copyWith(color: kDarkOrange),
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: IconButton(
-                              onPressed: () {
-                                if (cartProductQuantity > 1) {
+                        Row(
+                          children: [
+                            Container(
+                              child: IconButton(
+                                onPressed: () {
+                                  if (cartProductQuantity > 1) {
+                                    ref
+                                        .read(cartProductQuantityProvider
+                                            .notifier)
+                                        .state--;
+                                  }
+                                },
+                                icon: const Icon(Icons.remove),
+                                color: kLightColor,
+                              ),
+                              decoration: BoxDecoration(
+                                color: kDarkOrange,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              child: IconButton(
+                                onPressed: () {
                                   ref
                                       .read(
                                           cartProductQuantityProvider.notifier)
-                                      .state--;
-                                }
-                              },
-                              icon: const Icon(Icons.remove),
-                              color: kLightColor,
+                                      .state++;
+                                },
+                                icon: const Icon(Icons.add),
+                                color: kLightColor,
+                              ),
+                              decoration: BoxDecoration(
+                                color: kDarkOrange,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
-                            decoration: BoxDecoration(
-                              color: kDarkOrange,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Container(
-                            child: IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(cartProductQuantityProvider.notifier)
-                                    .state++;
-                              },
-                              icon: const Icon(Icons.add),
-                              color: kLightColor,
-                            ),
-                            decoration: BoxDecoration(
-                              color: kDarkOrange,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
