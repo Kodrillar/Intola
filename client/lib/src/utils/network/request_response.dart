@@ -11,18 +11,17 @@ class RequestResponse {
       case 200:
         return response.body;
       case 400:
-        debugPrint("This is a BAD Request!");
-        debugPrint("COMING FROM REQUEST RES ==> ${response.body}");
+        debugPrint(responseBody.toString());
         throw BadRequestException(responseBody['msg']);
       case 401:
-        debugPrint("This is an UNAUTHORIZED Request!");
-        return response.body;
+        debugPrint(responseBody.toString());
+        throw UnauthorizedRequestException();
       case 404:
-        debugPrint("This resource was NOT FOUND!");
+        debugPrint(responseBody.toString());
         throw ResourceNotFoundException(responseBody['msg']);
       case 500:
-        debugPrint("This is a SERVER Error!");
-        return response.body;
+        debugPrint(responseBody.toString());
+        throw ServerErrorException();
 
       default:
         throw response;

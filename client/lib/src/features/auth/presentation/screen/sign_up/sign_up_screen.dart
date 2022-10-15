@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
+import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/features/auth/data/repository/auth_repository.dart';
@@ -13,7 +15,11 @@ import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
 import 'package:intola/src/widgets/annotated_region.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
-AuthRepository _authRepository = AuthRepository();
+AuthRepository _authRepository = AuthRepository(
+  loginNetworkHelper: LoginNetworkHelper(),
+  signUpNetworkHelper: SignUpNetworkHelper(),
+  secureStorage: SecureStorage(),
+);
 
 class SignUpScreen extends StatefulWidget {
   static const id = "/signUpScreen";
@@ -111,7 +117,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   )
                 : AuthButton(
-                    buttonName: "Sign Up",
+                    child: processingRequest
+                        ? const CircularProgressIndicator.adaptive()
+                        : const Text(
+                            'Sign Up',
+                            style: kAuthButtonTextStyle,
+                          ),
                     onTap: () async {
                       setState(() {
                         processingRequest = true;

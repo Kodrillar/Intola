@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:intola/src/features/auth/domain/model/sign_up_model.dart';
+import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class SignUpNetworkHelper {
   // final baseUrl = "http://localhost:3000/api";
-  final baseUrl = "https://intola.herokuapp.com/api";
+
   Future<Map<String, dynamic>> registerUser({
-    required endpoint,
     required fullname,
     required email,
     required password,
@@ -19,7 +20,9 @@ class SignUpNetworkHelper {
     );
 
     http.Response response = await http.post(
-      Uri.parse(baseUrl + endpoint),
+      Uri.parse(
+        API.baseUrl + Endpoints.registerUser,
+      ),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
@@ -28,11 +31,7 @@ class SignUpNetworkHelper {
       ),
     );
 
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body);
-      return responseBody;
-    }
-
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 }

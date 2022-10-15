@@ -18,6 +18,12 @@ const kAuthOptionTextStyle = TextStyle(
   color: kDarkBlue,
 );
 
+const kAuthButtonTextStyle = TextStyle(
+  color: kDarkOrange,
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+
 const kHeadingTextStyle = TextStyle(
   color: kDarkBlue,
   fontSize: 20,

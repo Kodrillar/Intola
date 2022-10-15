@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class CustomTextField extends StatefulWidget {
+class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     required this.controller,
@@ -11,6 +11,7 @@ class CustomTextField extends StatefulWidget {
     this.labelText,
     this.visibilityIcon,
     this.obscureText,
+    this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -20,28 +21,24 @@ class CustomTextField extends StatefulWidget {
   final Widget? visibilityIcon;
   final bool? obscureText;
   final void Function(String value)? onChanged;
-
-  @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
+  final String? Function(String? value)? validator;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextFormField(
-        onChanged: widget.onChanged,
-        controller: widget.controller,
-        obscureText: widget.obscureText ?? false,
+        validator: validator,
+        onChanged: onChanged,
+        controller: controller,
+        obscureText: obscureText ?? false,
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: kDarkBlue.withOpacity(.5),
           ),
-          hintText: widget.hintText,
-          suffixIcon: widget.visibilityIcon,
-          labelText: widget.labelText,
-          errorText: widget.errorText,
+          hintText: hintText,
+          suffixIcon: visibilityIcon,
+          labelText: labelText,
+          errorText: errorText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

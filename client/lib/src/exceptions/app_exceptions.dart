@@ -21,3 +21,7 @@ class UnauthorizedRequestException extends AppException {
 class ResourceNotFoundException extends AppException {
   ResourceNotFoundException([String? message]) : super(message);
 }
+
+class ServerErrorException extends AppException {
+  ServerErrorException([String? message]) : super(message);
+}
