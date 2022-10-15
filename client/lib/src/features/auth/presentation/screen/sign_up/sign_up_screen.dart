@@ -1,54 +1,49 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
-import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
-import 'package:intola/src/routing/route.dart';
-import 'package:intola/src/utils/validation_error_text.dart';
-import 'package:intola/src/features/auth/data/repository/auth_repository.dart';
-import 'package:intola/src/utils/network/api.dart';
-import 'package:intola/src/utils/cache/secure_storage.dart';
-import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/auth/presentation/auth_button.dart';
 import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
+import 'package:intola/src/features/auth/presentation/auth_screen_controller.dart';
+import 'package:intola/src/routing/route.dart';
+import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/annotated_region.dart';
+import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
-AuthRepository _authRepository = AuthRepository(
-  loginNetworkHelper: LoginNetworkHelper(),
-  signUpNetworkHelper: SignUpNetworkHelper(),
-  secureStorage: SecureStorage(),
-);
-
-class SignUpScreen extends StatefulWidget {
-  static const id = "/signUpScreen";
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController fullnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  String? fullnameErrorText;
-  String? emailErrorText;
-  String? passwordErrorText;
+  String get fullName => fullnameController.text.trim();
+  String get email => emailController.text.trim();
+  String get password => passwordController.text.trim();
 
-  bool processingRequest = false;
-  bool obscureTextField = true;
+  Future<void> _signUpUser() async {
+    if (_formKey.currentState!.validate()) {
+      final bool signUpIsSuccessful =
+          await ref.read(authScreenControllerProvider.notifier).signUpUser(
+                fullName: fullName,
+                email: email,
+                password: password,
+              );
 
-  Future signUp() async {
-    var responseBody = await _authRepository.registerUser(
-      endpoint: endpoints["registerUser"],
-      userFullname: fullnameController.text,
-      userPassword: passwordController.text.trim(),
-      userEmail: emailController.text.trim(),
-    );
-    return responseBody;
+      if (signUpIsSuccessful) {
+        Navigator.pushNamed(
+          context,
+          RouteName.homeScreen.name,
+        );
+      }
+    }
   }
 
   @override
@@ -61,185 +56,105 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue<void>>(
+      authScreenControllerProvider,
+      (previousState, newState) => newState.showErrorAlertDialog(context),
+    );
+    final state = ref.watch(authScreenControllerProvider);
+    final bool obscureTextFieldText = ref.watch(obscureTextFieldTextProvider);
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(
         systemUiOverlayStyle: SystemUiOverlayStyle.dark,
-        child: ListView(
-          children: [
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 100),
-                child: Text(
-                  "Sign Up",
-                  style: kAuthTextStyle,
-                ),
-              ),
-            ),
-            CustomTextField(
-              hintText: "fullname",
-              labelText: "fullname",
-              controller: fullnameController,
-              errorText: fullnameErrorText,
-              onChanged: onChanged(fullnameController),
-            ),
-            CustomTextField(
-              hintText: "email",
-              labelText: "email",
-              controller: emailController,
-              errorText: emailErrorText,
-              onChanged: onChanged(emailController),
-            ),
-            CustomTextField(
-              hintText: "password",
-              labelText: "password",
-              controller: passwordController,
-              errorText: passwordErrorText,
-              obscureText: obscureTextField,
-              visibilityIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    obscureTextField = !obscureTextField;
-                  });
-                },
-                icon: obscureTextField
-                    ? const Icon(Icons.visibility_off)
-                    : const Icon(Icons.visibility),
-              ),
-              onChanged: onChanged(passwordController),
-            ),
-            processingRequest
-                ? const Padding(
-                    padding: EdgeInsets.only(bottom: 16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: kDarkOrange,
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 100),
+                      child: Text(
+                        "Sign Up",
+                        style: kAuthTextStyle,
                       ),
                     ),
-                  )
-                : AuthButton(
-                    child: processingRequest
-                        ? const CircularProgressIndicator.adaptive()
+                  ),
+                  CustomTextField(
+                    hintText: "fullname",
+                    labelText: "fullname",
+                    controller: fullnameController,
+                    validator: (String? value) {
+                      if (value!.trim().isEmpty) {
+                        return ValidationErrorMessage.fullnameError.message;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextField(
+                    hintText: "email",
+                    labelText: "email",
+                    controller: emailController,
+                    validator: (String? value) {
+                      if (value!.trim().isEmpty) {
+                        return ValidationErrorMessage.emailError.message;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextField(
+                    hintText: "password",
+                    labelText: "password",
+                    controller: passwordController,
+                    obscureText: obscureTextFieldText,
+                    validator: (String? value) {
+                      if (value!.trim().isEmpty) {
+                        return ValidationErrorMessage.passwordError.message;
+                      }
+                      return null;
+                    },
+                    visibilityIcon: IconButton(
+                      onPressed: () {
+                        ref.read(obscureTextFieldTextProvider.notifier).state =
+                            !obscureTextFieldText;
+                      },
+                      icon: obscureTextFieldText
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
+                    ),
+                  ),
+                  AuthButton(
+                    child: state.isLoading
+                        ? const CircularProgressIndicator.adaptive(
+                            backgroundColor: kLightColor,
+                          )
                         : const Text(
                             'Sign Up',
                             style: kAuthButtonTextStyle,
                           ),
-                    onTap: () async {
-                      setState(() {
-                        processingRequest = true;
-                      });
-                      textFieldValidationLogic();
+                    onTap: () {
+                      _signUpUser();
                     },
                   ),
-            AuthOptionText(
-              title: "Already have an account?",
-              optionText: "Login",
-              optionTextStyle: kAuthOptionTextStyle.copyWith(
-                color: kDarkOrange,
+                  AuthOptionText(
+                    title: "Already have an account?",
+                    optionText: "Login",
+                    optionTextStyle: kAuthOptionTextStyle.copyWith(
+                      color: kDarkOrange,
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.loginScreen.name,
+                      );
+                    },
+                  )
+                ],
               ),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.loginScreen.name,
-                );
-              },
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
-  }
-
-  onChanged(TextEditingController controller) {
-    return (newValue) {
-      setState(() {
-        // print(controller.text);
-        controller == fullnameController && controller.text.trim().isNotEmpty
-            ? fullnameErrorText = null
-            : null;
-
-        controller == emailController && controller.text.trim().isNotEmpty
-            ? emailErrorText = null
-            : null;
-
-        controller == passwordController && controller.text.trim().isNotEmpty
-            ? passwordErrorText = null
-            : null;
-      });
-    };
-  }
-
-// revisit this logic later
-  void textFieldValidationLogic() async {
-    if (fullnameController.text.trim().isEmpty) {
-      setState(() {
-        fullnameErrorText =
-            ValidationErrorModel.validationError["fullnameError"];
-        processingRequest = false;
-      });
-      return;
-    }
-
-    if (emailController.text.trim().isEmpty) {
-      setState(() {
-        emailErrorText = ValidationErrorModel.validationError["emailError"];
-        processingRequest = false;
-      });
-
-      return;
-    }
-
-    if (passwordController.text.trim().isEmpty) {
-      setState(() {
-        passwordErrorText =
-            ValidationErrorModel.validationError["passwordError"];
-        processingRequest = false;
-      });
-
-      return;
-    }
-
-    try {
-      var userData = await signUp();
-
-      if (userData["userAlreadyExist"]) {
-        setState(() {
-          emailErrorText = "email is already registered! Kindly LogIn...";
-
-          processingRequest = false;
-        });
-
-        return;
-      }
-      //TODO: remove this
-      await SecureStorage().write(
-        storeObject: StoreObject(key: "token", value: userData["token"]),
-      );
-      await SecureStorage().write(
-        storeObject:
-            StoreObject(key: "userName", value: emailController.text.trim()),
-      );
-      Navigator.pushNamed(
-        context,
-        RouteName.homeScreen.name,
-      );
-    } on SocketException {
-      setState(() {
-        processingRequest = false;
-      });
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Network Error",
-        content: "Unable to connect to the internet!",
-      );
-    } catch (_) {
-      setState(() {
-        processingRequest = false;
-      });
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Internal Error",
-        content: "Server Error, try again!",
-      );
-    }
   }
 }

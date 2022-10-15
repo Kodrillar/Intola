@@ -20,7 +20,26 @@ class AuthScreenController extends StateNotifier<AsyncValue<void>> {
     return false;
   }
 
-  Future<void> registerUser() async {}
+  Future<bool> signUpUser({
+    required String fullName,
+    required String email,
+    required String password,
+  }) async {
+    state = const AsyncLoading();
+    final asyncValue = await AsyncValue.guard(
+      () => authRepository.signUpUser(
+        userFullName: fullName,
+        userEmail: email,
+        userPassword: password,
+      ),
+    );
+    if (mounted) {
+      state = asyncValue;
+      return !state.hasError;
+    }
+
+    return false;
+  }
 }
 
 final authScreenControllerProvider =

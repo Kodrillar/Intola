@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/exceptions/app_exceptions.dart';
 import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
 import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
+import 'package:intola/src/features/auth/domain/model/log_in_model.dart';
+import 'package:intola/src/features/auth/domain/model/sign_up_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class AuthRepository {
@@ -19,8 +21,7 @@ class AuthRepository {
   Future<void> loginUser({required userEmail, required userPassword}) async {
     final Map<String, dynamic> loginData = await _getRepositoryData(
       getData: () => loginNetworkHelper.loginUser(
-        email: userEmail,
-        password: userPassword,
+        logInModel: LogInModel(email: userEmail, password: userPassword),
       ),
     );
 
@@ -33,18 +34,30 @@ class AuthRepository {
         storeObject: StoreObject(key: "userName", value: userEmail));
   }
 
-  Future<Map<String, dynamic>> registerUser({
-    required endpoint,
-    required userFullname,
+  Future<void> signUpUser({
+    required userFullName,
     required userEmail,
     required userPassword,
-  }) {
-    return _getRepositoryData(
-      getData: () => signUpNetworkHelper.registerUser(
-        fullname: userFullname,
+  }) async {
+    final Map<String, dynamic> signUpData = await _getRepositoryData(
+      getData: () => signUpNetworkHelper.signUpUser(
+          signUpModel: SignUpModel(
+        fullName: userFullName,
         email: userEmail,
         password: userPassword,
-      ),
+      )),
+    );
+
+    final userToken = signUpData['token'];
+
+    //cache userToken
+    await SecureStorage().write(
+      storeObject: StoreObject(key: "token", value: userToken),
+    );
+
+    //cache userEmail
+    await SecureStorage().write(
+      storeObject: StoreObject(key: "userName", value: userEmail),
     );
   }
 
