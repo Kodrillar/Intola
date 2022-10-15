@@ -151,7 +151,7 @@ class CartProductBar extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      '\$${productModel.price} X $productQuantity', // "\$${widget.price} X ${widget.quantity}",
+                      '\$${productModel.price} X $productQuantity',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: kAppBarTextStyle.copyWith(
