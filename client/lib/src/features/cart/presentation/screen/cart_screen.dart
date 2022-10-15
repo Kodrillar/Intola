@@ -57,6 +57,7 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
+      thumbVisibility: true,
       child: ListView.builder(
         itemCount: data.values.length,
         itemBuilder: (context, index) => CartProductBar(

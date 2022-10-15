@@ -71,6 +71,7 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
             body: Form(
               key: _formKey,
               child: Scrollbar(
+                thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

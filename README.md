@@ -1,3 +1,5 @@
+<a href="https://github.com/Kodrillar/Intola/actions"><img src="https://github.com/Kodrillar/Intola/workflows/intola-unit-tests/badge.svg" alt="Build Status"></a>
+
 # Intola
 Ecommerce mobile application for shopping, delivering and donating to people in need.
 

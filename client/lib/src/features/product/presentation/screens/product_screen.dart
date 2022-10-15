@@ -62,6 +62,7 @@ class ProductScreen extends ConsumerWidget {
         addProductToDonationCart: _donateProduct,
       ),
       body: Scrollbar(
+        thumbVisibility: true,
         child: ListView(
           children: [
             ProductImage(
@@ -148,7 +149,6 @@ class ProductScreen extends ConsumerWidget {
   }
 }
 
-//TODO: create bottom app bar widget
 class ProductCtaButton extends StatelessWidget {
   const ProductCtaButton({
     Key? key,
