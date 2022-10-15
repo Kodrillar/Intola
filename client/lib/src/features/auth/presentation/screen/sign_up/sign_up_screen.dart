@@ -81,8 +81,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                   ),
                   CustomTextField(
-                    hintText: "fullname",
-                    labelText: "fullname",
+                    hintText: "full name",
+                    labelText: "full name",
                     controller: fullnameController,
                     validator: (String? value) {
                       if (value!.trim().isEmpty) {
