@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
@@ -36,27 +37,18 @@ class DonationRepository {
     }
   }
 
-  Future<dynamic> donateProduct({
-    required endpoint,
-    required email,
-    required image,
-    required price,
-    required description,
-    required name,
-    required quantity,
-    required spotsleft,
-  }) async {
+  Future<dynamic> donateProduct({required ProductItem productItem}) async {
+    final product = productItem.productModel;
     try {
       var donate = await donationNetworkHelper.donateProduct(
-        endpoint: endpoint,
-        email: email,
-        image: image,
-        price: price,
-        description: description,
-        name: name,
-        quantity: quantity,
-        spotsleft: spotsleft,
-      );
+          donationModel: DonationModel(
+              email: ,
+              image: product.image,
+              price: productItem.productPrice.toString(),
+              description: product.description,
+              name: product.name,
+              quantity: productItem.cartProductQuantity.toString(),
+              spotsleft: productItem.cartProductQuantity.toString(),),);
       return donate;
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);

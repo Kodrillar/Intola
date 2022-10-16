@@ -46,18 +46,9 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
 
   Future addDonation() async {
     final productItem = widget.productItem;
-    final product = productItem.productModel;
+
     try {
-      await _donationRepository.donateProduct(
-        endpoint: endpoints["donate"],
-        email: userEmail,
-        image: product.image,
-        price: productItem.productPrice,
-        description: product.description,
-        name: product.name,
-        quantity: productItem.cartProductQuantity.toString(),
-        spotsleft: productItem.cartProductQuantity.toString(),
-      );
+      await _donationRepository.donateProduct(productItem: productItem);
     } on SocketException {
       CustomAlertDialog.showAlertDialog(
         context: context,

@@ -28,30 +28,12 @@ class DonationNetworkHelper {
     throw response;
   }
 
-  Future donateProduct(
-      {required endpoint,
-      required email,
-      required image,
-      required price,
-      required description,
-      required name,
-      required quantity,
-      required spotsleft}) async {
+  Future donateProduct({required DonationModel donationModel}) async {
     final token = await secureStorage.read(key: "token");
-
-    DonationModel _donationModel = DonationModel(
-      email: email,
-      image: image,
-      price: price,
-      description: description,
-      name: name,
-      quantity: quantity,
-      spotsleft: spotsleft,
-    );
 
     final http.Response response = await http.post(
         Uri.parse(
-          baseUrl + endpoint,
+          baseUrl + Endpoints.addDonation,
         ),
         headers: {
           "X-auth-token": "$token",
@@ -59,7 +41,7 @@ class DonationNetworkHelper {
           "content-type": "application/json"
         },
         body: jsonEncode(
-          _donationModel.toJson(),
+          donationModel.toJson(),
         ));
 
     if (response.statusCode == 200) {
@@ -78,7 +60,7 @@ class DonationNetworkHelper {
     final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.put(
-      Uri.parse(baseUrl + endpoint),
+      Uri.parse(baseUrl + Endpoints.updateDonation),
       headers: {
         "X-auth-token": "$token",
         "accept": "applicaton/json; charset=utf-8",
