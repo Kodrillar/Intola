@@ -18,7 +18,8 @@ router.get("/", auth, asyncErrorHandler(async (req, res)=>{
 //donate
 router.post("/donate", auth, asyncErrorHandler(async(req, res)=>{
 
-    const { email, image, name, price, description,quantity,spotsleft } = req.body;
+    const {email} = req.user;
+    const {image, name, price, description,quantity,spotsleft } = req.body;
     
     const donateQuery = "INSERT INTO donations_by_user(id, email,image, name, price, description, quantity, spotsleft) VALUES(now(), ?,?,?,?,?,?,?)";
     const donate = await (await client).execute(donateQuery, [email, image, name, price, description, quantity,spotsleft]);
@@ -30,8 +31,8 @@ router.post("/donate", auth, asyncErrorHandler(async(req, res)=>{
 
 router.put('/', auth , asyncErrorHandler(async(req, res)=>{
 
-  
-    const {id, spotsleft, email} = req.body;
+    const {email} = req.user;
+    const {id, spotsleft} = req.body;
     console.log(id);
     const updateQuery = `UPDATE donations_by_user SET spotsleft ='${spotsleft}'  WHERE email = '${email}' AND id = ${id}`;
     const updateDonation = await(await client).execute(updateQuery);
