@@ -41,14 +41,16 @@ class DonationRepository {
     final product = productItem.productModel;
     try {
       var donate = await donationNetworkHelper.donateProduct(
-          donationModel: DonationModel(
-              email: ,
-              image: product.image,
-              price: productItem.productPrice.toString(),
-              description: product.description,
-              name: product.name,
-              quantity: productItem.cartProductQuantity.toString(),
-              spotsleft: productItem.cartProductQuantity.toString(),),);
+        donationModel: DonationModel(
+          email: '',
+          image: product.image,
+          price: productItem.productPrice.toString(),
+          description: product.description,
+          name: product.name,
+          quantity: productItem.cartProductQuantity.toString(),
+          spotsleft: productItem.cartProductQuantity.toString(),
+        ),
+      );
       return donate;
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
