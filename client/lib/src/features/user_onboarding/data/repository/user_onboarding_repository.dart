@@ -37,8 +37,3 @@ final getInitialScreenProvider =
   final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
   return userOnboardingRepository.fetchInitialScreen();
 });
-
-final persistOnboardingStatusProvider = FutureProvider.autoDispose<void>((ref) {
-  final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
-  return userOnboardingRepository.persistOnboardingStatus();
-});

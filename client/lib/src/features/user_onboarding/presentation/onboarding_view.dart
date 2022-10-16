@@ -50,7 +50,7 @@ class OnboardingView extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           controller.showNextButton()
               ? CustomRoundButton(
                   onTap: () {
