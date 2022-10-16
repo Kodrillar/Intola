@@ -9,6 +9,5 @@
       steps:
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
-      - run : ls
-      # - run : bash intola.sh
-      # - run : flutter test
+      - run : bash intola.sh
+      - run : flutter test
