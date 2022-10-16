@@ -30,6 +30,9 @@ dependencies:
   #utility
   image_picker: ^0.8.5
 
+  #environment variables
+  flutter_dotenv: ^5.0.2
+
   
   flutter_riverpod: ^2.0.0-dev.9
   mocktail: ^0.3.0
@@ -44,6 +47,7 @@ flutter:
   assets:
     - assets/onboardingSvg/
     - assets/images/
+    - .env
   # fonts:
   #   - family: Schyler
   #     fonts:

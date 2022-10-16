@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
 import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
@@ -15,6 +16,7 @@ import 'package:intola/src/widgets/text_field.dart';
 //TODO: Remove this
 PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
     secureStorage: SecureStorage(),
+    cartRepository: CartRepository(secureStorage: SecureStorage()),
     purchaseHistoryNetworkHelper:
         PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()));
 DonationRepository _donationRepository = DonationRepository(
@@ -58,21 +60,21 @@ class _DonationShippingInfoScreenState
   TextEditingController zipCodeController = TextEditingController();
 
   Future addPurchaseHistory() async {
-    try {
-      await _purchaseRepository.addPurchaseHistory(products: []);
-    } on SocketException {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Network Error",
-        content: "Unable to connect to the internet!",
-      );
-    } catch (_) {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Oops! something went wrong.",
-        content: "Contact support team",
-      );
-    }
+    // try {
+    //   await _purchaseRepository.addPurchaseHistory(products: []);
+    // } on SocketException {
+    //   CustomAlertDialog.showAlertDialog(
+    //     context: context,
+    //     title: "Network Error",
+    //     content: "Unable to connect to the internet!",
+    //   );
+    // } catch (_) {
+    //   CustomAlertDialog.showAlertDialog(
+    //     context: context,
+    //     title: "Oops! something went wrong.",
+    //     content: "Contact support team",
+    //   );
+    // }
   }
 
   Future updateDonationSpots() async {

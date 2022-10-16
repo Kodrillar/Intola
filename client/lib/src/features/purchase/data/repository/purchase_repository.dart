@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
+import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
@@ -10,11 +12,13 @@ import 'package:intola/src/utils/network/request_response.dart';
 class PurchaseHistoryRepository {
   PurchaseHistoryRepository(
       {required this.purchaseHistoryNetworkHelper,
+      required this.cartRepository,
       required this.secureStorage});
 
   final PurchaseHistoryNetworkHelper purchaseHistoryNetworkHelper;
 
   final SecureStorage secureStorage;
+  final CartRepository cartRepository;
 
   Future<List<PurchaseHistoryModel>> fetchPurchaseHistory() async {
     try {
@@ -45,10 +49,24 @@ class PurchaseHistoryRepository {
     }
   }
 
-  Future<void> addPurchaseHistory(
-      {required List<ProductModel> products}) async {
+  Future<void> addPurchaseHistory() async {
     try {
-      await purchaseHistoryNetworkHelper.addPurchaseHistory(products: products);
+      Map<String, ProductItem>? shoppingCart = await cartRepository.fetchCart();
+
+      if (shoppingCart == null) return;
+
+      List<ProductModel> cartProducts = [];
+
+      for (var entry in shoppingCart.entries) {
+        cartProducts.add(entry.value.productModel);
+      }
+      //add purchases to db
+      await purchaseHistoryNetworkHelper.addPurchaseHistory(
+        products: cartProducts,
+      );
+
+      //clear cart after purchases
+      await secureStorage.delete(key: 'cart');
     } on Response catch (response) {
       final responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
@@ -57,14 +75,17 @@ class PurchaseHistoryRepository {
 }
 
 final purchaseHistoryRepositoryProvider =
-    Provider.autoDispose<PurchaseHistoryRepository>(
-  (ref) => PurchaseHistoryRepository(
-    secureStorage: SecureStorage(),
+    Provider.autoDispose<PurchaseHistoryRepository>((ref) {
+  final SecureStorage secureStorage = SecureStorage();
+
+  return PurchaseHistoryRepository(
+    secureStorage: secureStorage,
+    cartRepository: CartRepository(secureStorage: secureStorage),
     purchaseHistoryNetworkHelper: PurchaseHistoryNetworkHelper(
-      secureStorage: SecureStorage(),
+      secureStorage: secureStorage,
     ),
-  ),
-);
+  );
+});
 
 final fetchPurchaseHistoryProvider =
     FutureProvider.autoDispose<List<PurchaseHistoryModel>>((ref) {

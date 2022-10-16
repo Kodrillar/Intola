@@ -31,13 +31,11 @@ class Endpoints {
 }
 
 class API {
-  static String get baseUrl => "https://intola.herokuapp.com/api";
+  static String get baseUrl => 'https://intola-app.cyclic.app/api';
 
-  //'https://intola-app.cyclic.app/api';
+  //"https://intola.herokuapp.com/api";
 
   //"https://cute-plum-cape-buffalo-fez.cyclic.app";
-
-
 
   static Uri getRequestUrl({required String path}) => Uri(
         scheme: "http",

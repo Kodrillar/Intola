@@ -2,9 +2,10 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
@@ -14,7 +15,7 @@ import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:intola/src/widgets/snack_bar.dart';
 
-const publicKey = "FLWPUBK_TEST-29a3cd01a75a67bdb3ac35c87e1da9f3-X";
+final publicKey = dotenv.env['PUBLIC_KEY'];
 
 DonationRepository _donationRepository = DonationRepository(
     donationNetworkHelper: DonationNetworkHelper(
@@ -23,14 +24,11 @@ DonationRepository _donationRepository = DonationRepository(
 
 class DonationPaymentScreen extends StatefulWidget {
   const DonationPaymentScreen({
-    required this.product,
-    required this.productQuantity,
+    required this.productItem,
     Key? key,
   }) : super(key: key);
 
-  final ProductModel product;
-  final int productQuantity;
-
+  final ProductItem productItem;
   @override
   _DonationPaymentScreenState createState() => _DonationPaymentScreenState();
 }
@@ -47,16 +45,18 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
   }
 
   Future addDonation() async {
+    final productItem = widget.productItem;
+    final product = productItem.productModel;
     try {
       await _donationRepository.donateProduct(
         endpoint: endpoints["donate"],
         email: userEmail,
-        image: widget.product.image,
-        price: widget.product.price,
-        description: widget.product.description,
-        name: widget.product.name,
-        quantity: widget.productQuantity.toString(),
-        spotsleft: widget.productQuantity.toString(),
+        image: product.image,
+        price: productItem.productPrice,
+        description: product.description,
+        name: product.name,
+        quantity: productItem.cartProductQuantity.toString(),
+        spotsleft: productItem.cartProductQuantity.toString(),
       );
     } on SocketException {
       CustomAlertDialog.showAlertDialog(
@@ -103,6 +103,8 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
   }
 
   _buildCartBar() {
+    final productItem = widget.productItem;
+    final product = productItem.productModel;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       height: 150,
@@ -114,7 +116,7 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
             child: Padding(
               padding: const EdgeInsets.only(right: 50),
               child: CachedNetworkImage(
-                imageUrl: "${API.baseUrl}/uploads/${widget.product.image}",
+                imageUrl: "${API.baseUrl}/uploads/${product.image}",
                 imageBuilder: (context, imageProvider) => Container(
                   height: 100,
                   decoration: BoxDecoration(
@@ -136,7 +138,7 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
             ),
           ),
           Text(
-            "\$${widget.product.price} X ${widget.productQuantity}",
+            "\$${product.price} X ${productItem.cartProductQuantity}",
             style: kAppBarTextStyle,
           )
         ],
@@ -145,8 +147,7 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
   }
 
   _buildBottomAppBar() {
-    var totalPrice =
-        double.parse(widget.product.price) * widget.productQuantity;
+    final productItem = widget.productItem;
 
     return BottomAppBar(
       elevation: 0,
@@ -165,7 +166,7 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
                     style: kProductNameStyle,
                   ),
                   Text(
-                    "\$${totalPrice.floor()}",
+                    "\$${productItem.productPrice.floor()}",
                     style: kProductNameStyle.copyWith(
                       color: kDarkOrange,
                     ),
@@ -174,7 +175,7 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
               ),
               CustomRoundButton(
                 onTap: () {
-                  _handleProductPayment(price: totalPrice);
+                  _handleProductPayment();
                 },
                 buttonText: "Pay now",
                 buttonColor: kDarkBlue,
@@ -186,7 +187,9 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
     );
   }
 
-  _handleProductPayment({required price}) async {
+  _handleProductPayment() async {
+    final productItem = widget.productItem;
+
     try {
       final style = FlutterwaveStyle(
         appBarText: "Secured by Flutterwave",
@@ -214,10 +217,10 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
       final Flutterwave flutterwave = Flutterwave(
         context: context,
         style: style,
-        publicKey: publicKey,
+        publicKey: publicKey!,
         currency: "USD",
         txRef: _refText!,
-        amount: price.toString(),
+        amount: productItem.productPrice.toString(),
         customer: customer,
         paymentOptions: "ussd, card, barter, payattitude",
         customization: Customization(title: "Test Payment"),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/payment/application/payment_service.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_app_bar.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_bottom_app_bar.dart';
+import 'package:intola/src/features/shipping/application/shipping_service.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 import 'package:intola/src/widgets/snack_bar.dart';
@@ -38,9 +39,9 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(paymentServiceProvider);
+    final state = ref.watch(shippingServiceProvider);
     ref.listen<AsyncValue>(
-      paymentServiceProvider,
+      shippingServiceProvider,
       (previouState, newState) => newState.showErrorAlertDialog(context),
     );
 
@@ -50,11 +51,22 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
       );
     }
 
+    Future<void> onPaymentSuccessful() async {
+      await ref
+          .read(shippingServiceProvider.notifier)
+          .addPurchaseHistory()
+          .whenComplete(() {
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteName.homeScreen.name, (route) => false);
+      });
+    }
+
     void processPayment() {
       if (_formKey.currentState!.validate()) {
-        ref
-            .read(paymentServiceProvider.notifier)
-            .processProductPayment(context);
+        ref.read(shippingServiceProvider.notifier).processProductPayment(
+              context: context,
+              onPaymentSuccessful: onPaymentSuccessful,
+            );
       } else {
         _showSnackBar(
           message: "Fields not marked \nas 'optional' can't be empty!",

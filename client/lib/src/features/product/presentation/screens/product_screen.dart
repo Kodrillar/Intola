@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_payment_screen.dart';
 import 'package:intola/src/features/product/data/repository/product_repository.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
@@ -48,8 +49,10 @@ class ProductScreen extends ConsumerWidget {
         context,
         MaterialPageRoute(
           builder: (context) => DonationPaymentScreen(
-            product: product,
-            productQuantity: cartProductQuantity,
+            productItem: ProductItem(
+              cartProductQuantity: cartProductQuantity,
+              productModel: product,
+            ),
           ),
         ),
       );
