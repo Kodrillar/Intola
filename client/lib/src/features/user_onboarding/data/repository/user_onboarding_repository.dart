@@ -19,6 +19,12 @@ class UserOnboardingRepository {
       return InitializationStatus.homeScreen;
     }
   }
+
+  Future<void> persistOnboardingStatus() async {
+    await secureStorage.write(
+      storeObject: StoreObject(key: 'userOnboarded', value: 'success'),
+    );
+  }
 }
 
 final userOnboardingRepositoryProvider =
@@ -30,4 +36,9 @@ final getInitialScreenProvider =
     FutureProvider.autoDispose<InitializationStatus>((ref) {
   final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
   return userOnboardingRepository.fetchInitialScreen();
+});
+
+final persistOnboardingStatusProvider = FutureProvider.autoDispose<void>((ref) {
+  final userOnboardingRepository = ref.watch(userOnboardingRepositoryProvider);
+  return userOnboardingRepository.persistOnboardingStatus();
 });

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intola/src/features/user_onboarding/data/repository/user_onboarding_repository.dart';
 import 'package:intola/src/features/user_onboarding/presentation/onboarding_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
-import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 
@@ -80,11 +80,10 @@ class OnboardingView extends ConsumerWidget {
                               .read(onboardingScreenControllerProvider.notifier)
                               .navigateToAuthScreen()
                           ? () async {
-                              //TODO: add this to user_onboarding Repository
-                              await SecureStorage().write(
-                                storeObject: StoreObject(
-                                    key: 'userOnboarded', value: 'success'),
-                              );
+                              await ref
+                                  .read(userOnboardingRepositoryProvider)
+                                  .persistOnboardingStatus();
+
                               Navigator.pushNamed(
                                 context,
                                 RouteName.signUpScreen.name,
