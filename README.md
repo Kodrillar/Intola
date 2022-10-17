@@ -1,6 +1,6 @@
 <a href="https://github.com/Kodrillar/Intola/actions"><img src="https://github.com/Kodrillar/Intola/workflows/intola-unit-tests/badge.svg" alt="Build Status"></a>
 
-# What is Intola
+# What is Intola?
 Intola is an E-commerce mobile application for shopping, delivering and donating to people in need. It is written in <a href='https://dart.dev/'>Dart</a> using <a href='https://flutter.dev/'>Flutter</a>, Google's multi-platform application framework.
 
 
