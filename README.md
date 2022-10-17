@@ -6,15 +6,17 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 
 <img width="1235" alt="intola-graphic" src="https://user-images.githubusercontent.com/67793558/196162506-cf866bda-385f-4551-abd6-a77f2928a6f2.png">
 
+<a href='#'><img src="https://user-images.githubusercontent.com/67793558/196183359-76177ae7-ab4b-425b-85ab-1e9cf624f854.png" alt="playstore-badge"/> </a>   
+
 <img src="https://user-images.githubusercontent.com/67793558/163425788-e396721f-6342-4792-b3ee-7bdd7a7d9e89.png" alt="sign up screen" width="200"/>   <img src="https://user-images.githubusercontent.com/67793558/163426258-e9cecb65-9894-4e0a-a18f-7ce9ce840b6d.png" alt="home screen" width="200"/>  <img src="https://user-images.githubusercontent.com/67793558/163426867-114db330-b1cf-423e-9f2f-e6253650b989.png" alt="home screen" width="200"/>
 
 # Requirements
 - Ensure that <a href='https://flutter.dev/'>Flutter</a> is installed on your machine. 
 
-- Environment variables:
+- **Environment variables:**
     Create a ``` .env ``` file in the project's ``` client/ ``` directory.
 
-- Flutterwave public key for payments:
+- **Flutterwave public key for payments:**
     This mobile application uses <a href='https://flutterwave.com/'>Flutterwave</a>, to process payments (in test mode). You'll need a public key to process payments successfully.
 
 - <a href='https://app.flutterwave.com/register'>Create a Flutterwave account</a>.
