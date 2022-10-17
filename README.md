@@ -35,7 +35,7 @@ The server powering Intola can be found <a href='https://github.com/Kodrillar/in
 
 # Spotted a bug?  
 
-Feel free to file an issue.
+Feel free to<a href='https://github.com/Kodrillar/Intola/issues'> file an issue</a> or <a href='https://www.kodrillar.com/p/contact-me.html'>contact me</a>.
 
 
 
