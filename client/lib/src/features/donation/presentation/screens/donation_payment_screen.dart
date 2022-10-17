@@ -1,19 +1,16 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/routing/route.dart';
+import 'package:intola/src/features/donation/presentation/donation_payment_app_bar.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
-import 'package:flutterwave_standard/flutterwave.dart';
-import 'package:intola/src/widgets/snack_bar.dart';
 
 final publicKey = dotenv.env['PUBLIC_KEY'];
 
@@ -34,16 +31,6 @@ class DonationPaymentScreen extends StatefulWidget {
 }
 
 class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
-  String? _refText;
-  String? userEmail;
-
-  void getUserEmail() async {
-    var email = await SecureStorage().read(key: "userName");
-    setState(() {
-      userEmail = email;
-    });
-  }
-
   Future addDonation() async {
     final productItem = widget.productItem;
 
@@ -64,30 +51,10 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
     }
   }
 
-  void setRef() {
-    var randomNum = Random().nextInt(112300);
-    if (Platform.isAndroid) {
-      setState(() {
-        _refText = "AndroidRef294$randomNum+393";
-      });
-    } else {
-      setState(() {
-        _refText = "IosRef283$randomNum+278";
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    getUserEmail();
-    setRef();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: const DonationPaymentScreenAppBar(),
       bottomNavigationBar: _buildBottomAppBar(),
       body: _buildCartBar(),
     );
@@ -165,112 +132,13 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
                 ],
               ),
               CustomRoundButton(
-                onTap: () {
-                  _handleProductPayment();
-                },
+                onTap: () {},
                 buttonText: "Pay now",
                 buttonColor: kDarkBlue,
               )
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  _handleProductPayment() async {
-    final productItem = widget.productItem;
-
-    try {
-      final style = FlutterwaveStyle(
-        appBarText: "Secured by Flutterwave",
-        buttonColor: kDarkOrange,
-        appBarTitleTextStyle: kAppBarTextStyle.copyWith(color: Colors.white),
-        appBarIcon: const Icon(Icons.message, color: kDarkBlue),
-        buttonTextStyle:
-            kAppBarTextStyle.copyWith(fontSize: 18, color: kDarkBlue),
-        appBarColor: kDarkBlue,
-        dialogCancelTextStyle: const TextStyle(
-          color: kDarkOrange,
-          fontSize: 18,
-        ),
-        dialogContinueTextStyle: const TextStyle(
-          color: kDarkBlue,
-          fontSize: 18,
-        ),
-      );
-      final Customer customer = Customer(
-        name: userEmail!,
-        phoneNumber: "1234566677777",
-        email: userEmail!,
-      );
-
-      final Flutterwave flutterwave = Flutterwave(
-        context: context,
-        style: style,
-        publicKey: publicKey!,
-        currency: "USD",
-        txRef: _refText!,
-        amount: productItem.productPrice.toString(),
-        customer: customer,
-        paymentOptions: "ussd, card, barter, payattitude",
-        customization: Customization(title: "Test Payment"),
-        redirectUrl: 'https://github.com/Kodrillar',
-        isTestMode: true,
-      );
-
-      final ChargeResponse response = await flutterwave.charge();
-      if (response != null) {
-        if (response.success!) {
-          _showSnackBar(
-            message: "Transaction successful",
-            iconData: Icons.verified_rounded,
-          );
-
-          //add to donation screen
-          addDonation().whenComplete(
-            () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, RouteName.homeScreen.name, (route) => false);
-            },
-          );
-        } else {
-          // Transaction not successful
-          _showSnackBar(message: "Transaction Failed!");
-        }
-      } else {
-        // User cancelled Transaction
-        debugPrint("Transaction CANCELED BY USER!!!");
-        _showSnackBar(message: "Transaction Failed!");
-      }
-    } catch (_) {
-      _showSnackBar(message: "Transaction Failed!");
-    }
-  }
-
-  void _showSnackBar({required String message, IconData? iconData}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      CustomSnackBar(
-        snackBarMessage: message,
-        iconData: iconData,
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Donation Payment ",
-        style: kAppBarTextStyle,
       ),
     );
   }

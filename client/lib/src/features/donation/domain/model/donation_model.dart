@@ -1,7 +1,7 @@
 class DonationModel {
   DonationModel({
     this.id,
-    required this.email,
+    this.email,
     required this.image,
     required this.price,
     required this.description,
@@ -11,7 +11,7 @@ class DonationModel {
   });
 
   final String? id;
-  final String email;
+  final String? email;
   final String image;
   final String price;
   final String description;

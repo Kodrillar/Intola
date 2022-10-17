@@ -52,11 +52,7 @@ class DonationNetworkHelper {
     throw response;
   }
 
-  Future updateSpotsleft(
-      {required endpoint,
-      required id,
-      required email,
-      required spotsleft}) async {
+  Future updateSpotsleft({required id, required spotsleft}) async {
     final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.put(
@@ -68,7 +64,6 @@ class DonationNetworkHelper {
       },
       body: jsonEncode(
         {
-          "email": email,
           "id": id,
           "spotsleft": spotsleft,
         },

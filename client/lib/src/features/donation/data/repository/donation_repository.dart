@@ -30,7 +30,9 @@ class DonationRepository {
   }) async {
     try {
       await donationNetworkHelper.updateSpotsleft(
-          endpoint: endpoint, id: id, spotsleft: spotsleft, email: email);
+        id: id,
+        spotsleft: spotsleft,
+      );
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return responseBody;
@@ -42,7 +44,6 @@ class DonationRepository {
     try {
       var donate = await donationNetworkHelper.donateProduct(
         donationModel: DonationModel(
-          email: '',
           image: product.image,
           price: productItem.productPrice.toString(),
           description: product.description,

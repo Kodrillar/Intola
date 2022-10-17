@@ -18,11 +18,6 @@ class DonationCard extends StatefulWidget {
 }
 
 class _DonationCardState extends State<DonationCard> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
