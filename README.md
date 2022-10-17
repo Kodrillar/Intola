@@ -30,7 +30,7 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 
 # Server
 
-The server powering Intola can be found <a href='https://github.com/Kodrillar/intola-server'>here</a>. It is written in Javascript using <a href='https://nodejs.org/en/'>Node.js</a>, <a href='https://expressjs.com/'>Express.js</a> and, <a href='https://www.datastax.com/products/datastax-astra'>Astra DB</a> (Datastax's Cassandra Database-as-a-service).
+The server powering Intola can be found <a href='https://github.com/Kodrillar/intola-server'>here</a> or in the project's ``` server/``` directory. It is written in Javascript using <a href='https://nodejs.org/en/'>Node.js</a>, <a href='https://expressjs.com/'>Express.js</a> and, <a href='https://www.datastax.com/products/datastax-astra'>Astra DB</a> (Datastax's Cassandra Database-as-a-service).
 
 
 # Spotted a bug?  
