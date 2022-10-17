@@ -9,14 +9,20 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 <img src="https://user-images.githubusercontent.com/67793558/163425788-e396721f-6342-4792-b3ee-7bdd7a7d9e89.png" alt="sign up screen" width="200"/>   <img src="https://user-images.githubusercontent.com/67793558/163426258-e9cecb65-9894-4e0a-a18f-7ce9ce840b6d.png" alt="home screen" width="200"/>  <img src="https://user-images.githubusercontent.com/67793558/163426867-114db330-b1cf-423e-9f2f-e6253650b989.png" alt="home screen" width="200"/>
 
 # Requirements
-- Ensure that Flutter is installed on your machine. 
+- Ensure that <a href='https://flutter.dev/'>Flutter</a> is installed on your machine. 
+
 - Environment variables:
     Create a ``` .env ``` file in the project's ``` client/ ``` directory.
+
 - Flutterwave public key for payments:
     This mobile application uses <a href='https://flutterwave.com/'>Flutterwave</a>, to process payments (in test mode). You'll need a public key to process payments successfully.
+
 - <a href='https://app.flutterwave.com/register'>Create a Flutterwave account</a>.
+
 - <a href='https://flutterwave.com/tz/support/my-account/getting-your-api-keys'>Follow this guide</a> to get your public key.                                         
+
 - Add this line, ``` PUBLIC_KEY=<YOUR_FLUTTERWAVE_PUBLIC_KEY> ```, to the ```.env``` file created in step 1.
+
 - Run ``` flutter pub get ```
 
 
@@ -25,9 +31,9 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 The server powering Intola can be found <a href='https://github.com/Kodrillar/intola-server'>here</a>. It is written in Javascript using <a href='https://nodejs.org/en/'>Node.js</a>, <a href='https://expressjs.com/'>Express.js</a> and, <a href='https://www.datastax.com/products/datastax-astra'>Astra DB</a> (Datastax's Cassandra Database-as-a-service).
 
 
-# Got a problem? 
+# Spotted a bug?  
 
-If you need any help, feel free to file an issue.
+Feel free to file an issue.
 
 
 
