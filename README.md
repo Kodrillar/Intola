@@ -8,7 +8,7 @@ Ecommerce mobile application for shopping, delivering and donating to people in 
 We've made use of Datastax ASTRA DB(Cassandra Database as a service), Nodejs, Express, for the server side. For the client side, we used Google's UI framework, Flutter. To ensure that customers transactions are processed smoothly, promptly and safely,  we've made use of Flutterwave , a payment service provider.
 
 **To get started sign up to create an account;**
-![Screenshot_20220414-161757](https://user-images.githubusercontent.com/67793558/163425788-e396721f-6342-4792-b3ee-7bdd7a7d9e89.png =200x)
+![Screenshot_20220414-161757](https://user-images.githubusercontent.com/67793558/163425788-e396721f-6342-4792-b3ee-7bdd7a7d9e89.png) {width:50%}
 You'll be logged in automatically, after signing up
 
 **Surf items from different categories**
