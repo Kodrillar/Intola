@@ -6,7 +6,7 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 
 To run this server, you'll need the most recent version of <a href='https://nodejs.org/en/'>Node.js</a>.
 
-- <a href='https://nodejs.org/en/' target='_blank'>Click here</a> to install Node.js.
+- <a href='https://nodejs.org/en/' target="_blank">Click here</a> to install Node.js.
 - <a href='http://siberiancmscustomization.blogspot.com/2020/10/how-to-get-imgur-client-id.html'>Follow this guide</a> to get your Imgur client ID. 
 - <a href='https://astra.datastax.com/register/U2FsdGVkX19TSSHomrpXLuW0Q6IdPugGkUx6MMTAKdGyos1L2a3S4hA3KuU4bWwKKE0VsT5GzqGeofcDRk0yfHup1L2u3Sn1mfKAe1Q2u3A4le1Q2u3A4l'>Create an Astra DB account</a> to get your database client Id and secret.
 - In the project directory, run, ``` npm install ```
