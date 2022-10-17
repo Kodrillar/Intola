@@ -14,7 +14,8 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
     Create a ``` .env ``` file in the project's ``` client/ ``` directory.
 - Flutterwave public key for payments:
     This mobile application uses <a href='https://flutterwave.com/'>Flutterwave</a>, to process payments (in test mode). You'll need a public key to process payments successfully.
-- <a href='https://app.flutterwave.com/register'>Create a Flutterwave account</a> to get your public key.                                         
+- <a href='https://app.flutterwave.com/register'>Create a Flutterwave account</a>.
+- <a href='https://flutterwave.com/tz/support/my-account/getting-your-api-keys'>Follow this guide</a> to get your public key.                                         
 - Add this line, ``` PUBLIC_KEY=<YOUR_FLUTTERWAVE_PUBLIC_KEY> ```, to the ```.env``` file created in step 1.
 - Run ``` flutter pub get ```
 
