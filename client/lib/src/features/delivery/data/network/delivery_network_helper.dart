@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/utils/network/api.dart';
 
 class DeliveryNetworkHelper {
-  // final baseUrl = "http://localhost:3000/api";
   DeliveryNetworkHelper({required this.secureStorage});
-  final baseUrl = "https://intola.herokuapp.com/api";
   final SecureStorage secureStorage;
 
   Future<List<dynamic>> getDelivery({required endpoint}) async {
@@ -16,7 +15,7 @@ class DeliveryNetworkHelper {
 
     http.Response response = await http.get(
       Uri.parse(
-        baseUrl + endpoint,
+        API.baseUrl + endpoint,
       ),
       headers: {"X-auth-token": "$token"},
     );
@@ -46,7 +45,7 @@ class DeliveryNetworkHelper {
 
     http.Response response = await http.post(
       Uri.parse(
-        baseUrl + endpoint,
+        API.baseUrl + endpoint,
       ),
       headers: {
         "content-type": "application/json",
@@ -69,7 +68,7 @@ class DeliveryNetworkHelper {
 
     http.MultipartRequest request = http.MultipartRequest(
       "PATCH",
-      Uri.parse(baseUrl + endpoint),
+      Uri.parse(API.baseUrl + endpoint),
     );
     request.files.add(await http.MultipartFile.fromPath("image", imagePath));
     request.headers.addAll({

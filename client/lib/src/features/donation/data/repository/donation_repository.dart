@@ -23,10 +23,8 @@ class DonationRepository {
   }
 
   Future updateDonationSpot({
-    required endpoint,
     required id,
     required spotsleft,
-    required email,
   }) async {
     try {
       await donationNetworkHelper.updateSpotsleft(
@@ -42,7 +40,7 @@ class DonationRepository {
   Future<dynamic> donateProduct({required ProductItem productItem}) async {
     final product = productItem.productModel;
     try {
-      var donate = await donationNetworkHelper.donateProduct(
+      await donationNetworkHelper.donateProduct(
         donationModel: DonationModel(
           image: product.image,
           price: productItem.productPrice.toString(),
@@ -52,7 +50,6 @@ class DonationRepository {
           spotsleft: productItem.cartProductQuantity.toString(),
         ),
       );
-      return donate;
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);

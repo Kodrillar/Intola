@@ -28,7 +28,7 @@ class ShippingService extends StateNotifier<AsyncValue<void>> {
       final totalCartPrice = await cartRepository.getTotalPrice();
       return flutterwavePayment.processProductPayment(
         context: context,
-        amount: totalCartPrice,
+        amount: totalCartPrice!,
         onPaymentSuccessful: onPaymentSuccessful,
       );
     });

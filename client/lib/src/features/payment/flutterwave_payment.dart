@@ -36,7 +36,7 @@ class FlutterwavePayment {
 
   Future<void> processProductPayment({
     required BuildContext context,
-    required amount,
+    required double amount,
     required Future<void> Function() onPaymentSuccessful,
   }) async {
     final String? user = await secureStorage.read(key: 'userName');

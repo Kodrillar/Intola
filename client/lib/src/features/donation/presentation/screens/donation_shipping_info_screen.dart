@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
@@ -7,9 +6,7 @@ import 'package:intola/src/features/purchase/data/network/purchase_network_helpe
 import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
-import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
@@ -78,27 +75,27 @@ class _DonationShippingInfoScreenState
   }
 
   Future updateDonationSpots() async {
-    productSpotsleft = int.parse(widget.spotsleft) - 1;
-    try {
-      await _donationRepository.updateDonationSpot(
-        endpoint: endpoints["updateDonation"],
-        id: widget.productId,
-        email: widget.donorEmail,
-        spotsleft: productSpotsleft,
-      );
-    } on SocketException {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Network Error",
-        content: "Unable to connect to the internet!",
-      );
-    } catch (_) {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Oops! something went wrong.",
-        content: "Contact support team",
-      );
-    }
+    // productSpotsleft = int.parse(widget.spotsleft) - 1;
+    // try {
+    //   await _donationRepository.updateDonationSpot(
+    //     endpoint: endpoints["updateDonation"],
+    //     id: widget.productId,
+    //     email: widget.donorEmail,
+    //     spotsleft: productSpotsleft,
+    //   );
+    // } on SocketException {
+    //   CustomAlertDialog.showAlertDialog(
+    //     context: context,
+    //     title: "Network Error",
+    //     content: "Unable to connect to the internet!",
+    //   );
+    // } catch (_) {
+    //   CustomAlertDialog.showAlertDialog(
+    //     context: context,
+    //     title: "Oops! something went wrong.",
+    //     content: "Contact support team",
+    //   );
+    // }
   }
 
   void getUserEmail() async {

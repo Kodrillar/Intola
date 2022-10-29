@@ -1,67 +1,121 @@
-import 'dart:io';
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
-import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
-import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/features/donation/presentation/donation_payment_app_bar.dart';
-import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/features/donation/presentation/donation_payment_screen_app_bar.dart';
+import 'package:intola/src/features/donation/presentation/donation_payment_screen_controller.dart';
+import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
-import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
+import 'package:intola/src/widgets/loading_indicator.dart';
 
-final publicKey = dotenv.env['PUBLIC_KEY'];
-
-DonationRepository _donationRepository = DonationRepository(
-    donationNetworkHelper: DonationNetworkHelper(
-  secureStorage: SecureStorage(),
-));
-
-class DonationPaymentScreen extends StatefulWidget {
-  const DonationPaymentScreen({
-    required this.productItem,
-    Key? key,
-  }) : super(key: key);
+class DonationPaymentScreen extends ConsumerWidget {
+  const DonationPaymentScreen({Key? key, required this.productItem})
+      : super(key: key);
 
   final ProductItem productItem;
+
   @override
-  _DonationPaymentScreenState createState() => _DonationPaymentScreenState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> onPaymentSuccessful() async {
+      await ref
+          .read(donationPaymentScreenControllerProvider.notifier)
+          .donateProduct(productItem: productItem)
+          .whenComplete(
+            () => Navigator.pushNamedAndRemoveUntil(
+                context, RouteName.homeScreen.name, (route) => false),
+          );
+    }
+
+    void processProductPayment() {
+      ref
+          .read(donationPaymentScreenControllerProvider.notifier)
+          .processDonationPayment(
+            context: context,
+            amount: productItem.productPrice,
+            onPaymentSuccessful: onPaymentSuccessful,
+          );
+    }
+
+    final state = ref.watch(donationPaymentScreenControllerProvider);
+    return state.isLoading
+        ? const LoadingIndicator()
+        : Scaffold(
+            appBar: const DonationPaymentScreenAppBar(),
+            bottomNavigationBar: DonationPaymentScreenBottomAppBar(
+              processProductPayment: processProductPayment,
+              productItem: productItem,
+            ),
+            body: DonationProductBar(productItem: productItem),
+          );
+  }
 }
 
-class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
-  Future addDonation() async {
-    final productItem = widget.productItem;
+class DonationPaymentScreenBottomAppBar extends ConsumerWidget {
+  const DonationPaymentScreenBottomAppBar(
+      {Key? key,
+      required this.productItem,
+      required this.processProductPayment})
+      : super(key: key);
 
-    try {
-      await _donationRepository.donateProduct(productItem: productItem);
-    } on SocketException {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Network Error",
-        content: "Unable to connect to the internet!",
-      );
-    } catch (_) {
-      CustomAlertDialog.showAlertDialog(
-        context: context,
-        title: "Oops! something went wrong.",
-        content: "Contact support team",
-      );
-    }
+  final ProductItem productItem;
+
+  final void Function() processProductPayment;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AsyncValue>(donationPaymentScreenControllerProvider,
+        (previousState, newState) => newState.showErrorAlertDialog(context));
+
+    return BottomAppBar(
+      elevation: 0,
+      child: SizedBox(
+        height: 180,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Total",
+                    style: kProductNameStyle,
+                  ),
+                  Text(
+                    "\$${productItem.productPrice}",
+                    style: kProductNameStyle.copyWith(
+                      color: kDarkOrange,
+                    ),
+                  )
+                ],
+              ),
+              CustomRoundButton(
+                onTap: processProductPayment,
+                buttonText: "Pay now",
+                buttonColor: kDarkBlue,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
+}
+
+class DonationProductBar extends StatelessWidget {
+  const DonationProductBar({Key? key, required this.productItem})
+      : super(key: key);
+
+  final ProductItem productItem;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DonationPaymentScreenAppBar(),
-      bottomNavigationBar: _buildBottomAppBar(),
-      body: _buildCartBar(),
-    );
-  }
-
-  _buildCartBar() {
-    final productItem = widget.productItem;
     final product = productItem.productModel;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -100,45 +154,6 @@ class _DonationPaymentScreenState extends State<DonationPaymentScreen> {
             style: kAppBarTextStyle,
           )
         ],
-      ),
-    );
-  }
-
-  _buildBottomAppBar() {
-    final productItem = widget.productItem;
-
-    return BottomAppBar(
-      elevation: 0,
-      child: SizedBox(
-        height: 180,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Total",
-                    style: kProductNameStyle,
-                  ),
-                  Text(
-                    "\$${productItem.productPrice.floor()}",
-                    style: kProductNameStyle.copyWith(
-                      color: kDarkOrange,
-                    ),
-                  )
-                ],
-              ),
-              CustomRoundButton(
-                onTap: () {},
-                buttonText: "Pay now",
-                buttonColor: kDarkBlue,
-              )
-            ],
-          ),
-        ),
       ),
     );
   }

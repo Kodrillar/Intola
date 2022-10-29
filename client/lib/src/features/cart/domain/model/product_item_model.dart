@@ -11,7 +11,7 @@ class ProductItem {
   int cartProductQuantity;
 
   double get productPrice =>
-      double.parse(productModel.price) * cartProductQuantity;
+      (double.parse(productModel.price) * cartProductQuantity).roundToDouble();
 
   @override
   String toString() {

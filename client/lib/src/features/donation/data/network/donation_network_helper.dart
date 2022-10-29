@@ -6,7 +6,6 @@ import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class DonationNetworkHelper {
-  // final baseUrl = "http://localhost:3000/api";
   DonationNetworkHelper({required this.secureStorage});
   final baseUrl = API.baseUrl;
   final SecureStorage secureStorage;
