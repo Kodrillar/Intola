@@ -5,19 +5,13 @@ import 'package:intola/src/features/donation/presentation/screens/donation_produ
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class DonationCard extends StatefulWidget {
+class DonationCard extends StatelessWidget {
   const DonationCard({
     Key? key,
     required this.donation,
   }) : super(key: key);
 
   final DonationModel donation;
-
-  @override
-  _DonationCardState createState() => _DonationCardState();
-}
-
-class _DonationCardState extends State<DonationCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,49 +20,139 @@ class _DonationCardState extends State<DonationCard> {
           context,
           MaterialPageRoute(
             builder: (context) => DonationProductScreen(
-              donation: widget.donation,
+              donation: donation,
             ),
           ),
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-        height: 455,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15),
-                child: Text(
-                  "${widget.donation.email} is donating:",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: kDarkOrange,
-                  ),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        height: 415,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Text(
+                "${donation.email} is donating:",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: kDarkOrange,
                 ),
               ),
-              _buildProductImage(),
-              _buildProductName(),
-              _buildTotalQuantity(),
-              _buildSpotsLeft(),
-              const Divider(
-                endIndent: 16,
-                indent: 16,
-                color: kDarkOrange,
-              )
-            ],
-          ),
+            ),
+            DonationCardProductImage(donation: donation),
+            DonationCardProductName(donation: donation),
+            DonationCardProductQuantity(donation: donation),
+            DonationCardSpotsLeft(donation: donation),
+            const Divider(
+              endIndent: 16,
+              indent: 16,
+              color: kDarkOrange,
+            )
+          ],
         ),
       ),
     );
   }
+}
 
-  _buildProductImage() {
+class DonationCardSpotsLeft extends StatelessWidget {
+  const DonationCardSpotsLeft({Key? key, required this.donation})
+      : super(key: key);
+  final DonationModel donation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 16, right: 18),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Spots left",
+            style: kAppBarTextStyle,
+          ),
+          Text(
+            "x${donation.spotsleft}",
+            style: kAppBarTextStyle.copyWith(
+              color: kDarkOrange,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DonationCardProductQuantity extends StatelessWidget {
+  const DonationCardProductQuantity({Key? key, required this.donation})
+      : super(key: key);
+  final DonationModel donation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 18),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Total quantity",
+            style: kAppBarTextStyle,
+          ),
+          Text(
+            "x${donation.quantity}",
+            style: kAppBarTextStyle.copyWith(
+              color: kDarkOrange,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DonationCardProductName extends StatelessWidget {
+  const DonationCardProductName({Key? key, required this.donation})
+      : super(key: key);
+
+  final DonationModel donation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            donation.name,
+            style: kProductNameStyle,
+          ),
+          Text(
+            "\$${donation.price}",
+            style: kProductNameStyle,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DonationCardProductImage extends StatelessWidget {
+  const DonationCardProductImage({Key? key, required this.donation})
+      : super(key: key);
+
+  final DonationModel donation;
+
+  @override
+  Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: "${API.baseUrl}/uploads/${widget.donation.image}",
+      imageUrl: "${API.baseUrl}/uploads/${donation.image}",
       imageBuilder: (context, imageProvider) => Container(
         height: 200,
         decoration: BoxDecoration(
@@ -84,67 +168,6 @@ class _DonationCardState extends State<DonationCard> {
           const Center(child: CircularProgressIndicator()),
       errorWidget: (context, url, error) => const Center(
         child: Icon(Icons.error, color: Colors.red),
-      ),
-    );
-  }
-
-  _buildSpotsLeft() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 16, right: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Spots left",
-            style: kAppBarTextStyle,
-          ),
-          Text(
-            "x${widget.donation.spotsleft}",
-            style: kAppBarTextStyle.copyWith(
-              color: kDarkOrange,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildTotalQuantity() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Total quantity",
-            style: kAppBarTextStyle,
-          ),
-          Text(
-            "x${widget.donation.quantity}",
-            style: kAppBarTextStyle.copyWith(
-              color: kDarkOrange,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildProductName() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            widget.donation.name,
-            style: kProductNameStyle,
-          ),
-          Text(
-            "\$${widget.donation.price}",
-            style: kProductNameStyle,
-          ),
-        ],
       ),
     );
   }
