@@ -62,7 +62,7 @@ class ProductScreen extends ConsumerWidget {
       appBar: const ProductAppBar(),
       bottomNavigationBar: ProductCtaButton(
         addProductToCart: _addProductToCart,
-        addProductToDonationCart: _donateProduct,
+        donateProduct: _donateProduct,
       ),
       body: Scrollbar(
         thumbVisibility: true,
@@ -156,11 +156,11 @@ class ProductCtaButton extends StatelessWidget {
   const ProductCtaButton({
     Key? key,
     required this.addProductToCart,
-    required this.addProductToDonationCart,
+    required this.donateProduct,
   }) : super(key: key);
 
   final void Function() addProductToCart;
-  final void Function() addProductToDonationCart;
+  final void Function() donateProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +180,7 @@ class ProductCtaButton extends StatelessWidget {
               buttonColor: kDarkBlue,
             ),
             CustomRoundButton(
-              onTap: () {
-                addProductToDonationCart();
-              },
+              onTap: donateProduct,
               buttonText: "Donate",
             )
           ],
