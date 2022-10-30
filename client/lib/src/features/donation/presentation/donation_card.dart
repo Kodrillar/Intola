@@ -4,6 +4,7 @@ import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_product_screen.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/utils/reduce_string_length.dart';
 
 class DonationCard extends StatelessWidget {
   const DonationCard({
@@ -34,7 +35,7 @@ class DonationCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 15),
               child: Text(
-                "${donation.email} is donating:",
+                "${donation.email!.reduceStringLength} is donating:",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(

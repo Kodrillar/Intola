@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class DonationProductScreenAppBar extends StatelessWidget
-    with PreferredSizeWidget {
-  const DonationProductScreenAppBar({Key? key}) : super(key: key);
+class AppBarWithBackArrow extends StatelessWidget
+    implements PreferredSizeWidget {
+  const AppBarWithBackArrow({Key? key, required this.title}) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +13,13 @@ class DonationProductScreenAppBar extends StatelessWidget
         color: kDarkBlue,
         icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.pop(context);
         },
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: const Text(
-        "Donation Shop",
+      title: Text(
+        title,
         style: kAppBarTextStyle,
       ),
     );

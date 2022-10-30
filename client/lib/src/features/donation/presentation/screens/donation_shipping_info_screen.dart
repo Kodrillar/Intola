@@ -1,43 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
-import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
-import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
-import 'package:intola/src/features/purchase/data/network/purchase_network_helper.dart';
-import 'package:intola/src/features/purchase/data/repository/purchase_repository.dart';
-import 'package:intola/src/routing/route.dart';
+import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/utils/validation_error_text.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/app_bar_with_back_arrow.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 
-//TODO: Remove this
-PurchaseHistoryRepository _purchaseRepository = PurchaseHistoryRepository(
-    secureStorage: SecureStorage(),
-    cartRepository: CartRepository(secureStorage: SecureStorage()),
-    purchaseHistoryNetworkHelper:
-        PurchaseHistoryNetworkHelper(secureStorage: SecureStorage()));
-DonationRepository _donationRepository = DonationRepository(
-    donationNetworkHelper: DonationNetworkHelper(
-  secureStorage: SecureStorage(),
-));
-
 class DonationShippingInfoScreen extends StatefulWidget {
-  const DonationShippingInfoScreen(
-      {Key? key,
-      this.image,
-      this.name,
-      this.productId,
-      this.spotsleft,
-      this.donorEmail})
+  const DonationShippingInfoScreen({Key? key, required this.donation})
       : super(key: key);
 
-  final productId;
-  final spotsleft;
-  final image;
-  final name;
-  final donorEmail;
-
-  static const id = "/shippingInfo";
+  final DonationModel donation;
 
   @override
   _DonationShippingInfoScreenState createState() =>
@@ -46,210 +20,138 @@ class DonationShippingInfoScreen extends StatefulWidget {
 
 class _DonationShippingInfoScreenState
     extends State<DonationShippingInfoScreen> {
-  String? userEmail;
-  var productSpotsleft;
-
+  final _formKey = GlobalKey<FormState>();
   TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
-  TextEditingController apartmentController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
 
-  Future addPurchaseHistory() async {
-    // try {
-    //   await _purchaseRepository.addPurchaseHistory(products: []);
-    // } on SocketException {
-    //   CustomAlertDialog.showAlertDialog(
-    //     context: context,
-    //     title: "Network Error",
-    //     content: "Unable to connect to the internet!",
-    //   );
-    // } catch (_) {
-    //   CustomAlertDialog.showAlertDialog(
-    //     context: context,
-    //     title: "Oops! something went wrong.",
-    //     content: "Contact support team",
-    //   );
-    // }
+  Future<void> _addPurchaseHistory() async {
+    if (_formKey.currentState!.validate()) {
+      CustomAlertDialog.showAlertDialog(
+        context: context,
+        title: 'Not implemented yet',
+        content: 'coming soon...',
+      );
+
+      //add to purchase history then show alert dialog on success
+      // CustomAlertDialog.showAlertDialog(
+      //         title: "Your order is on the way",
+      //         content: "Shipping address added successfully!",
+      //         context: context)
+      //     .whenComplete(
+      //   () => Navigator.pushNamedAndRemoveUntil(
+      //       context, RouteName.homeScreen.name, (route) => false),
+      // );
+    }
   }
 
-  Future updateDonationSpots() async {
-    // productSpotsleft = int.parse(widget.spotsleft) - 1;
-    // try {
-    //   await _donationRepository.updateDonationSpot(
-    //     endpoint: endpoints["updateDonation"],
-    //     id: widget.productId,
-    //     email: widget.donorEmail,
-    //     spotsleft: productSpotsleft,
-    //   );
-    // } on SocketException {
-    //   CustomAlertDialog.showAlertDialog(
-    //     context: context,
-    //     title: "Network Error",
-    //     content: "Unable to connect to the internet!",
-    //   );
-    // } catch (_) {
-    //   CustomAlertDialog.showAlertDialog(
-    //     context: context,
-    //     title: "Oops! something went wrong.",
-    //     content: "Contact support team",
-    //   );
-    // }
-  }
-
-  void getUserEmail() async {
-    var email = await SecureStorage().read(key: "userName");
-    setState(() {
-      userEmail = email;
-    });
-  }
+  //Future<void> _updateDonationSpots() async {}
 
   @override
-  void initState() {
-    getUserEmail();
-    super.initState();
+  void dispose() {
+    addressController.dispose();
+    countryController.dispose();
+    cityController.dispose();
+    phoneController.dispose();
+    zipCodeController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomAppBar(),
-      body: ListView(
-        children: [
-          CustomTextField(
-            controller: addressController,
-            hintText: "Address",
-            labelText: "Address",
+      appBar: const AppBarWithBackArrow(title: "Shipping Infomation"),
+      bottomNavigationBar: DonationShippingInfoScreenBottomAppBar(
+          addPurchaseHistory: _addPurchaseHistory),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CustomTextField(
+                controller: addressController,
+                hintText: "Address",
+                labelText: "Address",
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return ValidationErrorMessage.addressError.message;
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: cityController,
+                hintText: "City",
+                labelText: "City",
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return ValidationErrorMessage.cityError.message;
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: countryController,
+                hintText: "Country",
+                labelText: "Country",
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return ValidationErrorMessage.countryError.message;
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: phoneController,
+                hintText: "Phone",
+                labelText: "Phone",
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return ValidationErrorMessage.phoneError.message;
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: zipCodeController,
+                hintText: "Zip code",
+                labelText: "Zip code",
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return ValidationErrorMessage.zipcodeError.message;
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
-          CustomTextField(
-            controller: apartmentController,
-            hintText: "Apartment suite(optional)",
-            labelText: "Apartment suite",
-          ),
-          CustomTextField(
-            controller: cityController,
-            hintText: "City",
-            labelText: "City",
-          ),
-          CustomTextField(
-            controller: countryController,
-            hintText: "Country",
-            labelText: "Country",
-          ),
-          CustomTextField(
-            controller: phoneController,
-            hintText: "Phone",
-            labelText: "Phone",
-          ),
-          CustomTextField(
-            controller: zipCodeController,
-            hintText: "Zip code",
-            labelText: "Zip code",
-          ),
-        ],
+        ),
       ),
     );
   }
+}
 
-  _buildBottomAppBar() {
+class DonationShippingInfoScreenBottomAppBar extends StatelessWidget {
+  const DonationShippingInfoScreenBottomAppBar(
+      {Key? key, required this.addPurchaseHistory})
+      : super(key: key);
+  final Future<void> Function() addPurchaseHistory;
+
+  @override
+  Widget build(BuildContext context) {
     return BottomAppBar(
       elevation: 0,
       child: SizedBox(
         height: 120,
         child: Center(
           child: CustomRoundButton(
-            onTap: () {
-              if (addressController.text.trim().isEmpty ||
-                  cityController.text.trim().isEmpty ||
-                  countryController.text.trim().isEmpty ||
-                  phoneController.text.trim().isEmpty ||
-                  zipCodeController.text.trim().isEmpty) {
-                _showSnackBar(
-                  message: "Fields not marked \nas 'optional' can't be empty!",
-                );
-              } else {
-                addPurchaseHistory();
-                updateDonationSpots();
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Row(
-                        children: [
-                          const Icon(
-                            Icons.local_shipping_rounded,
-                            color: kDarkOrange,
-                          ),
-                          const SizedBox(width: 3),
-                          Text(
-                            "Your order is on the way",
-                            style: kAppBarTextStyle.copyWith(fontSize: 13),
-                          ),
-                        ],
-                      ),
-                      content: Text(
-                        "Shipping address added successfully!",
-                        style: kAppBarTextStyle.copyWith(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      actions: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(context,
-                                RouteName.homeScreen.name, (route) => false);
-                          },
-                          icon: const Icon(Icons.done),
-                        ),
-                      ],
-                    );
-                  },
-                ).whenComplete(
-                  () => Navigator.pushNamedAndRemoveUntil(
-                      context, RouteName.homeScreen.name, (route) => false),
-                );
-              }
-            },
+            onTap: addPurchaseHistory,
             buttonText: "Done",
             buttonColor: kDarkBlue,
           ),
         ),
-      ),
-    );
-  }
-
-  void _showSnackBar({required String message, IconData? iconData}) {
-    var _snackBar = SnackBar(
-      content: Row(
-        children: [
-          Icon(iconData ?? Icons.error, color: kDarkOrange),
-          const SizedBox(width: 5),
-          Text(message, style: kSnackBarTextStyle),
-        ],
-      ),
-      backgroundColor: kDarkBlue,
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Shipping Infomation",
-        style: kAppBarTextStyle,
       ),
     );
   }

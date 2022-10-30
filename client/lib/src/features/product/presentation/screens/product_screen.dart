@@ -173,9 +173,7 @@ class ProductCtaButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomRoundButton(
-              onTap: () {
-                addProductToCart();
-              },
+              onTap: addProductToCart,
               buttonText: "Add to cart",
               buttonColor: kDarkBlue,
             ),

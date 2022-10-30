@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/utils/reduce_string_length.dart';
 
 class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
   const HomeAppBar({Key? key, required this.userName}) : super(key: key);
@@ -29,7 +30,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Hi, $userName",
+                  "Hi, ${userName?.reduceStringLength}",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: kHeadingTextStyle,

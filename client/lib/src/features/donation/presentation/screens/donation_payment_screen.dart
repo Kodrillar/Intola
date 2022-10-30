@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
-import 'package:intola/src/features/donation/presentation/donation_payment_screen_app_bar.dart';
 import 'package:intola/src/features/donation/presentation/donation_payment_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/widgets/app_bar_with_back_arrow.dart';
 import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
@@ -45,7 +45,7 @@ class DonationPaymentScreen extends ConsumerWidget {
     return state.isLoading
         ? const LoadingIndicator()
         : Scaffold(
-            appBar: const DonationPaymentScreenAppBar(),
+            appBar: const AppBarWithBackArrow(title: "Donation Payment "),
             bottomNavigationBar: DonationPaymentScreenBottomAppBar(
               processProductPayment: processProductPayment,
               productItem: productItem,

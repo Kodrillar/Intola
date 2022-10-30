@@ -14,8 +14,13 @@ class CustomAlertDialog {
       context: context,
       builder: Platform.isAndroid
           ? (BuildContext context) => AlertDialog(
-                title: Text(title),
-                content: Text(content),
+                title: Text(title,
+                    style: kAppBarTextStyle.copyWith(
+                        fontSize: 15, color: kDarkOrange)),
+                content: Text(
+                  content,
+                  style: kProductDetailStyle.copyWith(color: kDarkBlue),
+                ),
                 actions: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -26,8 +31,13 @@ class CustomAlertDialog {
           : (BuildContext context) => Material(
                 color: Colors.transparent,
                 child: CupertinoAlertDialog(
-                  title: Text(title),
-                  content: Text(content),
+                  title: Text(title,
+                      style: kAppBarTextStyle.copyWith(
+                          fontSize: 15, color: kDarkOrange)),
+                  content: Text(
+                    content,
+                    style: kProductDetailStyle.copyWith(color: kDarkBlue),
+                  ),
                   actions: [
                     IconButton(
                       onPressed: () => Navigator.pop(context),
@@ -52,9 +62,8 @@ class CustomAlertDialog {
           ? AlertDialog(
               title: Text(
                 title,
-                style: kAppBarTextStyle.copyWith(fontSize: 15).copyWith(
-                      color: kDarkOrange,
-                    ),
+                style:
+                    kAppBarTextStyle.copyWith(fontSize: 15, color: kDarkOrange),
               ),
               content: Text(
                 content,
@@ -78,9 +87,10 @@ class CustomAlertDialog {
           : CupertinoAlertDialog(
               title: Text(
                 title,
-                style: kAppBarTextStyle.copyWith(fontSize: 15).copyWith(
-                      color: kDarkOrange,
-                    ),
+                style: kAppBarTextStyle.copyWith(
+                  fontSize: 15,
+                  color: kDarkOrange,
+                ),
               ),
               content: Text(
                 content,

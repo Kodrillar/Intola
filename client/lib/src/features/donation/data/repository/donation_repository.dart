@@ -27,6 +27,7 @@ class DonationRepository {
     required spotsleft,
   }) async {
     try {
+      //update server code to update spotsLeft, only id should be provided by client
       await donationNetworkHelper.updateSpotsleft(
         id: id,
         spotsleft: spotsleft,
