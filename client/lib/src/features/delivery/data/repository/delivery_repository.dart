@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/features/delivery/data/network/delivery_network_helper.dart';
@@ -6,15 +7,15 @@ import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/request_response.dart';
 
 class DeliveryRepository {
-  //change this
-  final DeliveryNetworkHelper _deliveryNetworkHelper =
-      DeliveryNetworkHelper(secureStorage: SecureStorage());
+  DeliveryRepository({required this.deliveryNetworkHelper});
+  final DeliveryNetworkHelper deliveryNetworkHelper;
 
-  Future<List<DeliveryModel>> getDelivery({required endpoint}) async {
+  Future<List<DeliveryModel>> fetchDeliveryData() async {
     try {
-      var getDelivery =
-          await _deliveryNetworkHelper.getDelivery(endpoint: endpoint);
-      return getDelivery.map<DeliveryModel>(DeliveryModel.toJson).toList();
+      var getDeliveryData = await deliveryNetworkHelper.getDelivery();
+      return getDeliveryData
+          .map<DeliveryModel>(DeliveryModel.fromJson)
+          .toList();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
@@ -23,7 +24,7 @@ class DeliveryRepository {
 
   Future updateProductImage({required endpoint, required imagePath}) async {
     try {
-      var productImage = await _deliveryNetworkHelper.updateProductImage(
+      var productImage = await deliveryNetworkHelper.updateProductImage(
         endpoint: endpoint,
         imagePath: imagePath,
       );
@@ -42,7 +43,7 @@ class DeliveryRepository {
     required contact,
   }) async {
     try {
-      var addDelivery = await _deliveryNetworkHelper.addDelivery(
+      var addDelivery = await deliveryNetworkHelper.addDelivery(
         endpoint: endpoint,
         weight: weight,
         price: price,
@@ -57,3 +58,17 @@ class DeliveryRepository {
     }
   }
 }
+
+final deliveryRespositoryProvider = Provider.autoDispose<DeliveryRepository>(
+  (ref) => DeliveryRepository(
+    deliveryNetworkHelper: DeliveryNetworkHelper(
+      secureStorage: SecureStorage(),
+    ),
+  ),
+);
+
+final deliveryDataProvider =
+    FutureProvider.autoDispose<List<DeliveryModel>>((ref) {
+  final deliveryRepository = ref.watch(deliveryRespositoryProvider);
+  return deliveryRepository.fetchDeliveryData();
+});

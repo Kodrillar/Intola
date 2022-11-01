@@ -9,16 +9,16 @@ class DeliveryModel {
     required this.location,
     required this.contact,
   });
-  final id;
-  final email;
-  final image;
+  final String? id;
+  final String? email;
+  final String? image;
   final String weight;
   final String price;
   final String description;
   final String location;
   final String contact;
 
-  DeliveryModel.toJson(json)
+  DeliveryModel.fromJson(json)
       : id = json["id"],
         email = json["email"],
         image = json["image"],

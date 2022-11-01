@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/donation/data/repository/donation_repository.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/presentation/donation_screen_app_bar.dart';
-import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/features/donation/presentation/donation_card.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
@@ -15,7 +14,6 @@ class DonationScreen extends ConsumerWidget {
     final donationsData = ref.watch(getDonationsProvider);
     return Scaffold(
       appBar: const DonationScreenAppBar(),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: donationsData.when(
         data: (data) => DonationDisplayCards(data: data),
         error: (error, stack) =>

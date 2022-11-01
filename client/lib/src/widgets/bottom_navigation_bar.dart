@@ -1,62 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:intola/src/routing/route.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/home/data/home_repository.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends ConsumerWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          NavigationButton(
-            routeName: RouteName.homeScreen.name,
-            icon: const Icon(Icons.home_outlined),
-          ),
-          NavigationButton(
-            routeName: RouteName.donationScreen.name,
-            icon: const Icon(Icons.clean_hands_outlined),
-          ),
-          NavigationButton(
-            routeName: RouteName.deliveryScreen.name,
-            icon: const Icon(Icons.local_shipping_outlined),
-          ),
-          NavigationButton(
-            routeName: RouteName.purchaseHistoryScreen.name,
-            icon: const Icon(
-              Icons.shopping_cart_checkout_sharp,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class NavigationButton extends StatelessWidget {
-  const NavigationButton({
-    Key? key,
-    required this.icon,
-    required this.routeName,
-  }) : super(key: key);
-
-  final Icon icon;
-  final String routeName;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      color: kDarkBlue,
-      onPressed: () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          routeName,
-          (route) => false,
-        );
+  Widget build(BuildContext context, WidgetRef ref) {
+    return BottomNavigationBar(
+      onTap: (newIndex) {
+        ref.read(bottomNavigationBarIndexProvider.notifier).state = newIndex;
       },
-      icon: icon,
+      currentIndex: ref.watch(bottomNavigationBarIndexProvider),
+      unselectedIconTheme: const IconThemeData(color: kDarkBlue),
+      selectedIconTheme: const IconThemeData(color: kDarkOrange),
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          label: 'home',
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.clean_hands_outlined), label: ''),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.local_shipping_outlined), label: ''),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_checkout_sharp), label: ''),
+      ],
     );
   }
 }

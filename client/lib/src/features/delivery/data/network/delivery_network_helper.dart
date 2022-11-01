@@ -10,12 +10,12 @@ class DeliveryNetworkHelper {
   DeliveryNetworkHelper({required this.secureStorage});
   final SecureStorage secureStorage;
 
-  Future<List<dynamic>> getDelivery({required endpoint}) async {
+  Future<List<dynamic>> getDelivery() async {
     final token = await secureStorage.read(key: "token");
 
     http.Response response = await http.get(
       Uri.parse(
-        API.baseUrl + endpoint,
+        API.baseUrl + Endpoints.fetchDelivery,
       ),
       headers: {"X-auth-token": "$token"},
     );

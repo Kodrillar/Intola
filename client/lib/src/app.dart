@@ -34,7 +34,7 @@ class IntolaApp extends ConsumerWidget {
               return OnboardingScreen();
 
             default:
-              return const HomeScreen();
+              return Home();
           }
         },
         loading: () => const LoadingIndicator(),

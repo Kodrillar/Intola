@@ -9,7 +9,7 @@ class ShippingModel {
     required this.phone,
     required this.zipcode,
   });
-  final id;
+  final String? id;
   final String email;
   final String address;
   final String? apartmentSuite;

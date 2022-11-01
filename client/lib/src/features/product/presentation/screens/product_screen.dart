@@ -18,6 +18,41 @@ class ProductScreen extends ConsumerWidget {
 
   final ProductModel product;
 
+  _showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(
+        snackBarMessage: "${product.name} added to cart!",
+        iconData: Icons.shopping_cart_outlined,
+      ),
+    );
+  }
+
+  void _addProductToCart(
+      {required int cartProductQuantity,
+      required WidgetRef ref,
+      required BuildContext context}) {
+    _showSnackBar(context);
+    ref.read(productScreenControllerProvider.notifier).addProductToCart(
+          product: product,
+          cartProductQuantity: cartProductQuantity,
+        );
+  }
+
+  void _donateProduct(
+      {required int cartProductQuantity, required BuildContext context}) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DonationPaymentScreen(
+          productItem: ProductItem(
+            cartProductQuantity: cartProductQuantity,
+            productModel: product,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue>(productScreenControllerProvider,
@@ -27,49 +62,25 @@ class ProductScreen extends ConsumerWidget {
     final cartProductQuantity = ref.watch(cartProductQuantityProvider);
     // final controller = ref.watch(productScreenControllerProvider);
 
-    _showSnackBar() {
-      ScaffoldMessenger.of(context).showSnackBar(
-        CustomSnackBar(
-          snackBarMessage: "${product.name} added to cart!",
-          iconData: Icons.shopping_cart_outlined,
-        ),
-      );
-    }
-
-    void _addProductToCart() {
-      _showSnackBar();
-      ref.read(productScreenControllerProvider.notifier).addProductToCart(
-            product: product,
-            cartProductQuantity: cartProductQuantity,
-          );
-    }
-
-    void _donateProduct() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DonationPaymentScreen(
-            productItem: ProductItem(
-              cartProductQuantity: cartProductQuantity,
-              productModel: product,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: const ProductAppBar(),
       bottomNavigationBar: ProductCtaButton(
-        addProductToCart: _addProductToCart,
-        donateProduct: _donateProduct,
+        addProductToCart: () => _addProductToCart(
+            cartProductQuantity: cartProductQuantity,
+            ref: ref,
+            context: context),
+        donateProduct: () => _donateProduct(
+            cartProductQuantity: cartProductQuantity, context: context),
       ),
       body: Scrollbar(
         thumbVisibility: true,
         child: ListView(
           children: [
-            ProductImage(
-              productImage: product.image,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ProductImage(
+                productImage: product.image,
+              ),
             ),
             ProductDetails(
               productDescription: product.description,

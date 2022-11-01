@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/auth/presentation/auth_button.dart';
 import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
-import 'package:intola/src/features/auth/presentation/auth_screen_controller.dart';
+import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
@@ -31,7 +31,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   Future<void> _signUpUser() async {
     if (_formKey.currentState!.validate()) {
       final bool signUpIsSuccessful =
-          await ref.read(authScreenControllerProvider.notifier).signUpUser(
+          await ref.read(signUpScreenControllerProvider.notifier).signUpUser(
                 fullName: fullName,
                 email: email,
                 password: password,
@@ -57,10 +57,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(
-      authScreenControllerProvider,
+      signUpScreenControllerProvider,
       (previousState, newState) => newState.showErrorAlertDialog(context),
     );
-    final state = ref.watch(authScreenControllerProvider);
+    final state = ref.watch(signUpScreenControllerProvider);
     final bool obscureTextFieldText = ref.watch(obscureTextFieldTextProvider);
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(

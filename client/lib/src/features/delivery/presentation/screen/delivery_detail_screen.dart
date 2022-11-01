@@ -1,52 +1,44 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/app_bar_with_back_arrow.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
+import 'package:intola/src/features/delivery/presentation/delivery_product_image.dart';
 
-class DeliveryDetailScreen extends StatefulWidget {
-  const DeliveryDetailScreen({
-    Key? key,
-    required this.image,
-    required this.location,
-    required this.price,
-    required this.contact,
-    required this.description,
-    required this.weight,
-  }) : super(key: key);
+class DeliveryDetailScreen extends StatelessWidget {
+  const DeliveryDetailScreen({Key? key, required this.delivery})
+      : super(key: key);
 
-  final String image;
-  final String location;
-  final String price;
-  final String contact;
-  final String weight;
-  final String description;
-
-  static const id = "/deliveryDetailScreen";
-
-  @override
-  _DeliveryDetailScreenState createState() => _DeliveryDetailScreenState();
-}
-
-class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
+  final DeliveryModel delivery;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomAppBar(),
-      body: ListView(children: [
-        _buildProductImage(),
-        _buildProductDetails(),
-        _buildPickUpLocation(),
-        _buildContact(),
-        _buildPrice(),
-      ]),
+      appBar: const AppBarWithBackArrow(title: "Delivery details"),
+      bottomNavigationBar: const DeliveryDetailScreenBottomAppBar(),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: [
+            DeliveryProductImage(deliveryImage: delivery.image!),
+            DeliveryDescriptionSection(description: delivery.description),
+            DeliveryPickUpLocationSection(location: delivery.location),
+            DeliveryPriceSection(price: delivery.price),
+            DeliveryContactSection(contact: delivery.contact),
+          ],
+        ),
+      ),
     );
   }
+}
 
-  _buildPrice() {
+class DeliveryPriceSection extends StatelessWidget {
+  const DeliveryPriceSection({Key? key, required this.price}) : super(key: key);
+  final String price;
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      height: 85,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,7 +52,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           ),
           const SizedBox(height: 10),
           Text(
-            "\$${widget.price}",
+            "\$$price",
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -68,11 +60,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       ),
     );
   }
+}
 
-  _buildContact() {
+class DeliveryContactSection extends StatelessWidget {
+  const DeliveryContactSection({Key? key, required this.contact})
+      : super(key: key);
+  final String contact;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      height: 85,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -86,7 +84,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           ),
           const SizedBox(height: 10),
           Text(
-            widget.contact,
+            contact,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -94,11 +92,18 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       ),
     );
   }
+}
 
-  _buildPickUpLocation() {
+class DeliveryPickUpLocationSection extends StatelessWidget {
+  const DeliveryPickUpLocationSection({Key? key, required this.location})
+      : super(key: key);
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      height: 85,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -107,12 +112,14 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               Text(
                 "Pick up location",
                 style: kProductNameStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
               ),
             ],
           ),
           const SizedBox(height: 10),
           Text(
-            widget.location,
+            location,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -120,11 +127,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       ),
     );
   }
+}
 
-  _buildProductDetails() {
+class DeliveryDescriptionSection extends StatelessWidget {
+  const DeliveryDescriptionSection({Key? key, required this.description})
+      : super(key: key);
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      height: 145,
+      margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -138,7 +151,7 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           ),
           const SizedBox(height: 10),
           Text(
-            widget.description,
+            description,
             textAlign: TextAlign.justify,
             style: kProductDetailStyle,
           )
@@ -146,29 +159,13 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
       ),
     );
   }
+}
 
-  _buildProductImage() {
-    return CachedNetworkImage(
-      imageUrl: widget.image,
-      imageBuilder: (context, imageProvider) => Container(
-        margin: const EdgeInsets.all(16),
-        height: 200,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-          borderRadius: BorderRadius.circular(15),
-          color: kDarkOrange.withOpacity(.08),
-        ),
-      ),
-      placeholder: (context, url) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-      errorWidget: (context, url, error) => const Center(
-        child: Icon(Icons.error, color: Colors.red),
-      ),
-    );
-  }
+class DeliveryDetailScreenBottomAppBar extends StatelessWidget {
+  const DeliveryDetailScreenBottomAppBar({Key? key}) : super(key: key);
 
-  _buildBottomAppBar() {
+  @override
+  Widget build(BuildContext context) {
     return BottomAppBar(
       elevation: 0,
       color: Colors.transparent,
@@ -179,8 +176,10 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
           children: [
             CustomRoundButton(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  _buildSnackBar(),
+                CustomAlertDialog.showAlertDialog(
+                  context: context,
+                  title: 'Delivery accepted!',
+                  content: 'kindly go to pick up location',
                 );
               },
               buttonText: "Accept",
@@ -194,37 +193,6 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             )
           ],
         ),
-      ),
-    );
-  }
-
-  _buildSnackBar() {
-    return SnackBar(
-      backgroundColor: kDarkBlue,
-      content: const Text(
-        "Delivery accepted! kindly go to pick up location",
-      ),
-      action: SnackBarAction(
-        label: "UNDO",
-        onPressed: () {},
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Delivery details",
-        style: kAppBarTextStyle,
       ),
     );
   }

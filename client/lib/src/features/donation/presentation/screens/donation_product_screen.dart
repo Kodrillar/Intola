@@ -20,7 +20,9 @@ class DonationProductScreen extends StatelessWidget {
       appBar: const AppBarWithBackArrow(title: "Donation Shop"),
       body: ListView(
         children: [
-          ProductImage(productImage: donation.image),
+          Padding(
+              padding: const EdgeInsets.all(16),
+              child: ProductImage(productImage: donation.image)),
           ProductDetails(
             productDescription: donation.description,
             productName: donation.name,

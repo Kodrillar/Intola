@@ -16,3 +16,6 @@ final fetchUserNameProvider = FutureProvider.autoDispose<String?>((ref) {
   final homeRepository = ref.watch(homeRepositoryProvider);
   return homeRepository.fetchUserName();
 });
+
+final bottomNavigationBarIndexProvider =
+    StateProvider.autoDispose<int>((ref) => 0);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/auth/presentation/auth_screen_controller.dart';
+import 'package:intola/src/features/auth/presentation/log_in_screen_controller.dart';
+import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
@@ -29,7 +30,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _loginUser() async {
     if (_formKey.currentState!.validate()) {
       final bool loginIsSuccessful =
-          await ref.read(authScreenControllerProvider.notifier).loginUser(
+          await ref.read(logInScreenControllerProvider.notifier).logInUser(
                 email: email,
                 password: password,
               );
@@ -53,10 +54,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(
-      authScreenControllerProvider,
+      logInScreenControllerProvider,
       (previousState, newState) => newState.showErrorAlertDialog(context),
     );
-    final state = ref.watch(authScreenControllerProvider);
+    final state = ref.watch(logInScreenControllerProvider);
     bool obscureTextFieldText = ref.watch(obscureTextFieldTextProvider);
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(

@@ -1,21 +1,24 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intola/src/features/delivery/data/network/delivery_network_helper.dart';
 import 'package:intola/src/features/delivery/data/repository/delivery_repository.dart';
 import 'package:intola/src/routing/route.dart';
+import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
+import 'package:intola/src/widgets/app_bar_with_back_arrow.dart';
 import 'package:intola/src/widgets/buttons/custom_round_button.dart';
 import 'package:intola/src/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
-DeliveryRepository _deliveryRepository = DeliveryRepository();
+DeliveryRepository _deliveryRepository = DeliveryRepository(
+  deliveryNetworkHelper: DeliveryNetworkHelper(secureStorage: SecureStorage()),
+);
 
 class UploadDeliveryScreen extends StatefulWidget {
   const UploadDeliveryScreen({Key? key}) : super(key: key);
-
-  static const id = "/uploadDeliveryScreen";
 
   @override
   _UploadDeliveryScreenState createState() => _UploadDeliveryScreenState();
@@ -89,36 +92,40 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: const AppBarWithBackArrow(title: "Upload goods"),
       bottomNavigationBar: _buildBottomAppBar(),
-      body: ListView(
-        children: [
-          _buildDeliveryImage(),
-          CustomTextField(
-            controller: descriptionController,
-            hintText: "description",
-            labelText: "description",
+      body: SingleChildScrollView(
+        child: Form(
+          child: Column(
+            children: [
+              _buildDeliveryImage(),
+              CustomTextField(
+                controller: descriptionController,
+                hintText: "description",
+                labelText: "description",
+              ),
+              CustomTextField(
+                controller: pickUpController,
+                hintText: "pick up location",
+                labelText: "pick up location",
+              ),
+              CustomTextField(
+                  controller: contactController,
+                  hintText: "contact",
+                  labelText: "contact"),
+              CustomTextField(
+                controller: priceController,
+                hintText: "price",
+                labelText: "price",
+              ),
+              CustomTextField(
+                controller: weightController,
+                hintText: "weight",
+                labelText: "weight",
+              ),
+            ],
           ),
-          CustomTextField(
-            controller: pickUpController,
-            hintText: "pick up location",
-            labelText: "pick up location",
-          ),
-          CustomTextField(
-              controller: contactController,
-              hintText: "contact",
-              labelText: "contact"),
-          CustomTextField(
-            controller: priceController,
-            hintText: "price",
-            labelText: "price",
-          ),
-          CustomTextField(
-            controller: weightController,
-            hintText: "weight",
-            labelText: "weight",
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -281,23 +288,5 @@ class _UploadDeliveryScreenState extends State<UploadDeliveryScreen> {
     setState(() {
       _imageFile = pickedImage;
     });
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        color: kDarkBlue,
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        "Upload goods",
-        style: kAppBarTextStyle,
-      ),
-    );
   }
 }

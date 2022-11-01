@@ -21,7 +21,9 @@ class RequestResponse {
         throw ResourceNotFoundException(responseBody['msg']);
       case 500:
         debugPrint(responseBody.toString());
-        throw ServerErrorException();
+        throw ServerErrorException(
+          'Something went wrong, try again shortly...',
+        );
 
       default:
         throw response;

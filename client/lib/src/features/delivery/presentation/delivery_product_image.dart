@@ -1,20 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/network/api.dart';
 
-class ProductImage extends StatelessWidget {
-  const ProductImage({
-    Key? key,
-    required this.productImage,
-  }) : super(key: key);
+class DeliveryProductImage extends StatelessWidget {
+  const DeliveryProductImage({Key? key, required this.deliveryImage})
+      : super(key: key);
 
-  final String productImage;
+  final String deliveryImage;
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: "${API.baseUrl}/uploads/$productImage",
+      imageUrl: deliveryImage,
       imageBuilder: (context, imageProvider) => Container(
         height: 200,
         decoration: BoxDecoration(

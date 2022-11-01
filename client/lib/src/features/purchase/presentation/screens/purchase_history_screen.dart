@@ -4,7 +4,6 @@ import 'package:intola/src/features/purchase/data/repository/purchase_repository
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/features/purchase/presentation/purchase_history_app_bar.dart';
 import 'package:intola/src/features/purchase/presentation/purchase_history_screen_bar.dart';
-import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
 class PurchaseHistoryScreen extends ConsumerWidget {
@@ -15,7 +14,6 @@ class PurchaseHistoryScreen extends ConsumerWidget {
     final purchaseHistoryProvider = ref.watch(fetchPurchaseHistoryProvider);
     return Scaffold(
       appBar: const PurchaseHistoryAppBar(),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: purchaseHistoryProvider.when(
         data: (data) => PurchaseHistory(data: data),
         error: (error, stackTrace) => ErrorDisplayWidget(

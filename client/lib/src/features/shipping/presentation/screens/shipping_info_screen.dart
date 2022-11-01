@@ -26,6 +26,35 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
 
+  void _showSnackBar({required String message}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(snackBarMessage: message),
+    );
+  }
+
+  Future<void> onPaymentSuccessful() async {
+    await ref
+        .read(shippingServiceProvider.notifier)
+        .addPurchaseHistory()
+        .whenComplete(() {
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteName.homeScreen.name, (route) => false);
+    });
+  }
+
+  void processPayment() {
+    if (_formKey.currentState!.validate()) {
+      ref.read(shippingServiceProvider.notifier).processProductPayment(
+            context: context,
+            onPaymentSuccessful: onPaymentSuccessful,
+          );
+    } else {
+      _showSnackBar(
+        message: "Fields not marked \nas 'optional' can't be empty!",
+      );
+    }
+  }
+
   @override
   void dispose() {
     addressController.dispose();
@@ -44,35 +73,6 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
       shippingServiceProvider,
       (previouState, newState) => newState.showErrorAlertDialog(context),
     );
-
-    void _showSnackBar({required String message}) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        CustomSnackBar(snackBarMessage: message),
-      );
-    }
-
-    Future<void> onPaymentSuccessful() async {
-      await ref
-          .read(shippingServiceProvider.notifier)
-          .addPurchaseHistory()
-          .whenComplete(() {
-        Navigator.pushNamedAndRemoveUntil(
-            context, RouteName.homeScreen.name, (route) => false);
-      });
-    }
-
-    void processPayment() {
-      if (_formKey.currentState!.validate()) {
-        ref.read(shippingServiceProvider.notifier).processProductPayment(
-              context: context,
-              onPaymentSuccessful: onPaymentSuccessful,
-            );
-      } else {
-        _showSnackBar(
-          message: "Fields not marked \nas 'optional' can't be empty!",
-        );
-      }
-    }
 
     return state.isLoading
         ? const LoadingIndicator()
