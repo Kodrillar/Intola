@@ -12,11 +12,11 @@ import 'package:intola/src/widgets/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/category_text.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 
-class Home extends ConsumerWidget {
-  Home({Key? key}) : super(key: key);
+class HomeScreen extends ConsumerWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
   final List<Widget> screens = [
-    const HomeScreen(),
+    const HomeScreenView(),
     const DonationScreen(),
     const DeliveryScreen(),
     const PurchaseHistoryScreen()
@@ -32,8 +32,8 @@ class Home extends ConsumerWidget {
   }
 }
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenView extends ConsumerWidget {
+  const HomeScreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

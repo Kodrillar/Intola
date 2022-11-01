@@ -30,7 +30,7 @@ class AppRoute {
     RouteName.onboardingScreen.name: (context) => OnboardingScreen(),
     RouteName.signUpScreen.name: (context) => const SignUpScreen(),
     RouteName.loginScreen.name: (context) => const LoginScreen(),
-    RouteName.homeScreen.name: (context) => const HomeScreen(),
+    RouteName.homeScreen.name: (context) => HomeScreen(),
     RouteName.purchaseHistoryScreen.name: (context) =>
         const PurchaseHistoryScreen(),
     RouteName.donationScreen.name: (context) => const DonationScreen(),
