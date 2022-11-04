@@ -8,7 +8,7 @@ import 'package:intola/src/features/home/presentation/main_product_grid.dart';
 import 'package:intola/src/features/home/presentation/product_filter.dart';
 import 'package:intola/src/features/home/presentation/top_deal_carousel.dart';
 import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
-import 'package:intola/src/widgets/bottom_navigation_bar.dart';
+import 'package:intola/src/features/home/presentation/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/category_text.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 

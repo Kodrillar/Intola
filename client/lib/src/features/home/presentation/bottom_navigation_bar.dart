@@ -3,6 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/home/data/home_repository.dart';
 import 'package:intola/src/utils/constant.dart';
 
+enum NavigationBarIndex {
+  homeScreen,
+  donationScreen,
+  deliveryScreen,
+  purchaseHistoryScreen;
+}
+
 class CustomBottomNavigationBar extends ConsumerWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
 

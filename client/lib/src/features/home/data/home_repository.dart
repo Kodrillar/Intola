@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intola/src/features/home/presentation/bottom_navigation_bar.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
 class HomeRepository {
@@ -17,5 +18,5 @@ final fetchUserNameProvider = FutureProvider.autoDispose<String?>((ref) {
   return homeRepository.fetchUserName();
 });
 
-final bottomNavigationBarIndexProvider =
-    StateProvider.autoDispose<int>((ref) => 0);
+final bottomNavigationBarIndexProvider = StateProvider.autoDispose<int>(
+    (ref) => NavigationBarIndex.homeScreen.index);
