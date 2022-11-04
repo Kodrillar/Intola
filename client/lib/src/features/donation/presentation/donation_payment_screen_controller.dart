@@ -12,23 +12,34 @@ class DonationPaymentScreenController extends StateNotifier<AsyncValue<void>> {
   final FlutterwavePayment flutterwavePayment;
   final DonationRepository donationRepository;
 
-  Future<void> processDonationPayment({
-    required BuildContext context,
-    required double amount,
-    required Future<void> Function() onPaymentSuccessful,
-  }) async {
+  Future<void> processDonationPayment(
+      {required BuildContext context,
+      required double amount,
+      required ProductItem productItem,
+      required Future<void> Function() onDonationComplete}) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
       () => flutterwavePayment.processProductPayment(
         context: context,
         amount: amount,
-        onPaymentSuccessful: onPaymentSuccessful,
+        onPaymentSuccessful: () => _donateProduct(
+          productItem: productItem,
+          onDonationComplete: onDonationComplete,
+        ),
       ),
     );
   }
 
-  Future<void> donateProduct({required ProductItem productItem}) async {
-    await donationRepository.donateProduct(productItem: productItem);
+  Future<void> _donateProduct({
+    required ProductItem productItem,
+    required Future<void> Function() onDonationComplete,
+  }) async {
+    final asyncValue = await AsyncValue.guard(() => donationRepository
+        .donateProduct(productItem: productItem)
+        .whenComplete(onDonationComplete));
+    if (mounted) {
+      state = asyncValue;
+    }
   }
 }
 

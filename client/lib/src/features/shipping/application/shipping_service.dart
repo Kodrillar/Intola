@@ -21,7 +21,7 @@ class ShippingService extends StateNotifier<AsyncValue<void>> {
 
   Future<void> processProductPayment({
     required BuildContext context,
-    required Future<void> Function() onPaymentSuccessful,
+    required Future<void> Function() onPurchaseComplete,
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
@@ -29,13 +29,21 @@ class ShippingService extends StateNotifier<AsyncValue<void>> {
       return flutterwavePayment.processProductPayment(
         context: context,
         amount: totalCartPrice!,
-        onPaymentSuccessful: onPaymentSuccessful,
+        onPaymentSuccessful: () =>
+            _addPurchaseHistory(onPurchaseComplete: onPurchaseComplete),
       );
     });
   }
 
-  Future<void> addPurchaseHistory() async {
-    await purchaseHistoryRepository.addPurchaseHistory();
+  Future<void> _addPurchaseHistory({
+    required Future<void> Function() onPurchaseComplete,
+  }) async {
+    final asyncValue = await AsyncValue.guard(() => purchaseHistoryRepository
+        .addPurchaseHistory()
+        .whenComplete(onPurchaseComplete));
+    if (mounted) {
+      state = asyncValue;
+    }
   }
 }
 

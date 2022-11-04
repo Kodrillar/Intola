@@ -32,22 +32,13 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
     );
   }
 
-  Future<void> onPaymentSuccessful() async {
-    final navigator = Navigator.of(context);
-    await ref
-        .read(shippingServiceProvider.notifier)
-        .addPurchaseHistory()
-        .whenComplete(() {
-      navigator.pushNamedAndRemoveUntil(
-          RouteName.homeScreen.name, (route) => false);
-    });
-  }
-
   void processPayment() {
     if (_formKey.currentState!.validate()) {
       ref.read(shippingServiceProvider.notifier).processProductPayment(
             context: context,
-            onPaymentSuccessful: onPaymentSuccessful,
+            onPurchaseComplete: () => Navigator.of(context)
+                .pushNamedAndRemoveUntil(
+                    RouteName.homeScreen.name, (route) => false),
           );
     } else {
       _showSnackBar(
