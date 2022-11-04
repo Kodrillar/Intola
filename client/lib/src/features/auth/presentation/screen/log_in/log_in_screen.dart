@@ -28,6 +28,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String get password => passwordController.text.trim();
 
   Future<void> _loginUser() async {
+    final navigator = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       final bool loginIsSuccessful =
           await ref.read(logInScreenControllerProvider.notifier).logInUser(
@@ -36,10 +37,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               );
 
       if (loginIsSuccessful) {
-        Navigator.pushNamed(
-          context,
-          RouteName.homeScreen.name,
-        );
+        navigator.pushNamed(RouteName.homeScreen.name);
       }
     }
   }

@@ -29,6 +29,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   String get password => passwordController.text.trim();
 
   Future<void> _signUpUser() async {
+    final navigator = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       final bool signUpIsSuccessful =
           await ref.read(signUpScreenControllerProvider.notifier).signUpUser(
@@ -38,10 +39,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               );
 
       if (signUpIsSuccessful) {
-        Navigator.pushNamed(
-          context,
-          RouteName.homeScreen.name,
-        );
+        navigator.pushNamed(RouteName.homeScreen.name);
       }
     }
   }
