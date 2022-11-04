@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,33 +19,30 @@ class DonationPaymentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<void> onPaymentSuccessful() async {
-      await ref
-          .read(donationPaymentScreenControllerProvider.notifier)
-          .donateProduct(productItem: productItem)
-          .whenComplete(
-            () => Navigator.pushNamedAndRemoveUntil(
-                context, RouteName.homeScreen.name, (route) => false),
-          );
-    }
-
-    void processProductPayment() {
-      ref
-          .read(donationPaymentScreenControllerProvider.notifier)
-          .processDonationPayment(
-            context: context,
-            amount: productItem.productPrice,
-            onPaymentSuccessful: onPaymentSuccessful,
-          );
-    }
-
     final state = ref.watch(donationPaymentScreenControllerProvider);
     return state.isLoading
         ? const LoadingIndicator()
         : Scaffold(
             appBar: const AppBarWithBackArrow(title: "Donation Payment "),
             bottomNavigationBar: DonationPaymentScreenBottomAppBar(
-              processProductPayment: processProductPayment,
+              processProductPayment: () {
+                ref
+                    .read(donationPaymentScreenControllerProvider.notifier)
+                    .processDonationPayment(
+                      context: context,
+                      amount: productItem.productPrice,
+                      onPaymentSuccessful: () async {
+                        await ref
+                            .read(donationPaymentScreenControllerProvider
+                                .notifier)
+                            .donateProduct(productItem: productItem)
+                            .whenComplete(
+                              () => Navigator.pushNamedAndRemoveUntil(context,
+                                  RouteName.homeScreen.name, (route) => false),
+                            );
+                      },
+                    );
+              },
               productItem: productItem,
             ),
             body: DonationProductBar(productItem: productItem),

@@ -3,7 +3,7 @@ import 'package:intola/src/features/auth/presentation/screen/log_in/log_in_scree
 import 'package:intola/src/features/auth/presentation/screen/sign_up/sign_up_screen.dart';
 import 'package:intola/src/features/cart/presentation/screen/cart_screen.dart';
 import 'package:intola/src/features/delivery/presentation/screen/delivery_screen.dart';
-import 'package:intola/src/features/delivery/presentation/upload_delivery_screen.dart';
+import 'package:intola/src/features/delivery/presentation/delivery_upload_screen.dart';
 import 'package:intola/src/features/donation/presentation/screens/donation_screen.dart';
 import 'package:intola/src/features/home/presentation/screen/home_screen.dart';
 import 'package:intola/src/features/profile/presentation/screens/profile_screen.dart';
@@ -39,6 +39,6 @@ class AppRoute {
     //RouteName.shippingInfoScreen.name: (context) => const ShippingInfoScreen(),
     RouteName.profileScreen.name: (context) => const ProfileScreen(),
     RouteName.uploadDeliveryScreen.name: (context) =>
-        const UploadDeliveryScreen(),
+        const DeliveryUploadScreen(),
   };
 }

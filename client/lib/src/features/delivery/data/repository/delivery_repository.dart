@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intola/src/exceptions/app_exceptions.dart';
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/features/delivery/data/network/delivery_network_helper.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
@@ -22,36 +24,36 @@ class DeliveryRepository {
     }
   }
 
-  Future updateProductImage({required endpoint, required imagePath}) async {
+  void _updateProductImage(imagePath) async {
     try {
-      var productImage = await deliveryNetworkHelper.updateProductImage(
-        endpoint: endpoint,
-        imagePath: imagePath,
-      );
-      return productImage;
+      await deliveryNetworkHelper.updateProductImage(imagePath: imagePath);
     } catch (ex) {
       rethrow;
     }
   }
 
   Future<dynamic> addDelivery({
-    required endpoint,
-    required weight,
-    required price,
-    required description,
-    required location,
-    required contact,
+    required String weight,
+    required String price,
+    required String description,
+    required String location,
+    required String contact,
+    required String? imagePath,
   }) async {
     try {
-      var addDelivery = await deliveryNetworkHelper.addDelivery(
-        endpoint: endpoint,
+      await deliveryNetworkHelper.addDelivery(
         weight: weight,
         price: price,
         description: description,
         location: location,
         contact: contact,
       );
-      return addDelivery;
+      if (imagePath != null) {
+        _updateProductImage(imagePath);
+      }
+    } on SocketException {
+      throw FetchDataException(
+          'Unable to reach server! check your internet connection');
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);

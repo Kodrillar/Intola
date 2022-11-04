@@ -10,7 +10,8 @@ enum ValidationErrorMessage {
   descriptionError("Oops! your product must have a description"),
   pickupError("Oops! 'pick up location' can't be empty"),
   contactError("Oops! 'contact' can't be empty"),
-  weightError("product weight is required!");
+  weightError("product weight is required!"),
+  priceError("price is required!");
 
   const ValidationErrorMessage(this.message);
   final String message;

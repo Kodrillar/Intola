@@ -27,7 +27,6 @@ class DeliveryNetworkHelper {
   }
 
   Future<dynamic> addDelivery({
-    required endpoint,
     required weight,
     required price,
     required description,
@@ -45,7 +44,7 @@ class DeliveryNetworkHelper {
 
     http.Response response = await http.post(
       Uri.parse(
-        API.baseUrl + endpoint,
+        API.baseUrl + Endpoints.addDelivery,
       ),
       headers: {
         "content-type": "application/json",
@@ -63,12 +62,12 @@ class DeliveryNetworkHelper {
     throw response;
   }
 
-  Future updateProductImage({required endpoint, required imagePath}) async {
+  Future updateProductImage({required imagePath}) async {
     final token = await secureStorage.read(key: "token");
 
     http.MultipartRequest request = http.MultipartRequest(
       "PATCH",
-      Uri.parse(API.baseUrl + endpoint),
+      Uri.parse(API.baseUrl + Endpoints.updateDeliveryImage),
     );
     request.files.add(await http.MultipartFile.fromPath("image", imagePath));
     request.headers.addAll({
