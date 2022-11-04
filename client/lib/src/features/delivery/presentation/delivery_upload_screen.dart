@@ -49,6 +49,7 @@ class _DeliveryUploadScreenState extends ConsumerState<DeliveryUploadScreen> {
 
   Future<void> addDelivery() async {
     if (_formKey.currentState!.validate()) {
+      final navigator = Navigator.of(context);
       final bool uploadIsSuccessful = await ref
           .read(deliveryUploadScreenControllerProvider.notifier)
           .addDelivery(
@@ -66,7 +67,7 @@ class _DeliveryUploadScreenState extends ConsumerState<DeliveryUploadScreen> {
                 content: 'Delivery uploaded successfully!')
             .whenComplete(() {
           ref.read(bottomNavigationBarIndexProvider.notifier).state = 0;
-          Navigator.pop(context);
+          navigator.pop();
         });
       }
     }
