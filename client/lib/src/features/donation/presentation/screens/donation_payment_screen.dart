@@ -25,18 +25,16 @@ class DonationPaymentScreen extends ConsumerWidget {
         : Scaffold(
             appBar: const AppBarWithBackArrow(title: "Donation Payment "),
             bottomNavigationBar: DonationPaymentScreenBottomAppBar(
-              processProductPayment: () {
-                ref
-                    .read(donationPaymentScreenControllerProvider.notifier)
-                    .processDonationPayment(
-                      context: context,
-                      amount: productItem.productPrice,
-                      productItem: productItem,
-                      onDonationComplete: () => Navigator.of(context)
-                          .pushNamedAndRemoveUntil(
-                              RouteName.homeScreen.name, (route) => false),
-                    );
-              },
+              processProductPayment: () => ref
+                  .read(donationPaymentScreenControllerProvider.notifier)
+                  .processDonationPayment(
+                    context: context,
+                    amount: productItem.productPrice,
+                    productItem: productItem,
+                    onDonationComplete: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            RouteName.homeScreen.name, (route) => false),
+                  ),
               productItem: productItem,
             ),
             body: DonationProductBar(productItem: productItem),
