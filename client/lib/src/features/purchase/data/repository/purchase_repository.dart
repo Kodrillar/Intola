@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intola/src/exceptions/app_exceptions.dart';
 import 'package:intola/src/features/cart/data/repository/cart_repository.dart';
 import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
@@ -45,6 +47,8 @@ class PurchaseHistoryRepository {
       return purchasedProductList
           .map<PurchaseHistoryModel>(PurchaseHistoryModel.fromJson)
           .toList();
+    } on SocketException {
+      throw DissabledNetworkException();
     } on Response catch (response) {
       final responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
@@ -72,6 +76,8 @@ class PurchaseHistoryRepository {
       } else {
         _addDonationProductToPurchaseHistory(donationProduct);
       }
+    } on SocketException {
+      throw DissabledNetworkException();
     } on Response catch (response) {
       final responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
@@ -91,9 +97,16 @@ class PurchaseHistoryRepository {
         quantity: donation.quantity,
       ),
     );
-    await purchaseHistoryNetworkHelper.addPurchaseHistory(
-      products: _products,
-    );
+    try {
+      await purchaseHistoryNetworkHelper.addPurchaseHistory(
+        products: _products,
+      );
+    } on SocketException {
+      throw DissabledNetworkException();
+    } on Response catch (response) {
+      final responseBody = RequestResponse.requestResponse(response);
+      return jsonDecode(responseBody);
+    }
   }
 }
 

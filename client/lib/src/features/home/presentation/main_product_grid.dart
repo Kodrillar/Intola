@@ -20,14 +20,13 @@ class MainProductGrid extends StatelessWidget {
             ProductFilterOptions.getCategoryFilter(productCategoryTextValue);
         final productValue = ref.watch(getProductsProvider(endpoint));
         return SizedBox(
-          height: 450,
           child: productValue.when(
             data: (data) => HomeProductGrid(data: data),
             error: (error, stackTrace) => ErrorDisplayWidget(
               errorMessage: error.toString(),
             ),
             loading: () => const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             ),
           ),
         );

@@ -25,3 +25,7 @@ class ResourceNotFoundException extends AppException {
 class ServerErrorException extends AppException {
   ServerErrorException([String? message]) : super(message);
 }
+
+class DissabledNetworkException extends AppException {
+  DissabledNetworkException() : super('No internet connection!');
+}

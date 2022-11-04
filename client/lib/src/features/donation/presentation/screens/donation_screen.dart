@@ -17,7 +17,7 @@ class DonationScreen extends ConsumerWidget {
       body: donationsData.when(
         data: (data) => DonationDisplayCards(data: data),
         error: (error, stack) =>
-            const ErrorDisplayWidget(errorMessage: 'errorMessage'),
+            ErrorDisplayWidget(errorMessage: error.toString()),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),

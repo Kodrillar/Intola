@@ -15,7 +15,7 @@ class ProfileScreen extends ConsumerWidget {
       appBar: const ProfileAppBar(),
       bottomNavigationBar: const ProfileBottomAppBar(),
       body: userProfile.when(
-        data: (data) => Center(
+        data: (data) => SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

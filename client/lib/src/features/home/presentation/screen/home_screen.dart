@@ -10,6 +10,7 @@ import 'package:intola/src/features/home/presentation/top_deal_carousel.dart';
 import 'package:intola/src/features/purchase/presentation/screens/purchase_history_screen.dart';
 import 'package:intola/src/features/home/presentation/bottom_navigation_bar.dart';
 import 'package:intola/src/widgets/category_text.dart';
+import 'package:intola/src/widgets/error_display.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -52,9 +53,8 @@ class HomeScreenView extends ConsumerWidget {
           ],
         ),
       ),
-
-      //TODO: change error widget
-      error: (error, stackTrace) => ErrorWidget(error),
+      error: (error, stackTrace) =>
+          ErrorDisplayWidget(errorMessage: error.toString()),
       loading: () => const Center(
         child: LoadingIndicator(),
       ),

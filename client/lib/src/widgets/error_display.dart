@@ -11,27 +11,31 @@ class ErrorDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Icon(
-              Icons.error,
-              color: kDarkBlue.withOpacity(.35),
-              size: 100,
-            ),
-            height: 150,
+      child: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                child: Icon(
+                  Icons.error,
+                  color: kDarkBlue.withOpacity(.35),
+                  size: 100,
+                ),
+                height: 150,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Text(
+                  errorMessage,
+                  style: kErrorTextStyle,
+                ),
+              )
+            ],
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: const Text(
-              'Error: unable to fetch data',
-              style: kErrorTextStyle,
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

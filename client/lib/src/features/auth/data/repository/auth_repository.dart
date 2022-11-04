@@ -66,8 +66,7 @@ class AuthRepository {
     try {
       return await getData();
     } on SocketException {
-      throw FetchDataException(
-          'Unable to reach server, check your internet connection');
+      throw DissabledNetworkException();
     } catch (ex) {
       rethrow;
     }

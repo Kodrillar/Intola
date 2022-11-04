@@ -18,6 +18,8 @@ class DeliveryRepository {
       return getDeliveryData
           .map<DeliveryModel>(DeliveryModel.fromJson)
           .toList();
+    } on SocketException {
+      throw DissabledNetworkException();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);
@@ -27,6 +29,8 @@ class DeliveryRepository {
   void _updateProductImage(imagePath) async {
     try {
       await deliveryNetworkHelper.updateProductImage(imagePath: imagePath);
+    } on SocketException {
+      throw DissabledNetworkException();
     } catch (ex) {
       rethrow;
     }
@@ -52,8 +56,7 @@ class DeliveryRepository {
         _updateProductImage(imagePath);
       }
     } on SocketException {
-      throw FetchDataException(
-          'Unable to reach server! check your internet connection');
+      throw DissabledNetworkException();
     } on Response catch (response) {
       var responseBody = RequestResponse.requestResponse(response);
       return jsonDecode(responseBody);

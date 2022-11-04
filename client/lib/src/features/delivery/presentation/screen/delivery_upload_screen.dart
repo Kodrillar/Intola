@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intola/src/features/delivery/presentation/delivery_upload_screen_controller.dart';
 import 'package:intola/src/features/home/data/home_repository.dart';
+import 'package:intola/src/features/home/presentation/bottom_navigation_bar.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
@@ -66,7 +67,8 @@ class _DeliveryUploadScreenState extends ConsumerState<DeliveryUploadScreen> {
                 title: 'Delivery Upload',
                 content: 'Delivery uploaded successfully!')
             .whenComplete(() {
-          ref.read(bottomNavigationBarIndexProvider.notifier).state = 0;
+          ref.read(bottomNavigationBarIndexProvider.notifier).state =
+              NavigationBarIndex.homeScreen.index;
           navigator.pop();
         });
       }

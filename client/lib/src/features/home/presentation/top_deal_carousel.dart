@@ -13,7 +13,7 @@ class TopDealsCarousel extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final productValue =
-            ref.watch(getProductsProvider(endpoints["getProducts"]! + '/top'));
+            ref.watch(getProductsProvider(Endpoints.fetchProducts + '/top'));
         return productValue.when(
           data: (data) => CustomCarouselSlider(
             carouselItems: data,
@@ -21,7 +21,8 @@ class TopDealsCarousel extends StatelessWidget {
           error: (error, stackTrace) => ErrorDisplayWidget(
             errorMessage: error.toString(),
           ),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
         );
       },
     );
