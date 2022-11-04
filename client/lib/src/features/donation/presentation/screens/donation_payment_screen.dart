@@ -32,12 +32,13 @@ class DonationPaymentScreen extends ConsumerWidget {
                       context: context,
                       amount: productItem.productPrice,
                       onPaymentSuccessful: () async {
+                        final navigator = Navigator.of(context);
                         await ref
                             .read(donationPaymentScreenControllerProvider
                                 .notifier)
                             .donateProduct(productItem: productItem)
                             .whenComplete(
-                              () => Navigator.pushNamedAndRemoveUntil(context,
+                              () => navigator.pushNamedAndRemoveUntil(
                                   RouteName.homeScreen.name, (route) => false),
                             );
                       },
