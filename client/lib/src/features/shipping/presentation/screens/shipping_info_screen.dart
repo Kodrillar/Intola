@@ -33,12 +33,13 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
   }
 
   Future<void> onPaymentSuccessful() async {
+    final navigator = Navigator.of(context);
     await ref
         .read(shippingServiceProvider.notifier)
         .addPurchaseHistory()
         .whenComplete(() {
-      Navigator.pushNamedAndRemoveUntil(
-          context, RouteName.homeScreen.name, (route) => false);
+      navigator.pushNamedAndRemoveUntil(
+          RouteName.homeScreen.name, (route) => false);
     });
   }
 
