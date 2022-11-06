@@ -15,29 +15,30 @@ class ProfileScreen extends ConsumerWidget {
       appBar: const ProfileAppBar(),
       bottomNavigationBar: const ProfileBottomAppBar(),
       body: userProfile.when(
-        data: (data) => SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.account_circle,
-                size: 250,
-                color: kDarkBlue,
-              ),
-              Text(
-                data.fullname,
-                style: kProductNameStyle,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                data.email,
-                style: kProductDetailStyle.copyWith(
-                  fontSize: 20,
+        data: (data) => Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Icon(
+                  Icons.account_circle,
+                  size: 250,
+                  color: kDarkBlue,
                 ),
-              )
-            ],
+                Text(
+                  data.fullname,
+                  style: kProductNameStyle,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  data.email,
+                  style: kProductDetailStyle.copyWith(
+                    fontSize: 20,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
