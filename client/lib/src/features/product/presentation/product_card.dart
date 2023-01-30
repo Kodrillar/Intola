@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/product/presentation/screens/product_screen.dart';
-import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intola/src/utils/network/api.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -20,34 +20,33 @@ class ProductCard extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 8,
-        ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              imageUrl: "${API.baseUrl}/uploads/${product.image}",
-              imageBuilder: (context, imageProvider) => Container(
-                height: 115,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: kDarkOrange.withOpacity(.08),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: SizedBox(
+                height: 100,
+                width: 200,
+                child: CachedNetworkImage(
+                  imageUrl: "${API.baseUrl}/uploads/${product.image}",
+                  // maxHeightDiskCache: 40,
+                  // maxWidthDiskCache: 80,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error, color: Colors.red)),
                 ),
               ),
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.error, color: Colors.red)),
             ),
             const SizedBox(height: 10),
             Text(
               product.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: 20,
                 color: kDarkBlue,

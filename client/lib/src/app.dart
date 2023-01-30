@@ -15,6 +15,7 @@ class IntolaApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final initialScreen = ref.watch(getInitialScreenProvider);
+    //debugInvertOversizedImages = true;
     return MaterialApp(
       color: Colors.green,
       debugShowCheckedModeBanner: false,

@@ -14,6 +14,8 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      //maxHeightDiskCache: 130,
+      //maxWidthDiskCache: 400,
       imageUrl: "${API.baseUrl}/uploads/$productImage",
       imageBuilder: (context, imageProvider) => Container(
         height: 200,

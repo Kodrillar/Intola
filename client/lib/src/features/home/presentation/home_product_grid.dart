@@ -17,9 +17,9 @@ class HomeProductGrid extends StatelessWidget {
         itemCount: data.length,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,
-          mainAxisExtent: 215,
+          mainAxisExtent: 190,
           mainAxisSpacing: 15.0,
-          crossAxisSpacing: 0.0,
+          //crossAxisSpacing: 0.0,
         ),
         itemBuilder: (context, index) => ProductCard(
           product: data[index],

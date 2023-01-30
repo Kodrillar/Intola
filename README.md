@@ -23,7 +23,7 @@ Intola is an E-commerce mobile application for shopping, delivering and donating
 
 - <a href='https://flutterwave.com/tz/support/my-account/getting-your-api-keys'>Follow this guide</a> to get your public key.                                         
 
-- Add this line, ``` PUBLIC_KEY=<YOUR_FLUTTERWAVE_PUBLIC_KEY> ```, to the ```.env``` file created in step 1.
+- Add this line, ``` PUBLIC_KEY=<YOUR_FLUTTERWAVE_PUBLIC_KEY> ```, to the ```.env``` file created in step 2.
 
 - Run ``` flutter pub get ```
 
