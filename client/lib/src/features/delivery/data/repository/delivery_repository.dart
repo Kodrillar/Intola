@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:intola/src/exceptions/app_exceptions.dart';
+import 'package:intola/src/exceptions/app_exception.dart';
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/features/delivery/data/network/delivery_network_helper.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
-import 'package:intola/src/utils/network/request_response.dart';
 
 class DeliveryRepository {
   DeliveryRepository({required this.deliveryNetworkHelper});
@@ -18,19 +15,22 @@ class DeliveryRepository {
       return getDeliveryData
           .map<DeliveryModel>(DeliveryModel.fromJson)
           .toList();
-    } on SocketException {
-      throw DissabledNetworkException();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      return jsonDecode(responseBody);
+    } on SocketException catch (ex) {
+      throw AppException.dissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
     }
   }
 
   void _updateProductImage(imagePath) async {
     try {
       await deliveryNetworkHelper.updateProductImage(imagePath: imagePath);
-    } on SocketException {
-      throw DissabledNetworkException();
+    } on SocketException catch (ex) {
+      throw AppException.dissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
     } catch (ex) {
       rethrow;
     }
@@ -55,11 +55,12 @@ class DeliveryRepository {
       if (imagePath != null) {
         _updateProductImage(imagePath);
       }
-    } on SocketException {
-      throw DissabledNetworkException();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      return jsonDecode(responseBody);
+    } on SocketException catch (ex) {
+      throw AppException.dissabledNetworkException(ex.message);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
     }
   }
 }

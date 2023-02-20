@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/exceptions/app_exceptions.dart';
+import 'package:intola/src/exceptions/app_exception.dart';
 import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
 import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
 import 'package:intola/src/features/auth/domain/model/log_in_model.dart';
@@ -65,8 +65,10 @@ class AuthRepository {
       {required Future<T> Function() getData}) async {
     try {
       return await getData();
-    } on SocketException {
-      throw DissabledNetworkException();
+    } on SocketException catch (ex) {
+      throw AppException.dissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
     } catch (ex) {
       rethrow;
     }

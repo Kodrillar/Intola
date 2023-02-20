@@ -22,6 +22,6 @@ class LoginNetworkHelper {
     );
 
     var responseDataBody = RequestResponse.requestResponse(response);
-    return jsonDecode(responseDataBody);
+    return responseDataBody;
   }
 }

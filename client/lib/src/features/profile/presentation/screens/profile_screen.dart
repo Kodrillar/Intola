@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/profile/data/repository/profile_repository.dart';
 import 'package:intola/src/features/profile/presentation/profile_app_bar.dart';
 import 'package:intola/src/features/profile/presentation/profile_bottom_app_bar.dart';
+import 'package:intola/src/features/profile/presentation/profile_screen_controller.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
@@ -10,11 +10,11 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userProfile = ref.watch(fetchUserProfileProvider);
+    final state = ref.watch(profileScreenControllerProvider);
     return Scaffold(
       appBar: const ProfileAppBar(),
       bottomNavigationBar: const ProfileBottomAppBar(),
-      body: userProfile.when(
+      body: state.profileAsyncValue.when(
         data: (data) => Center(
           child: SingleChildScrollView(
             child: Column(
@@ -41,9 +41,13 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
         error: (error, stackTrace) => ErrorDisplayWidget(
-          errorMessage: error.toString(),
+          error: error,
+          onRetry: () => ref
+              .read(profileScreenControllerProvider.notifier)
+              .updateOnReload(),
         ),
       ),
     );

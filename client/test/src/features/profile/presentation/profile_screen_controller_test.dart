@@ -10,8 +10,9 @@ void main() {
   group('Profile Scren Controller', () {
     test('signOut() called with success ', () async {
       final profileRepository = MockProfileRepository();
-      final controller =
-          ProfileScreenController(profileRepository: profileRepository);
+      final controller = ProfileScreenController(
+          profileRepository: profileRepository,
+          profileAsyncValue: const AsyncData(null));
 
       expect(controller.debugState, const AsyncData<void>(null));
 
@@ -33,8 +34,9 @@ void main() {
     test('signOut() called with failure', () async {
       final profileRepository = MockProfileRepository();
       final customError = Exception('sign out failed');
-      final controller =
-          ProfileScreenController(profileRepository: profileRepository);
+      final controller = ProfileScreenController(
+          profileRepository: profileRepository,
+          profileAsyncValue: const AsyncData(null));
 
       expect(controller.debugState, const AsyncData<void>(null));
 

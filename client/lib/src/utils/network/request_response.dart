@@ -2,31 +2,33 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:intola/src/exceptions/app_exceptions.dart';
+import 'package:intola/src/exceptions/app_exception.dart';
 
 class RequestResponse {
   static requestResponse(Response response) {
     final responseBody = jsonDecode(response.body);
     switch (response.statusCode) {
       case 200:
-        return response.body;
+        return responseBody;
+      case 201:
+        return responseBody;
       case 400:
         debugPrint(responseBody.toString());
-        throw BadRequestException(responseBody['msg']);
+        throw AppException.badRequestException(responseBody['msg']);
       case 401:
         debugPrint(responseBody.toString());
-        throw UnauthorizedRequestException();
+        throw AppException.unauthorizedRequestException(responseBody['msg']);
       case 404:
         debugPrint(responseBody.toString());
-        throw ResourceNotFoundException(responseBody['msg']);
+        throw AppException.emptyResourceException(responseBody['msg']);
       case 500:
         debugPrint(responseBody.toString());
-        throw ServerErrorException(
-          'Something went wrong, try again shortly...',
+        throw AppException.serverErrorException(
+          'Internal Error! try again shortly.',
         );
 
       default:
-        throw response;
+        throw AppException.unhandledResponseCodeException(responseBody['msg']);
     }
   }
 }

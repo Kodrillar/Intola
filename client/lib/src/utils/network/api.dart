@@ -1,45 +1,43 @@
-Map<String, String> endpoints = {
-  "registerUser": "/user/register",
-  "loginUser": "/user/auth",
-  "getUser": "/user/auth",
-  "getProducts": "/products",
-  "getDonations": "/donations",
-  "updateDonation": "/donations",
-  "donate": "/donations/donate",
-  "shipping": "/shipping",
-  "addDelivery": "/delivery",
-  "updateDeliveryImage": "/delivery",
-  "getDelivery": "/delivery",
-  "addPurchase": "/purchase",
-  "getPurchase": "/purchase"
-};
-
 class Endpoints {
-  static String get registerUser => "/user/register";
-  static String get loginUser => "/user/auth";
-  static String get fetchUserDetails => "/user/auth";
+  static String get registerUser => "/auth/sign-up";
+  static String get loginUser => "/auth/sign-in";
+  static String get fetchUserDetails => "/users";
   static String get fetchProducts => "/products";
   static String get fetchDonations => "/donations";
   static String get updateDonation => "/donations";
-  static String get addDonation => "/donations/donate";
+  static String get addDonation => "/donations";
   static String get addShippingInfo => "/shipping";
-  static String get addDelivery => "/delivery";
-  static String get updateDeliveryImage => "/delivery";
-  static String get fetchDelivery => "/delivery";
-  static String get addPurchase => "/purchase";
-  static String get fetchPurchase => '/purchase';
+  static String get addDelivery => "/deliveries";
+  static String get updateDeliveryImage => "/deliveries";
+  static String get fetchDelivery => "/deliveries";
+  static String get addPurchase => "/purchases";
+  static String get fetchPurchase => '/purchases';
+}
+
+enum EndpointParam {
+  products;
+
+  Object get param {
+    switch (EndpointParam.products) {
+      case EndpointParam.products:
+        return ProductEndpointParams();
+    }
+  }
+}
+
+class ProductEndpointParams {
+  final String top = '/top';
+  final String supermarket = '/supermarket';
 }
 
 class API {
-  static String get baseUrl => 'https://intola-app.cyclic.app/api';
-
-  //"https://intola.herokuapp.com/api";
+  static String get baseUrl => 'https://intola-app.cyclic.app/api/v2';
 
   //"https://cute-plum-cape-buffalo-fez.cyclic.app";
 
   static Uri getRequestUrl({required String path}) => Uri(
         scheme: "http",
-        host: "localhost:3000/api",
-        path: endpoints[path],
+        host: "localhost:3000/api/v2",
+        path: path,
       );
 }

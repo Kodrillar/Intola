@@ -16,8 +16,11 @@ class DeliveryScreen extends ConsumerWidget {
       appBar: const DeliveryScreenAppBar(),
       body: deliveryData.when(
         data: (data) => DeliveryScreenCardList(data: data),
-        error: (error, stackTrace) =>
-            ErrorDisplayWidget(errorMessage: error.toString()),
+        error: (error, stackTrace) => ErrorDisplayWidget(
+          error: error,
+          //TODO: implement retry
+          onRetry: () => '',
+        ),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),

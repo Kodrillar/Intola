@@ -38,7 +38,7 @@ const kAppBarTextStyle = TextStyle(
 
 const kErrorTextStyle = TextStyle(
   color: kDarkBlue,
-  fontSize: 14,
+  fontSize: 12,
   fontWeight: FontWeight.w500,
 );
 const kProductNameStyle = TextStyle(

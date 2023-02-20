@@ -14,13 +14,13 @@ import 'package:intola/src/widgets/error_display.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 
 class HomeScreen extends ConsumerWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
-  final List<Widget> screens = [
-    const HomeScreenView(),
-    const DonationScreen(),
-    const DeliveryScreen(),
-    const PurchaseHistoryScreen()
+  final List<Widget> screens = const <Widget>[
+    HomeScreenView(),
+    DonationScreen(),
+    DeliveryScreen(),
+    PurchaseHistoryScreen()
   ];
 
   @override
@@ -53,8 +53,12 @@ class HomeScreenView extends ConsumerWidget {
           ],
         ),
       ),
-      error: (error, stackTrace) =>
-          ErrorDisplayWidget(errorMessage: error.toString()),
+      error: (error, stackTrace) => ErrorDisplayWidget(
+        error: error.toString(),
+
+        //TODO: implement retry
+        onRetry: () => '',
+      ),
       loading: () => const Center(
         child: LoadingIndicator(),
       ),

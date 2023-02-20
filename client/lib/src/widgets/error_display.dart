@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intola/src/exceptions/app_exception.dart';
 
 import '../utils/constant.dart';
 
 class ErrorDisplayWidget extends StatelessWidget {
-  const ErrorDisplayWidget({Key? key, required this.errorMessage})
+  const ErrorDisplayWidget(
+      {Key? key, required this.error, required this.onRetry})
       : super(key: key);
-
-  final String errorMessage;
+  final void Function() onRetry;
+  final Object error;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +31,26 @@ class ErrorDisplayWidget extends StatelessWidget {
                   horizontal: 20,
                 ),
                 child: Text(
-                  errorMessage,
+                  _errorText(error),
                   style: kErrorTextStyle,
                 ),
+              ),
+              TextButton(
+                onPressed: onRetry,
+                child: const Text('Try again'),
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+//TODO: Check this method. It might be useless
+  String _errorText(Object err) {
+    if (err is AppException) {
+      return '${err.message} (ErrorCode: ${err.errorCode})';
+    }
+    return err.toString();
   }
 }

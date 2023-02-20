@@ -5,6 +5,7 @@ import 'package:intola/src/features/product/domain/model/product_model.dart';
 import 'package:intola/src/features/purchase/domain/model/purchase_history_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class PurchaseHistoryNetworkHelper {
   PurchaseHistoryNetworkHelper({required this.secureStorage});
@@ -21,11 +22,8 @@ class PurchaseHistoryNetworkHelper {
       },
     );
 
-    if (response.statusCode == 200) {
-      var responseBody = response.body;
-      return jsonDecode(responseBody)["purchase"];
-    }
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody['purchase'];
   }
 
   Future<dynamic> addPurchaseHistory({
@@ -46,9 +44,7 @@ class PurchaseHistoryNetworkHelper {
       ),
     );
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 }

@@ -14,8 +14,9 @@ class ProfileBottomAppBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(profileScreenControllerProvider);
-    ref.listen<AsyncValue>(profileScreenControllerProvider,
-        (previousState, newState) {
+    ref.listen<AsyncValue>(
+        profileScreenControllerProvider.select(
+            (state) => state.signOutAsyncValue), (previousState, newState) {
       newState.showErrorAlertDialog(context);
     });
     return BottomAppBar(
@@ -23,7 +24,7 @@ class ProfileBottomAppBar extends ConsumerWidget {
       color: Colors.transparent,
       child: SizedBox(
         height: 120,
-        child: state.isLoading
+        child: state.signOutAsyncValue.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,12 +45,13 @@ class ProfileBottomAppBar extends ConsumerWidget {
                   Center(
                     child: CustomRoundButton(
                       onTap: () async {
+                        final navigatorContext = Navigator.of(context);
                         final success = await ref
                             .read(profileScreenControllerProvider.notifier)
                             .signOut();
 
                         if (success) {
-                          Navigator.pushNamedAndRemoveUntil(context,
+                          navigatorContext.pushNamedAndRemoveUntil(
                               RouteName.loginScreen.name, (route) => false);
                         }
                       },

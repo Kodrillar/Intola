@@ -8,12 +8,13 @@ import '../../../../../mocks.dart';
 void main() {
   test('getProducts returns array of ProductModel', () async {
     final productRepository = MockProductRepository();
-    when(() => productRepository.getProducts(endpoint: 'endpoint')).thenAnswer(
+    when(() => productRepository.getProducts(endpointParam: 'endpointParam'))
+        .thenAnswer(
       (_) => Future<List<ProductModel>>.value(kProductListReplica),
     );
 
     final productList =
-        await productRepository.getProducts(endpoint: 'endpoint');
+        await productRepository.getProducts(endpointParam: 'endpointParam');
     expect(productList, kProductListReplica);
   });
 }

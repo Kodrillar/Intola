@@ -22,6 +22,6 @@ class SignUpNetworkHelper {
     );
 
     final responseBody = RequestResponse.requestResponse(response);
-    return jsonDecode(responseBody);
+    return responseBody;
   }
 }

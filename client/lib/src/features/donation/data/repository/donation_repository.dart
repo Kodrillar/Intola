@@ -1,13 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:intola/src/exceptions/app_exceptions.dart';
+import 'package:intola/src/exceptions/app_exception.dart';
 import 'package:intola/src/features/cart/domain/model/product_item_model.dart';
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/features/donation/data/network/donation_network_helper.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
-import 'package:intola/src/utils/network/request_response.dart';
 
 class DonationRepository {
   DonationRepository({required this.donationNetworkHelper});
@@ -18,11 +15,12 @@ class DonationRepository {
       var donations = await donationNetworkHelper.getDonations();
 
       return donations.map<DonationModel>(DonationModel.fromJson).toList();
-    } on SocketException {
-      throw DissabledNetworkException();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      return jsonDecode(responseBody);
+    } on SocketException catch (ex) {
+      throw AppException.dissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
     }
   }
 
@@ -36,11 +34,12 @@ class DonationRepository {
         id: id,
         spotsleft: spotsleft,
       );
-    } on SocketException {
-      throw DissabledNetworkException();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      return responseBody;
+    } on SocketException catch (ex) {
+      throw DissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
     }
   }
 
@@ -57,11 +56,12 @@ class DonationRepository {
           spotsleft: productItem.cartProductQuantity.toString(),
         ),
       );
-    } on SocketException {
-      throw DissabledNetworkException();
-    } on Response catch (response) {
-      var responseBody = RequestResponse.requestResponse(response);
-      return jsonDecode(responseBody);
+    } on SocketException catch (ex) {
+      throw DissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
     }
   }
 }

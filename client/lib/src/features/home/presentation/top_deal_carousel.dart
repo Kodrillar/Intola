@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/product/data/repository/product_repository.dart';
+import 'package:intola/src/features/home/presentation/home_controller.dart';
 import 'package:intola/src/features/home/presentation/carousel_slider.dart';
-import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
 class TopDealsCarousel extends StatelessWidget {
@@ -12,14 +11,16 @@ class TopDealsCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final productValue =
-            ref.watch(getProductsProvider(Endpoints.fetchProducts + '/top'));
-        return productValue.when(
+        final state = ref.watch(homeScreenControllerProvider);
+        return state.productCarouselAsyncValue.when(
           data: (data) => CustomCarouselSlider(
             carouselItems: data,
           ),
           error: (error, stackTrace) => ErrorDisplayWidget(
-            errorMessage: error.toString(),
+            onRetry: () => ref
+                .read(homeScreenControllerProvider.notifier)
+                .updateProductCarouselOnReload(),
+            error: error,
           ),
           loading: () =>
               const Center(child: CircularProgressIndicator.adaptive()),

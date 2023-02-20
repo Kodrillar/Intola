@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 16,
                 color: kDarkBlue,
               ),
             ),
@@ -60,16 +60,17 @@ class ProductCard extends StatelessWidget {
                 Text(
                   "\$${product.slashprice}",
                   style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
-                      fontSize: 17),
+                    decoration: TextDecoration.lineThrough,
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                 ),
                 //Price
                 Text(
                   "\$${product.price}",
                   style: const TextStyle(
                     color: kDarkBlue,
-                    fontSize: 17,
+                    fontSize: 12,
                   ),
                 )
               ],

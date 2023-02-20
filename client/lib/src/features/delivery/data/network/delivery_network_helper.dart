@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:intola/src/features/delivery/domain/model/delivery_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/utils/network/api.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class DeliveryNetworkHelper {
   DeliveryNetworkHelper({required this.secureStorage});
@@ -20,10 +21,8 @@ class DeliveryNetworkHelper {
       headers: {"X-auth-token": "$token"},
     );
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 
   Future<dynamic> addDelivery({
@@ -56,10 +55,8 @@ class DeliveryNetworkHelper {
       ),
     );
     debugPrint(response.body);
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 
   Future updateProductImage({required imagePath}) async {

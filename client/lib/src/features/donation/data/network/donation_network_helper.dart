@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:intola/src/features/donation/domain/model/donation_model.dart';
 import 'package:intola/src/utils/network/api.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
+import 'package:intola/src/utils/network/request_response.dart';
 
 class DonationNetworkHelper {
   DonationNetworkHelper({required this.secureStorage});
@@ -19,12 +20,8 @@ class DonationNetworkHelper {
       headers: {"X-auth-token": "$token"},
     );
 
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body);
-      return responseBody;
-    }
-
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 
   Future donateProduct({required DonationModel donationModel}) async {
@@ -43,12 +40,8 @@ class DonationNetworkHelper {
           donationModel.toJson(),
         ));
 
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body);
-
-      return responseBody;
-    }
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 
   Future updateSpotsleft({required id, required spotsleft}) async {
@@ -68,10 +61,7 @@ class DonationNetworkHelper {
         },
       ),
     );
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-
-    throw response;
+    final responseBody = RequestResponse.requestResponse(response);
+    return responseBody;
   }
 }

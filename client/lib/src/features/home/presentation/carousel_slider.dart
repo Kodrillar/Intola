@@ -39,7 +39,7 @@ class CustomCarouselSlider extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: SizedBox(
-                      width: 300,
+                      width: double.infinity,
                       child: CachedNetworkImage(
                         imageUrl: "${API.baseUrl}/uploads/${product.image}",
                         // maxHeightDiskCache: 120,

@@ -22,7 +22,9 @@ class ExcitingOfferProductGrid extends StatelessWidget {
           }
           if (snapshot.hasError) {
             return ErrorDisplayWidget(
-              errorMessage: snapshot.error.toString(),
+              //TODO: implement retry
+              onRetry: () => '',
+              error: snapshot.error.toString(),
             );
           }
 
