@@ -16,7 +16,7 @@ class FlutterwavePayment {
 
   final publicKey = dotenv.env['PUBLIC_KEY'];
 
-  String generateReferenceText() {
+  String _generateReferenceText() {
     var randomNum = Random().nextInt(110300);
     if (Platform.isAndroid) {
       return "AndroidRef294$randomNum/393";
@@ -55,7 +55,7 @@ class FlutterwavePayment {
         style: style,
         publicKey: publicKey!,
         currency: "USD",
-        txRef: generateReferenceText(),
+        txRef: _generateReferenceText(),
         amount: amount.toString(),
         customer: customer,
         paymentOptions: "ussd, card, barter, payattitude",

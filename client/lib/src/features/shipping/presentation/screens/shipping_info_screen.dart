@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_app_bar.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_bottom_app_bar.dart';
-import 'package:intola/src/features/shipping/application/shipping_service.dart';
+import 'package:intola/src/features/shipping/presentation/shipping_info_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
@@ -34,7 +34,9 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
 
   void processPayment() {
     if (_formKey.currentState!.validate()) {
-      ref.read(shippingServiceProvider.notifier).processProductPayment(
+      ref
+          .read(shippingInfoScreenControllerProvider.notifier)
+          .processProductPayment(
             context: context,
             onPurchaseComplete: () => Navigator.of(context)
                 .pushNamedAndRemoveUntil(
@@ -60,9 +62,9 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(shippingServiceProvider);
+    final state = ref.watch(shippingInfoScreenControllerProvider);
     ref.listen<AsyncValue>(
-      shippingServiceProvider,
+      shippingInfoScreenControllerProvider,
       (previouState, newState) => newState.showErrorAlertDialog(context),
     );
 
