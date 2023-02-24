@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
-import 'package:intola/src/features/payment/presentation/payment_view.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 import 'package:intola/src/widgets/snack_bar.dart';
 
@@ -17,6 +16,7 @@ class FlutterwavePayment {
   final publicKey = dotenv.env['PUBLIC_KEY'];
 
   String _generateReferenceText() {
+    // TODO: use uuid to generate unique id
     var randomNum = Random().nextInt(110300);
     if (Platform.isAndroid) {
       return "AndroidRef294$randomNum/393";
@@ -43,7 +43,6 @@ class FlutterwavePayment {
     if (user == null) return;
 
     try {
-      final style = PaymentView();
       final Customer customer = Customer(
         name: user,
         phoneNumber: "+234566677777",
@@ -52,7 +51,6 @@ class FlutterwavePayment {
 
       final Flutterwave flutterwave = Flutterwave(
         context: context,
-        style: style,
         publicKey: publicKey!,
         currency: "USD",
         txRef: _generateReferenceText(),

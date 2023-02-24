@@ -49,5 +49,7 @@
 	<string>Intola needs photo library access to select images</string>
 	<key>NSCameraUsageDescription</key> 
 	<string>Intola needs to access your camera to capture images</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

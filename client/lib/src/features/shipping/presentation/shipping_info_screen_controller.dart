@@ -34,7 +34,7 @@ class ShippingInfoScreenController extends StateNotifier<AsyncValue> {
   }) async {
     final asyncValue = await AsyncValue.guard(
       () => shippingService
-          .fetchCartTotalPrice()
+          .addProductToPurchaseHistory()
           .whenComplete(onPurchaseComplete),
     );
     if (mounted) {
