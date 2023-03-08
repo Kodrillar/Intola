@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intola/src/features/profile/presentation/profile_screen_controller.dart';
+import 'package:intola/src/features/profile/presentation/profile_screen_state.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks.dart';
@@ -12,9 +13,15 @@ void main() {
       final profileRepository = MockProfileRepository();
       final controller = ProfileScreenController(
           profileRepository: profileRepository,
-          profileAsyncValue: const AsyncData(null));
+          profileAsyncValue: const AsyncData<void>(null));
 
-      expect(controller.debugState, const AsyncData<void>(null));
+      expect(
+        controller.debugState,
+        ProfileScreenState(
+          profileAsyncValue: const AsyncData<void>(null),
+          signOutAsyncValue: const AsyncData<void>(null),
+        ),
+      );
 
       when(profileRepository.signOutUser)
           .thenAnswer((_) => Future<void>.value());
@@ -22,8 +29,14 @@ void main() {
       expect(
           controller.stream,
           emitsInOrder([
-            const AsyncLoading<void>(),
-            const AsyncData<void>(null),
+            ProfileScreenState(
+              profileAsyncValue: const AsyncData<void>(null),
+              signOutAsyncValue: const AsyncLoading<void>(),
+            ),
+            ProfileScreenState(
+              profileAsyncValue: const AsyncData<void>(null),
+              signOutAsyncValue: const AsyncData<void>(null),
+            ),
           ]));
 
       await controller.signOut();
@@ -36,20 +49,29 @@ void main() {
       final customError = Exception('sign out failed');
       final controller = ProfileScreenController(
           profileRepository: profileRepository,
-          profileAsyncValue: const AsyncData(null));
+          profileAsyncValue: const AsyncData<void>(null));
 
-      expect(controller.debugState, const AsyncData<void>(null));
+      expect(
+        controller.debugState,
+        ProfileScreenState(
+          profileAsyncValue: const AsyncData<void>(null),
+          signOutAsyncValue: const AsyncData<void>(null),
+        ),
+      );
 
       when(profileRepository.signOutUser).thenThrow(customError);
 
       expect(
           controller.stream,
           emitsInOrder([
-            const AsyncLoading<void>(),
-            predicate<AsyncError<void>>((value) {
-              expect(value.hasError, true);
+            ProfileScreenState(
+              profileAsyncValue: const AsyncData<void>(null),
+              signOutAsyncValue: const AsyncLoading<void>(),
+            ),
+            predicate<ProfileScreenState>((value) {
+              expect(value.signOutAsyncValue.hasError, true);
               return true;
-            })
+            }),
           ]));
 
       await controller.signOut();
