@@ -30,7 +30,7 @@ class FeedCard extends StatelessWidget {
   final String feedImage;
   final String leadingDetailValue;
   final String trailingDetailValue;
-  final void Function() onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class FeedCard extends StatelessWidget {
               child: Text(
                 userName.reduceStringLength,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: kDarkOrange,
                 ),
@@ -60,7 +60,7 @@ class FeedCard extends StatelessWidget {
               child: Text(
                 feedCardType.feedCardCaption,
                 style: const TextStyle(
-                  fontSize: 13,
+                  fontSize: 12,
                   color: kDarkOrange,
                 ),
               ),
@@ -110,13 +110,13 @@ class TrailingFeedCardDetail extends StatelessWidget {
         children: [
           Text(
             feedCardType == FeedCardType.delivery ? "Weight" : "Quantity left",
-            style: kAppBarTextStyle.copyWith(fontSize: 15),
+            style: kAppBarTextStyle.copyWith(fontSize: 12),
           ),
           Text(
             feedCardType == FeedCardType.delivery
                 ? "${trailingDetailValue}kg"
                 : "x$trailingDetailValue",
-            style: kAppBarTextStyle.copyWith(color: kDarkOrange, fontSize: 15),
+            style: kAppBarTextStyle.copyWith(color: kDarkOrange, fontSize: 12),
           ),
         ],
       ),
@@ -142,13 +142,13 @@ class LeadingFeedCardDetail extends StatelessWidget {
         children: [
           Text(
             feedCardType == FeedCardType.delivery ? "Price" : "Total Quantity",
-            style: kAppBarTextStyle.copyWith(fontSize: 15),
+            style: kAppBarTextStyle.copyWith(fontSize: 12),
           ),
           Text(
             feedCardType == FeedCardType.delivery
                 ? "\$$leadingDetailValue"
                 : "x$leadingDetailValue",
-            style: kAppBarTextStyle.copyWith(color: kDarkOrange, fontSize: 15),
+            style: kAppBarTextStyle.copyWith(color: kDarkOrange, fontSize: 12),
           ),
         ],
       ),

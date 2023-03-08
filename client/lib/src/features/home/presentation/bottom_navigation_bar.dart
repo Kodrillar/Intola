@@ -25,7 +25,7 @@ class CustomBottomNavigationBar extends ConsumerWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
-          label: 'home',
+          label: '',
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.clean_hands_outlined), label: ''),

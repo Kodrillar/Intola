@@ -5,7 +5,7 @@ import 'package:intola/src/features/auth/presentation/log_in_screen_controller.d
 import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/validation_error_text.dart';
+import 'package:intola/src/utils/text_field_validator.dart';
 import 'package:intola/src/features/auth/presentation/auth_button.dart';
 import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
 import 'package:intola/src/widgets/annotated_region.dart';
@@ -60,41 +60,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(
         systemUiOverlayStyle: SystemUiOverlayStyle.dark,
+        //TODO : Abstract Form
         child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  //TODO: Make this screen title reusable
                   const Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 100),
                       child: Text(
-                        "Login",
+                        "Log In",
                         style: kAuthTextStyle,
                       ),
                     ),
                   ),
                   CustomTextField(
                     labelText: "email",
-                    hintText: "email",
-                    validator: (String? value) {
-                      if (value!.trim().isEmpty) {
-                        return ValidationErrorMessage.emailError.message;
-                      }
-                      return null;
-                    },
+                    hintText: "e.g. pabloescobar@mail.com",
+                    validator: TextFieldValidator.validateEmailField,
                     controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   CustomTextField(
                     labelText: "password",
-                    hintText: "password",
-                    validator: (String? value) {
-                      if (value!.trim().isEmpty) {
-                        return ValidationErrorMessage.passwordError.message;
-                      }
-                      return null;
-                    },
+                    hintText: "e.g. Ucan'tcatchme90",
+                    validator: TextFieldValidator.validatePasswordField,
                     controller: passwordController,
                     obscureText: obscureTextFieldText,
                     visibilityIcon: IconButton(
@@ -116,9 +110,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             'Login',
                             style: kAuthButtonTextStyle,
                           ),
-                    onTap: () {
-                      _loginUser();
-                    },
+                    onTap: _loginUser,
                   ),
                   AuthOptionText(
                     title: "New to Intola?",

@@ -33,7 +33,9 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
                   "Hi, ${userName?.reduceStringLength}",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: kHeadingTextStyle,
+                  style: kHeadingTextStyle.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),

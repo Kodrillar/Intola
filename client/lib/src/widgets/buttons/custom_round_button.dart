@@ -22,13 +22,13 @@ class CustomRoundButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: width,
-          height: 50,
+          height: 40,
           child: Center(
             child: Text(
               buttonText,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                // fontWeight: FontWeight.w700,
                 color: kLightColor,
               ),
             ),

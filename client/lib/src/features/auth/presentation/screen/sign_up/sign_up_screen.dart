@@ -6,7 +6,7 @@ import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
 import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
-import 'package:intola/src/utils/validation_error_text.dart';
+import 'package:intola/src/utils/text_field_validator.dart';
 import 'package:intola/src/widgets/annotated_region.dart';
 import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/text_field.dart';
@@ -63,7 +63,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(
         systemUiOverlayStyle: SystemUiOverlayStyle.dark,
+        //TODO : Abstract Form
         child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: Center(
             child: SingleChildScrollView(
@@ -79,38 +81,24 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                   ),
                   CustomTextField(
-                    hintText: "full name",
+                    hintText: "e.g. Zara Larsson",
                     labelText: "full name",
                     controller: fullnameController,
-                    validator: (String? value) {
-                      if (value!.trim().isEmpty) {
-                        return ValidationErrorMessage.fullnameError.message;
-                      }
-                      return null;
-                    },
+                    validator: TextFieldValidator.validateFullnameField,
                   ),
                   CustomTextField(
-                    hintText: "email",
+                    hintText: "e.g. pabloescobar@mail.com",
                     labelText: "email",
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
-                    validator: (String? value) {
-                      if (value!.trim().isEmpty) {
-                        return ValidationErrorMessage.emailError.message;
-                      }
-                      return null;
-                    },
+                    validator: TextFieldValidator.validateEmailField,
                   ),
                   CustomTextField(
-                    hintText: "password",
+                    hintText: "e.g. Ucan'tcatchme90",
                     labelText: "password",
                     controller: passwordController,
                     obscureText: obscureTextFieldText,
-                    validator: (String? value) {
-                      if (value!.trim().isEmpty) {
-                        return ValidationErrorMessage.passwordError.message;
-                      }
-                      return null;
-                    },
+                    validator: TextFieldValidator.validatePasswordField,
                     visibilityIcon: IconButton(
                       onPressed: () {
                         ref.read(obscureTextFieldTextProvider.notifier).state =
@@ -130,13 +118,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             'Sign Up',
                             style: kAuthButtonTextStyle,
                           ),
-                    onTap: () {
-                      _signUpUser();
-                    },
+                    onTap: _signUpUser,
                   ),
                   AuthOptionText(
                     title: "Already have an account?",
-                    optionText: "Login",
+                    optionText: "Log In",
                     optionTextStyle: kAuthOptionTextStyle.copyWith(
                       color: kDarkOrange,
                     ),

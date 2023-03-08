@@ -4,7 +4,7 @@ import 'package:intola/src/features/shipping/presentation/shipping_info_app_bar.
 import 'package:intola/src/features/shipping/presentation/shipping_info_bottom_app_bar.dart';
 import 'package:intola/src/features/shipping/presentation/shipping_info_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
-import 'package:intola/src/utils/validation_error_text.dart';
+import 'package:intola/src/utils/text_field_validator.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
 import 'package:intola/src/widgets/snack_bar.dart';
 import 'package:intola/src/widgets/text_field.dart';
@@ -75,6 +75,8 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
             bottomNavigationBar:
                 ShippingInfoBottomAppBar(onTap: processPayment),
             body: Form(
+              //TODO: abstract form
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Scrollbar(
                 thumbVisibility: true,
@@ -83,63 +85,39 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
                     children: [
                       CustomTextField(
                         controller: addressController,
-                        hintText: "Address",
+                        hintText: "e.g. No. 3 jacob street, Nashville, U.S.",
                         labelText: "Address",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return ValidationErrorMessage.addressError.message;
-                          }
-                          return null;
-                        },
+                        //TODO: Improve textfield validations
+                        validator: TextFieldValidator.validateAddressField,
                       ),
                       CustomTextField(
                         controller: apartmentController,
-                        hintText: "Apartment suite(optional)",
+                        hintText: "Apartment suite (optional)",
                         labelText: "Apartment suite",
                       ),
                       CustomTextField(
                         controller: cityController,
-                        hintText: "City",
+                        hintText: "e.g. Mumbai",
                         labelText: "City",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return ValidationErrorMessage.cityError.message;
-                          }
-                          return null;
-                        },
+                        validator: TextFieldValidator.validateCityField,
                       ),
                       CustomTextField(
                         controller: countryController,
-                        hintText: "Country",
+                        hintText: "e.g. Uganda",
                         labelText: "Country",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return ValidationErrorMessage.countryError.message;
-                          }
-                          return null;
-                        },
+                        validator: TextFieldValidator.validateCountryField,
                       ),
                       CustomTextField(
                         controller: phoneController,
                         hintText: "Phone",
                         labelText: "Phone",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return ValidationErrorMessage.phoneError.message;
-                          }
-                          return null;
-                        },
+                        validator: TextFieldValidator.validatePhoneField,
                       ),
                       CustomTextField(
                         controller: zipCodeController,
                         hintText: "Zip code",
                         labelText: "Zip code",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return ValidationErrorMessage.zipcodeError.message;
-                          }
-                          return null;
-                        },
+                        validator: TextFieldValidator.validateZipCodeField,
                       ),
                     ],
                   ),

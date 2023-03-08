@@ -21,8 +21,7 @@ class PurchaseHistoryScreenBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      height: 150,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,7 +32,7 @@ class PurchaseHistoryScreenBar extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: "${API.baseUrl}/uploads/$productImage",
                 imageBuilder: (context, imageProvider) => Container(
-                  height: 90,
+                  height: 75,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: kDarkOrange.withOpacity(.08),
@@ -57,14 +56,19 @@ class PurchaseHistoryScreenBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(productName, style: kAppBarTextStyle),
+                Text(
+                  productName,
+                  style: kAppBarTextStyle.copyWith(fontSize: 14),
+                ),
                 const SizedBox(height: 10),
                 Text(
                   DateTime.parse(date).getDateInTimeAgo,
-                  style: kAppBarTextStyle.copyWith(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: kDarkOrange),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: kProductDetailStyle.copyWith(
+                    fontSize: 10,
+                    color: kDarkOrange,
+                  ),
                 ),
               ],
             ),
@@ -73,7 +77,7 @@ class PurchaseHistoryScreenBar extends StatelessWidget {
             productStatus,
             style: kAppBarTextStyle.copyWith(
               color: kDarkOrange,
-              fontSize: 15.5,
+              fontSize: 13,
             ),
           )
         ],

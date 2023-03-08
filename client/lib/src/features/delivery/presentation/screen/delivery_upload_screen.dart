@@ -7,6 +7,7 @@ import 'package:intola/src/features/delivery/presentation/delivery_upload_screen
 import 'package:intola/src/features/home/data/home_repository.dart';
 import 'package:intola/src/features/home/presentation/bottom_navigation_bar.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/utils/text_field_validator.dart';
 import 'package:intola/src/utils/validation_error_text.dart';
 import 'package:intola/src/widgets/alert_dialog.dart';
 import 'package:intola/src/widgets/app_bar_with_back_arrow.dart';
@@ -99,6 +100,8 @@ class _DeliveryUploadScreenState extends ConsumerState<DeliveryUploadScreen> {
           onPressedOfBottomAppBarButton: () => addDelivery()),
       body: SingleChildScrollView(
         child: Form(
+          //TODO: abstract form
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: Column(
             children: [
@@ -123,50 +126,26 @@ class _DeliveryUploadScreenState extends ConsumerState<DeliveryUploadScreen> {
                 controller: pickUpController,
                 hintText: "pick up location",
                 labelText: "pick up location",
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return ValidationErrorMessage.pickupError.message;
-                  }
-                  return null;
-                },
+                validator: TextFieldValidator.validatePickUpLocationField,
               ),
               CustomTextField(
                 controller: contactController,
-                hintText: "contact",
-                labelText: "contact",
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return ValidationErrorMessage.contactError.message;
-                  }
-                  return null;
-                },
+                hintText: "Phone",
+                labelText: "Phone",
+                validator: TextFieldValidator.validatePhoneField,
+                keyboardType: TextInputType.number,
               ),
               CustomTextField(
                 controller: priceController,
                 hintText: "price",
                 labelText: "price",
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return ValidationErrorMessage.priceError.message;
-                  } else if (value.length > 8) {
-                    return "Max price exceeded";
-                  }
-
-                  return null;
-                },
+                validator: TextFieldValidator.validatePriceField,
               ),
               CustomTextField(
                 controller: weightController,
-                hintText: "weight",
+                hintText: "e.g. 78",
                 labelText: "weight",
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return ValidationErrorMessage.weightError.message;
-                  } else if (value.length > 8) {
-                    return "Max weight exceeded";
-                  }
-                  return null;
-                },
+                validator: TextFieldValidator.validateWeightField,
               ),
             ],
           ),
@@ -273,37 +252,50 @@ class DeliveryUploadImageBottomSheet extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          InkWell(
-            highlightColor: kDarkBlue,
-            onTap: onPressedOfGalleryIcon,
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.image,
-                  color: kDarkOrange,
-                ),
-                Text(
-                  "Gallery",
-                  style: kAppBarTextStyle.copyWith(
-                      fontSize: 15, fontWeight: FontWeight.normal),
-                )
-              ],
-            ),
+          BottomSheetActionButton(
+            icon: Icons.image,
+            title: 'Gallery',
+            onPressedOfCameraIcon: onPressedOfCameraIcon,
           ),
-          InkWell(
-            onTap: onPressedOfCameraIcon,
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.camera,
-                  color: kDarkOrange,
-                ),
-                Text(
-                  "Camera",
-                  style: kAppBarTextStyle.copyWith(
-                      fontSize: 15, fontWeight: FontWeight.normal),
-                )
-              ],
+          BottomSheetActionButton(
+            title: 'Take photo',
+            onPressedOfCameraIcon: onPressedOfCameraIcon,
+            icon: Icons.camera,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class BottomSheetActionButton extends StatelessWidget {
+  const BottomSheetActionButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onPressedOfCameraIcon,
+  });
+
+  final void Function() onPressedOfCameraIcon;
+
+  final IconData icon;
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressedOfCameraIcon,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: kDarkOrange,
+          ),
+          Text(
+            title,
+            style: kAppBarTextStyle.copyWith(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
             ),
           )
         ],

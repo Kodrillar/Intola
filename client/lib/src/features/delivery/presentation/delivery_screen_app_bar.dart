@@ -17,17 +17,21 @@ class DeliveryScreenAppBar extends StatelessWidget with PreferredSizeWidget {
           );
         },
       ),
-      actions: const [
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Text(
-              "\$0",
-              style: kAppBarTextStyle,
-            ),
-          ),
-        ),
-      ],
+      /**
+       * * Removed! Reason: delivery payment is 
+       *  * not implemeted yet.
+       */
+      // actions: const [
+      //   Center(
+      //     child: Padding(
+      //       padding: EdgeInsets.only(right: 16.0),
+      //       child: Text(
+      //         "\$0",
+      //         style: kAppBarTextStyle,
+      //       ),
+      //     ),
+      //   ),
+      // ],
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: const Text(

@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    Key? key,
-    required this.controller,
-    required this.hintText,
-    this.onChanged,
-    this.errorText,
-    this.labelText,
-    this.visibilityIcon,
-    this.obscureText,
-    this.validator,
-  }) : super(key: key);
+  const CustomTextField(
+      {Key? key,
+      required this.controller,
+      required this.hintText,
+      this.onChanged,
+      this.errorText,
+      this.labelText,
+      this.visibilityIcon,
+      this.obscureText,
+      this.validator,
+      this.keyboardType})
+      : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final bool? obscureText;
   final void Function(String value)? onChanged;
   final String? Function(String? value)? validator;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
         onChanged: onChanged,
         controller: controller,
         obscureText: obscureText ?? false,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: kDarkBlue.withOpacity(.5),

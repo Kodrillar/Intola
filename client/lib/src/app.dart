@@ -8,6 +8,7 @@ import 'package:intola/src/features/user_onboarding/presentation/screen/onboardi
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/widgets/loading_indicator.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class IntolaApp extends ConsumerWidget {
   const IntolaApp({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class IntolaApp extends ConsumerWidget {
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
+        fontFamily: GoogleFonts.poppins().fontFamily,
       ),
       home: initialScreen.when(
         data: (initializationStatus) {
@@ -35,7 +37,7 @@ class IntolaApp extends ConsumerWidget {
               return OnboardingScreen();
 
             default:
-              return HomeScreen();
+              return const HomeScreen();
           }
         },
         loading: () => const LoadingIndicator(),
