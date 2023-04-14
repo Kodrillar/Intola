@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "4897882604d919befd350648c7f91926a9d5de99e67b455bf0917cc2362f4bb8"
+      sha256: a36ec4843dc30ea6bf652bf25e3448db6c5e8bcf4aa55f063a5d1dad216d8214
       url: "https://pub.dev"
     source: hosted
-    version: "47.0.0"
+    version: "58.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "690e335554a8385bc9d787117d9eb52c0c03ee207a607e593de3c9d71b1cfe80"
+      sha256: cc4242565347e98424ce9945c819c192ec0838cb9d1f6aa4a97cc96becbc5b27
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.0"
+    version: "5.10.0"
   args:
     dependency: transitive
     description:
@@ -225,6 +225,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.4"
+  envied:
+    dependency: "direct main"
+    description:
+      name: envied
+      sha256: d5d978fbd578b5c00123003609c39185e0b1ddf9d2ac460d710dd0eb2fc223d7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
+  envied_generator:
+    dependency: "direct dev"
+    description:
+      name: envied_generator
+      sha256: "6c5a98c27c5eae925807692eb252ccac2b8e81f09bace1f07207c47dfb6a4eb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -278,14 +294,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
-  flutter_dotenv:
-    dependency: "direct main"
-    description:
-      name: flutter_dotenv
-      sha256: d9283d92059a22e9834bc0a31336658ffba77089fb6f3cc36751f1fc7c6661a3
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -1078,5 +1086,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.0.0"

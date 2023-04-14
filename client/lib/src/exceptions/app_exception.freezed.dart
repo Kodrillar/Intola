@@ -25,7 +25,7 @@ mixin _$AppException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ mixin _$AppException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ mixin _$AppException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) =>
@@ -67,7 +67,7 @@ mixin _$AppException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) =>
       throw _privateConstructorUsedError;
@@ -83,7 +83,7 @@ mixin _$AppException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) =>
       throw _privateConstructorUsedError;
@@ -99,7 +99,7 @@ mixin _$AppException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) =>
@@ -217,7 +217,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return dissabledNetworkException(message);
@@ -232,7 +232,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return dissabledNetworkException?.call(message);
@@ -247,7 +247,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -271,7 +271,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return dissabledNetworkException(this);
@@ -290,7 +290,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return dissabledNetworkException?.call(this);
@@ -309,7 +309,7 @@ class _$DissabledNetworkException implements DissabledNetworkException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -405,7 +405,7 @@ class _$BadRequestException implements BadRequestException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return badRequestException(message);
@@ -420,7 +420,7 @@ class _$BadRequestException implements BadRequestException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return badRequestException?.call(message);
@@ -435,7 +435,7 @@ class _$BadRequestException implements BadRequestException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -459,7 +459,7 @@ class _$BadRequestException implements BadRequestException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return badRequestException(this);
@@ -478,7 +478,7 @@ class _$BadRequestException implements BadRequestException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return badRequestException?.call(this);
@@ -497,7 +497,7 @@ class _$BadRequestException implements BadRequestException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -594,7 +594,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return unauthorizedRequestException(message);
@@ -609,7 +609,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return unauthorizedRequestException?.call(message);
@@ -624,7 +624,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -648,7 +648,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return unauthorizedRequestException(this);
@@ -667,7 +667,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return unauthorizedRequestException?.call(this);
@@ -686,7 +686,7 @@ class _$UnauthorizedRequestException implements UnauthorizedRequestException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -782,7 +782,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return emptyResourceException(message);
@@ -797,7 +797,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return emptyResourceException?.call(message);
@@ -812,7 +812,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -836,7 +836,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return emptyResourceException(this);
@@ -855,7 +855,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return emptyResourceException?.call(this);
@@ -874,7 +874,7 @@ class _$EmptyResourceException implements EmptyResourceException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -970,7 +970,7 @@ class _$ServerErrorException implements ServerErrorException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return serverErrorException(message);
@@ -985,7 +985,7 @@ class _$ServerErrorException implements ServerErrorException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return serverErrorException?.call(message);
@@ -1000,7 +1000,7 @@ class _$ServerErrorException implements ServerErrorException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -1024,7 +1024,7 @@ class _$ServerErrorException implements ServerErrorException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return serverErrorException(this);
@@ -1043,7 +1043,7 @@ class _$ServerErrorException implements ServerErrorException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return serverErrorException?.call(this);
@@ -1062,7 +1062,7 @@ class _$ServerErrorException implements ServerErrorException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -1158,7 +1158,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return forbiddenRequestException(message);
@@ -1173,7 +1173,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return forbiddenRequestException?.call(message);
@@ -1188,7 +1188,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -1212,7 +1212,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return forbiddenRequestException(this);
@@ -1231,7 +1231,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return forbiddenRequestException?.call(this);
@@ -1250,7 +1250,7 @@ class _$ForbiddenRequestException implements ForbiddenRequestException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
@@ -1318,7 +1318,7 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
 
   @override
   String toString() {
-    return 'AppException.uncaughtResponseCodeException(message: $message)';
+    return 'AppException.unhandledResponseCodeException(message: $message)';
   }
 
   @override
@@ -1348,10 +1348,10 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
-    return uncaughtResponseCodeException(message);
+    return unhandledResponseCodeException(message);
   }
 
   @override
@@ -1363,10 +1363,10 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
-    return uncaughtResponseCodeException?.call(message);
+    return unhandledResponseCodeException?.call(message);
   }
 
   @override
@@ -1378,12 +1378,12 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
-    if (uncaughtResponseCodeException != null) {
-      return uncaughtResponseCodeException(message);
+    if (unhandledResponseCodeException != null) {
+      return unhandledResponseCodeException(message);
     }
     return orElse();
   }
@@ -1402,10 +1402,10 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
-    return uncaughtResponseCodeException(this);
+    return unhandledResponseCodeException(this);
   }
 
   @override
@@ -1421,10 +1421,10 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
-    return uncaughtResponseCodeException?.call(this);
+    return unhandledResponseCodeException?.call(this);
   }
 
   @override
@@ -1440,12 +1440,12 @@ class _$UncaughtResponseCodeException implements UncaughtResponseCodeException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {
-    if (uncaughtResponseCodeException != null) {
-      return uncaughtResponseCodeException(this);
+    if (unhandledResponseCodeException != null) {
+      return unhandledResponseCodeException(this);
     }
     return orElse();
   }
@@ -1535,7 +1535,7 @@ class _$ClientException implements ClientException {
     required TResult Function(String message) emptyResourceException,
     required TResult Function(String message) serverErrorException,
     required TResult Function(String message) forbiddenRequestException,
-    required TResult Function(String message) uncaughtResponseCodeException,
+    required TResult Function(String message) unhandledResponseCodeException,
     required TResult Function(String message) clientException,
   }) {
     return clientException(message);
@@ -1550,7 +1550,7 @@ class _$ClientException implements ClientException {
     TResult? Function(String message)? emptyResourceException,
     TResult? Function(String message)? serverErrorException,
     TResult? Function(String message)? forbiddenRequestException,
-    TResult? Function(String message)? uncaughtResponseCodeException,
+    TResult? Function(String message)? unhandledResponseCodeException,
     TResult? Function(String message)? clientException,
   }) {
     return clientException?.call(message);
@@ -1565,7 +1565,7 @@ class _$ClientException implements ClientException {
     TResult Function(String message)? emptyResourceException,
     TResult Function(String message)? serverErrorException,
     TResult Function(String message)? forbiddenRequestException,
-    TResult Function(String message)? uncaughtResponseCodeException,
+    TResult Function(String message)? unhandledResponseCodeException,
     TResult Function(String message)? clientException,
     required TResult orElse(),
   }) {
@@ -1589,7 +1589,7 @@ class _$ClientException implements ClientException {
     required TResult Function(ForbiddenRequestException value)
         forbiddenRequestException,
     required TResult Function(UncaughtResponseCodeException value)
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     required TResult Function(ClientException value) clientException,
   }) {
     return clientException(this);
@@ -1608,7 +1608,7 @@ class _$ClientException implements ClientException {
     TResult? Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult? Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult? Function(ClientException value)? clientException,
   }) {
     return clientException?.call(this);
@@ -1627,7 +1627,7 @@ class _$ClientException implements ClientException {
     TResult Function(ForbiddenRequestException value)?
         forbiddenRequestException,
     TResult Function(UncaughtResponseCodeException value)?
-        uncaughtResponseCodeException,
+        unhandledResponseCodeException,
     TResult Function(ClientException value)? clientException,
     required TResult orElse(),
   }) {

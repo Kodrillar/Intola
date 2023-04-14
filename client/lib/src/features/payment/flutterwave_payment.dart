@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intola/src/utils/environment/environment.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
@@ -13,7 +13,7 @@ class FlutterwavePayment {
 
   final SecureStorage secureStorage;
 
-  final publicKey = dotenv.env['PUBLIC_KEY'];
+  final publicKey = Environment.flPublicKey;
 
   String _generateReferenceText() {
     // TODO: use uuid to generate unique id
@@ -51,7 +51,7 @@ class FlutterwavePayment {
 
       final Flutterwave flutterwave = Flutterwave(
         context: context,
-        publicKey: publicKey!,
+        publicKey: publicKey,
         currency: "USD",
         txRef: _generateReferenceText(),
         amount: amount.toString(),
