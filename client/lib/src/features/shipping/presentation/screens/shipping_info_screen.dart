@@ -112,6 +112,7 @@ class _ShippingInfoScreenState extends ConsumerState<ShippingInfoScreen> {
                         hintText: "Phone",
                         labelText: "Phone",
                         validator: TextFieldValidator.validatePhoneField,
+                        keyboardType: TextInputType.number,
                       ),
                       CustomTextField(
                         controller: zipCodeController,
