@@ -41,7 +41,7 @@ extension ErrorCode on AppException {
       emptyResourceException: (message) => 5000,
       serverErrorException: (message) => 5001,
       forbiddenRequestException: (message) => 5002,
-      uncaughtResponseCodeException: (message) => 5003,
+      unhandledResponseCodeException: (message) => 5003,
       clientException: (message) => 5004,
     );
   }
