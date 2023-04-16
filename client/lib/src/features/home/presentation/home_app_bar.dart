@@ -30,7 +30,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Hi, ${userName?.reduceStringLength}",
+                  "Hi, ${userName?.reduceStringLength ?? 'chief'}",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: kHeadingTextStyle.copyWith(

@@ -25,9 +25,29 @@ class ProfileRepository {
     }
   }
 
+  Future<void> deleteUserAccount() async {
+    try {
+      await Future.wait([
+        profileNetworkHelper.deleteUserAccount(),
+        secureStorage.delete(key: 'cart'),
+        secureStorage.delete(key: 'token'),
+        secureStorage.delete(key: 'userName')
+      ]);
+    } on SocketException catch (ex) {
+      throw DissabledNetworkException(ex.customMessage);
+    } on FormatException catch (ex) {
+      throw AppException.clientException(ex.customMessage);
+    } catch (ex) {
+      rethrow;
+    }
+  }
+
   Future<void> signOutUser() async {
-    await secureStorage.delete(key: 'cart');
-    await secureStorage.delete(key: 'token');
+    await Future.wait([
+      secureStorage.delete(key: 'cart'),
+      secureStorage.delete(key: 'token'),
+      secureStorage.delete(key: 'userName')
+    ]);
   }
 }
 

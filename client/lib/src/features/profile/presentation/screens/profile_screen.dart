@@ -4,12 +4,19 @@ import 'package:intola/src/features/profile/presentation/profile_app_bar.dart';
 import 'package:intola/src/features/profile/presentation/profile_bottom_app_bar.dart';
 import 'package:intola/src/features/profile/presentation/profile_screen_controller.dart';
 import 'package:intola/src/utils/constant.dart';
+import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/error_display.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AsyncValue>(
+        profileScreenControllerProvider.select(
+            (state) => state.signOutAsyncValue), (previousState, newState) {
+      newState.showErrorAlertDialog(context);
+    });
     final state = ref.watch(profileScreenControllerProvider);
     return Scaffold(
       appBar: const ProfileAppBar(),
@@ -34,9 +41,9 @@ class ProfileScreen extends ConsumerWidget {
                 Text(
                   data.email,
                   style: kProductDetailStyle.copyWith(
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
-                )
+                ),
               ],
             ),
           ),

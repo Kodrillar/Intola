@@ -18,9 +18,20 @@ class ProfileScreenController extends StateNotifier<ProfileScreenState> {
         await AsyncValue.guard(() => profileRepository.signOutUser());
     if (mounted) {
       state = state.copyWith(signOutAsyncValue: asyncResult);
+      return state.signOutAsyncValue.hasError == false;
     }
+    return false;
+  }
 
-    return state.signOutAsyncValue.hasError == false;
+  Future<bool> deleteUserAccount() async {
+    state = state.copyWith(signOutAsyncValue: const AsyncLoading<void>());
+    final asyncResult =
+        await AsyncValue.guard(() => profileRepository.deleteUserAccount());
+    if (mounted) {
+      state = state.copyWith(signOutAsyncValue: asyncResult);
+      return state.signOutAsyncValue.hasError == false;
+    }
+    return false;
   }
 
   Future<void> updateOnReload() async {

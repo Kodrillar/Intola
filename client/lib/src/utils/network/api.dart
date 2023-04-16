@@ -12,6 +12,7 @@ class Endpoints {
   static String get fetchDelivery => "/deliveries";
   static String get addPurchase => "/purchases";
   static String get fetchPurchase => '/purchases';
+  static String get deleteUserAccount => '/users';
 }
 
 enum EndpointParam {
