@@ -18,4 +18,20 @@ class ProfileNetworkHelper {
     final responseBody = RequestResponse.requestResponse(response);
     return responseBody["user"];
   }
+
+  Future<void> deleteUserAccount() async {
+    final userToken = await secureStorage.read(key: 'token');
+    if (userToken == null) return;
+
+    http.Response response = await http.delete(
+      Uri.parse(
+        baseUrl + Endpoints.deleteUserAccount,
+      ),
+      headers: {
+        "x-auth-token": userToken,
+      },
+    );
+
+    RequestResponse.requestResponse(response);
+  }
 }
