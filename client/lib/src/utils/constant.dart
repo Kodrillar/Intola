@@ -7,6 +7,7 @@ const kLightColor = Colors.white;
 const kDarkColor = Colors.black;
 const kDeepOrangeColor = Colors.deepOrange;
 const kDarkOrange = Color(0xFFDF6E40);
+const kGreyColor = Colors.black12;
 const kDarkBlue = Color(0xFF0C2C52);
 const kAuthTextStyle = TextStyle(
   color: kDarkBlue,

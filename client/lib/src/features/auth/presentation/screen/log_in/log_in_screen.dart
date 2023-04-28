@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intola/src/features/auth/presentation/log_in_screen_controller.dart';
-import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
+import 'package:intola/src/features/auth/presentation/auth_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/text_field_validator.dart';
@@ -31,13 +30,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final navigator = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       final bool loginIsSuccessful =
-          await ref.read(logInScreenControllerProvider.notifier).logInUser(
+          await ref.read(authControllerProvider.notifier).logInUser(
                 email: email,
                 password: password,
               );
 
       if (loginIsSuccessful) {
-        navigator.pushNamed(RouteName.homeScreen.name);
+        navigator.pushNamedAndRemoveUntil(
+            RouteName.homeScreen.name, (route) => false);
       }
     }
   }
@@ -52,10 +52,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(
-      logInScreenControllerProvider,
+      authControllerProvider,
       (previousState, newState) => newState.showErrorAlertDialog(context),
     );
-    final state = ref.watch(logInScreenControllerProvider);
+    final state = ref.watch(authControllerProvider);
     bool obscureTextFieldText = ref.watch(obscureTextFieldTextProvider);
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(
@@ -79,6 +79,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   CustomTextField(
+                    isEnabled: !state.isLoading,
                     labelText: "email",
                     hintText: "e.g. pabloescobar@mail.com",
                     validator: TextFieldValidator.validateEmailField,
@@ -86,6 +87,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                   ),
                   CustomTextField(
+                    isEnabled: !state.isLoading,
                     labelText: "password",
                     hintText: "e.g. Ucan'tcatchme90",
                     validator: TextFieldValidator.validatePasswordField,
@@ -110,7 +112,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             'Login',
                             style: kAuthButtonTextStyle,
                           ),
-                    onTap: _loginUser,
+                    onTap: state.isLoading ? null : _loginUser,
                   ),
                   AuthOptionText(
                     title: "New to Intola?",
@@ -118,12 +120,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     optionTextStyle: kAuthOptionTextStyle.copyWith(
                       color: kDarkOrange,
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.signUpScreen.name,
-                      );
-                    },
+                    onTap: state.isLoading
+                        ? null
+                        : () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              RouteName.signUpScreen.name,
+                            );
+                          },
                   ),
                 ],
               ),

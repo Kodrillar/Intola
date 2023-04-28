@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/features/auth/presentation/auth_button.dart';
 import 'package:intola/src/features/auth/presentation/auth_option_text.dart';
-import 'package:intola/src/features/auth/presentation/sign_up_screen_controller.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 import 'package:intola/src/utils/text_field_validator.dart';
 import 'package:intola/src/widgets/annotated_region.dart';
 import 'package:intola/src/widgets/async_value_display.dart';
 import 'package:intola/src/widgets/text_field.dart';
+
+import '../../auth_controller.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -32,14 +33,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final navigator = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
       final bool signUpIsSuccessful =
-          await ref.read(signUpScreenControllerProvider.notifier).signUpUser(
+          await ref.read(authControllerProvider.notifier).signUpUser(
                 fullName: fullName,
                 email: email,
                 password: password,
               );
 
       if (signUpIsSuccessful) {
-        navigator.pushNamed(RouteName.homeScreen.name);
+        navigator.pushNamedAndRemoveUntil(
+            RouteName.homeScreen.name, (route) => false);
       }
     }
   }
@@ -55,10 +57,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(
-      signUpScreenControllerProvider,
+      authControllerProvider,
       (previousState, newState) => newState.showErrorAlertDialog(context),
     );
-    final state = ref.watch(signUpScreenControllerProvider);
+    final state = ref.watch(authControllerProvider);
     final bool obscureTextFieldText = ref.watch(obscureTextFieldTextProvider);
     return Scaffold(
       body: SystemUIOverlayAnnotatedRegion(
@@ -81,12 +83,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                   ),
                   CustomTextField(
+                    isEnabled: !state.isLoading,
                     hintText: "e.g. Zara Larsson",
                     labelText: "full name",
                     controller: fullnameController,
                     validator: TextFieldValidator.validateFullnameField,
                   ),
                   CustomTextField(
+                    isEnabled: !state.isLoading,
                     hintText: "e.g. pabloescobar@mail.com",
                     labelText: "email",
                     keyboardType: TextInputType.emailAddress,
@@ -94,6 +98,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     validator: TextFieldValidator.validateEmailField,
                   ),
                   CustomTextField(
+                    isEnabled: !state.isLoading,
                     hintText: "e.g. Ucan'tcatchme90",
                     labelText: "password",
                     controller: passwordController,
@@ -118,7 +123,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             'Sign Up',
                             style: kAuthButtonTextStyle,
                           ),
-                    onTap: _signUpUser,
+                    onTap: state.isLoading ? null : () => _signUpUser(),
                   ),
                   AuthOptionText(
                     title: "Already have an account?",
@@ -126,12 +131,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     optionTextStyle: kAuthOptionTextStyle.copyWith(
                       color: kDarkOrange,
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.loginScreen.name,
-                      );
-                    },
+                    onTap: state.isLoading
+                        ? null
+                        : () => Navigator.pushReplacementNamed(
+                              context,
+                              RouteName.loginScreen.name,
+                            ),
                   )
                 ],
               ),

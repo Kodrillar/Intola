@@ -2,25 +2,24 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intola/src/exceptions/app_exception.dart';
-import 'package:intola/src/features/auth/data/network/log_in_network_helper.dart';
-import 'package:intola/src/features/auth/data/network/sign_up_network_helper.dart';
 import 'package:intola/src/features/auth/domain/model/log_in_model.dart';
 import 'package:intola/src/features/auth/domain/model/sign_up_model.dart';
 import 'package:intola/src/utils/cache/secure_storage.dart';
 
+import '../network/auth_network_helper.dart';
+
 class AuthRepository {
-  AuthRepository({
-    required this.loginNetworkHelper,
-    required this.signUpNetworkHelper,
-    required this.secureStorage,
-  });
-  final LoginNetworkHelper loginNetworkHelper;
-  final SignUpNetworkHelper signUpNetworkHelper;
+  AuthRepository(
+      {required this.secureStorage,
+      required AuthNetworkHelper authNetworkHelper})
+      : _authNetworkHelper = authNetworkHelper;
+
+  final AuthNetworkHelper _authNetworkHelper;
   final SecureStorage secureStorage;
 
-  Future<void> loginUser({required userEmail, required userPassword}) async {
+  Future<void> logInUser({required userEmail, required userPassword}) async {
     final Map<String, dynamic> loginData = await _getRepositoryData(
-      getData: () => loginNetworkHelper.loginUser(
+      getData: () => _authNetworkHelper.loginUser(
         logInModel: LogInModel(email: userEmail, password: userPassword),
       ),
     );
@@ -40,7 +39,7 @@ class AuthRepository {
     required userPassword,
   }) async {
     final Map<String, dynamic> signUpData = await _getRepositoryData(
-      getData: () => signUpNetworkHelper.signUpUser(
+      getData: () => _authNetworkHelper.signUpUser(
           signUpModel: SignUpModel(
         fullName: userFullName,
         email: userEmail,
@@ -77,7 +76,5 @@ class AuthRepository {
 
 final authRepositoryProvider = Provider.autoDispose<AuthRepository>(
   (ref) => AuthRepository(
-      loginNetworkHelper: LoginNetworkHelper(),
-      signUpNetworkHelper: SignUpNetworkHelper(),
-      secureStorage: SecureStorage()),
+      authNetworkHelper: AuthNetworkHelper(), secureStorage: SecureStorage()),
 );
