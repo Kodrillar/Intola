@@ -33,6 +33,7 @@ class ErrorDisplayWidget extends StatelessWidget {
                 child: Text(
                   _errorText(error),
                   style: kErrorTextStyle,
+                  textAlign: TextAlign.center,
                 ),
               ),
               TextButton(

@@ -22,7 +22,6 @@ class RequestResponse {
         debugPrint(responseBody.toString());
         throw AppException.emptyResourceException(responseBody['msg']);
       case 500:
-        debugPrint(responseBody.toString());
         throw AppException.serverErrorException(
           'Internal Error! try again shortly.',
         );

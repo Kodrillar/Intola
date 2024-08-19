@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class ProductAppBar extends StatelessWidget with PreferredSizeWidget {
+class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProductAppBar({Key? key}) : super(key: key);
 
   @override

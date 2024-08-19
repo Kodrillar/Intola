@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  String get email => emailController.text.trim();
+  String get email => emailController.text.trim().toLowerCase();
   String get password => passwordController.text.trim();
 
   Future<void> _loginUser() async {
@@ -89,7 +89,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   CustomTextField(
                     isEnabled: !state.isLoading,
                     labelText: "password",
-                    hintText: "e.g. Ucan'tcatchme90",
+                    hintText: "e.g. V3ry\$4f3",
                     validator: TextFieldValidator.validatePasswordField,
                     controller: passwordController,
                     obscureText: obscureTextFieldText,

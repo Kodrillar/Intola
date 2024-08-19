@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intola/src/routing/route.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class DeliveryScreenAppBar extends StatelessWidget with PreferredSizeWidget {
+class DeliveryScreenAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const DeliveryScreenAppBar({Key? key}) : super(key: key);
 
   @override

@@ -32,9 +32,7 @@ class ProductEndpointParams {
 }
 
 class API {
-  static String get baseUrl => 'https://intola-app.cyclic.app/api/v2';
-
-  //"https://cute-plum-cape-buffalo-fez.cyclic.app";
+  static String get baseUrl => 'https://intola-server.glitch.me/api/v2';
 
   static Uri getRequestUrl({required String path}) => Uri(
         scheme: "http",

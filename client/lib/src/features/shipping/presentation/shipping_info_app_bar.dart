@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class ShippingInfoAppBar extends StatelessWidget with PreferredSizeWidget {
+class ShippingInfoAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const ShippingInfoAppBar({Key? key}) : super(key: key);
 
   @override

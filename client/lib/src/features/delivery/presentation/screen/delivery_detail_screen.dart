@@ -42,8 +42,8 @@ class DeliveryPriceSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text(
                 "Price",
                 style: kProductNameStyle,
@@ -74,8 +74,8 @@ class DeliveryContactSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text(
                 "Contact",
                 style: kProductNameStyle,
@@ -107,8 +107,8 @@ class DeliveryPickUpLocationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text(
                 "Pick up location",
                 style: kProductNameStyle,
@@ -141,8 +141,8 @@ class DeliveryDescriptionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text(
                 "Description",
                 style: kProductNameStyle,

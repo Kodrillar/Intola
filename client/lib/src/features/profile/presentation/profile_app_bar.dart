@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
+class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProfileAppBar({Key? key}) : super(key: key);
 
   @override

@@ -1,5 +1,5 @@
 class ProductFilterOptions {
-  static const String _phonesAndTablets = "Phones and Tablets";
+  static const String _phonesAndTablets = "Phones/Tablets";
   static const String _computing = "Computing";
   static const String _gaming = "Gaming";
   // static const String _supermarket = 'Supermarket';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class DonationScreenAppBar extends StatelessWidget with PreferredSizeWidget {
+class DonationScreenAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const DonationScreenAppBar({Key? key}) : super(key: key);
 
   @override

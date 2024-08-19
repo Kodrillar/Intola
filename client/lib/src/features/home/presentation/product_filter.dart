@@ -14,7 +14,7 @@ class ProductsFilter extends ConsumerStatefulWidget {
 
 class _ProductsFilterState extends ConsumerState<ProductsFilter> {
   final List<String> dropdownItems = [
-    "Phones and Tablets",
+    "Phones/Tablets",
     "Computing",
     "Gaming",
     "Supermarket",
@@ -34,18 +34,22 @@ class _ProductsFilterState extends ConsumerState<ProductsFilter> {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: kDarkOrange,
-          width: 2,
+          width: 1.5,
         ),
       ),
       child: Center(
         child: DropdownButton<String>(
           focusColor: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
+          underline: const SizedBox.shrink(),
+          icon: const Icon(Icons.keyboard_arrow_down_sharp),
           items: dropdownItems
               .map(
                 (item) => DropdownMenuItem<String>(
                   value: item,
-                  child: Text(item),
+                  child: Text(
+                    item.trim(),
+                  ),
                 ),
               )
               .toList(),

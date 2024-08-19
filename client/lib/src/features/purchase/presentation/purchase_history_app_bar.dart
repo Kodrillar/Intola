@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class PurchaseHistoryAppBar extends StatelessWidget with PreferredSizeWidget {
+class PurchaseHistoryAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const PurchaseHistoryAppBar({Key? key}) : super(key: key);
 
   @override
@@ -13,15 +14,15 @@ class PurchaseHistoryAppBar extends StatelessWidget with PreferredSizeWidget {
         "Purchases",
         style: kAppBarTextStyle,
       ),
-      bottom: PreferredSize(
+      bottom: const PreferredSize(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             AppBarBottomHeading(text: 'What you bought'),
             AppBarBottomHeading(text: 'Delivery status'),
           ],
         ),
-        preferredSize: const Size.fromHeight(60),
+        preferredSize: Size.fromHeight(60),
       ),
     );
   }

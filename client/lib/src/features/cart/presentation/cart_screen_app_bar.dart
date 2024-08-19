@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intola/src/utils/constant.dart';
 
-class CartScreenAppBar extends StatelessWidget with PreferredSizeWidget {
+class CartScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CartScreenAppBar({Key? key}) : super(key: key);
 
   @override
